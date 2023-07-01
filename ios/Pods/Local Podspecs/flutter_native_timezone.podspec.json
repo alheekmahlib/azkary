@@ -1,0 +1,26 @@
+{
+  "name": "flutter_native_timezone",
+  "version": "0.0.1",
+  "summary": "A native timezone project.",
+  "description": "Get the native timezone from ios.",
+  "homepage": "https://github.com/pinkfish/flutter_native_timezone",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "David Bennett": "pinkfishfrog@gmail.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "rate_my_app",
+  "version": "2.0.0",
+  "summary": "Allows to kindly ask users to rate your app if custom conditions are met (eg. install time, number of launches, etc...).",
+  "description": "Allows to kindly ask users to rate your app if custom conditions are met (eg. install time, number of launches, etc...).",
+  "homepage": "https://github.com/Skyost/RateMyApp",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Skyost": "me@skyost.eu"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "dependencies": {
+    "Flutter": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+  },
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}
