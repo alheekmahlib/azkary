@@ -1,0 +1,6 @@
+framework module rate_my_app {
+  umbrella header "rate_my_app-umbrella.h"
+
+  export *
+  module * { export * }
+}
