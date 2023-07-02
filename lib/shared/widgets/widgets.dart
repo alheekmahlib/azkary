@@ -47,6 +47,7 @@ Widget hijriDate(BuildContext context) {
           fit: BoxFit.cover,
           opacity: .5)
     ),
+    margin: EdgeInsets.only(right: 16.0, left: 16.0),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,

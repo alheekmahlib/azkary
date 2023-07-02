@@ -298,7 +298,7 @@ class _HomePageState extends State<HomePage> {
     notifyHelper = NotifyHelper();
     notifyHelper.requestIOSPermissions();
     notifyHelper.requestMACPermissions();
-
+    QuranCubit.get(context).updateGreeting();
     // WidgetsBinding.instance!.addPostFrameCallback((_) {
     //   PostPage.of(context)?.initializeLocalNotifications();
     //   // PostPage.of(context)?.startPeriodicTask(timesADay: 4);

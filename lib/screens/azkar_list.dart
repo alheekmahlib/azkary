@@ -118,6 +118,21 @@ class _AzkarListState extends State<AzkarList> {
       child: Wrap(
         alignment: WrapAlignment.center,
         children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                )
+              ),
+                child: greeting(context)),
+          ),
           CarouselSlider(
             options: CarouselOptions(
                 height: 170.0,
@@ -232,17 +247,12 @@ Widget bookBanner(BuildContext context, String title, details) {
     children: [
       Align(
         alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 130,
+        child: container(
+          context,
+          Container(),
+          false,
+          height: 130.0,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.all(Radius.circular(8))
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            child: book_cover(),
-          ),
         ),
       ),
       Align(
@@ -286,17 +296,17 @@ Widget bookBanner(BuildContext context, String title, details) {
       Align(
         alignment: Alignment.centerRight,
         child: Transform.translate(
-          offset: Offset(-20, 20),
+          offset: Offset(0, 10),
           child: Container(
-            width: 150,
+            width: 170,
             margin: EdgeInsets.all(16.0),
             child: Text(
               details,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 fontFamily: 'naskh',
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).canvasColor,
+                color: Theme.of(context).colorScheme.surface,
               ),
               textAlign: TextAlign.right,
             ),

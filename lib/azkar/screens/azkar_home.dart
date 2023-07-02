@@ -42,6 +42,12 @@ class _AzkarHomeState extends State<AzkarHome> {
           children: [
             PageView(
               controller: controller,
+              onPageChanged: (index) {
+                setState(() {
+                  selected = index;
+                });
+                print('selected $selected');
+              },
               children: [
                 MainScreen(),
                 AzkarList(),
@@ -160,6 +166,7 @@ class _AzkarHomeState extends State<AzkarHome> {
             setState(() {
               selected = index;
             });
+
           },
           option: AnimatedBarOptions(
             barAnimation: BarAnimation.fade,

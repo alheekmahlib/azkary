@@ -73,20 +73,54 @@ class _SplashScreenState extends State<SplashScreen> {
         textDirection: TextDirection.rtl,
         child: Stack(
           children: [
+            Transform.translate(
+              offset: Offset(300, -10),
+              child: Opacity(
+                opacity: .05,
+                child: SvgPicture.asset(
+                  'assets/svg/azkary.svg',
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+            ),
             Align(
               alignment: Alignment.center,
               child: container(
                 context,
-                Align(
-                  alignment: Alignment.center,
-                  child: azkary_logo(
-                context,
-                width: 120.0,)),
-                true,
-                height: 250.0,
+                Container(),
+                false,
+                height: 150.0,
                 width: MediaQuery.of(context).size.width,
               ),
             ),
+            Align(
+                alignment: Alignment.center,
+                child: Transform.translate(
+                    offset: Offset(0, -50),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        azkary_logo(
+                          context,
+                          width: 120.0,),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.all(Radius.circular(4))
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                          margin: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text('من الكتاب والسُّنة',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'kufi',
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).canvasColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ))),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
