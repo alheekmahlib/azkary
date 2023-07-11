@@ -5,18 +5,17 @@ import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:husn_al_muslim/cubit/cubit.dart';
+import '../../cubit/cubit.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hijri/hijri_calendar.dart';
+import '../../shared/widgets/svg_picture.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../../azkar/screens/azkar_item.dart';
-import '../../database/notificationDatabase.dart';
-import '../../home_page.dart';
 import '../../l10n/app_localizations.dart';
-import '../postPage.dart';
-import 'package:intl/intl.dart' as intlPackage;
+
+
 
 double lowerValue = 18;
 double upperValue = 40;
@@ -38,15 +37,16 @@ Widget hijriDate(BuildContext context) {
             MediaQuery.of(context).size.width / 1 / 2 * .8)),
     decoration: BoxDecoration(
       color: Theme.of(context).colorScheme.surface,
-      borderRadius: BorderRadius.only(
+      borderRadius: platformView(const BorderRadius.only(
         topLeft: Radius.circular(8),
         topRight: Radius.circular(8),
-      ),
-      image: DecorationImage(
+      ), const BorderRadius.all(Radius.circular(8))),
+      image: const DecorationImage(
           image: ExactAssetImage('assets/images/desert.jpg'),
           fit: BoxFit.cover,
           opacity: .5)
     ),
+    margin: const EdgeInsets.only(right: 16.0, left: 16.0),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -138,13 +138,15 @@ Widget delete(BuildContext context) {
 }
 
 customSnackBar(BuildContext context, String text) async {
+  final colorSchemeSurface = Theme.of(context).colorScheme.surface;
+
   var cancel = BotToast.showCustomNotification(
     enableSlideOff: false,
     toastBuilder: (cancelFunc) {
       return Container(
         height: 45,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: colorSchemeSurface,
             borderRadius: const BorderRadius.all(
               Radius.circular(8),
             )
@@ -272,142 +274,7 @@ platformView(var p1, p2) {
       : p2;
 }
 
-Widget sentNotification(BuildContext context, List<Map<String, dynamic>> notifications, Function updateStatus) {
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    updateStatus();
-  });
-  Future<List<Map<String, dynamic>>> loadNotifications() async {
-    final dbHelper = NotificationDatabaseHelper.instance;
-    final notifications = await dbHelper.queryAllRows();
-
-    return notifications.map((notification) {
-      return {
-        'id': notification['id'],
-        'title': notification['title'],
-        'timestamp': notification['timestamp'] != null
-            ? DateTime.parse(notification['timestamp'])
-            : DateTime.now(), // Set to the current time if null
-      };
-    }).toList();
-  }
-  return Scaffold(
-    backgroundColor: Theme.of(context).primaryColorLight,
-    body: Padding(
-      padding: const EdgeInsets.only(top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                    border: Border.all(
-                        width: 2, color: Theme.of(context).dividerColor)),
-                child: Icon(
-                  Icons.close_outlined,
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-              ),
-            ),
-          ),
-          Text('الإشعارات',
-            style: TextStyle(
-              fontSize: 24,
-              fontFamily: 'kufi',
-              color: Theme.of(context).canvasColor,
-            ),
-          ),
-          SvgPicture.asset(
-            'assets/svg/space_line.svg',
-            height: 30,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Expanded(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: FutureBuilder<List<Map<String, dynamic>>>(
-                future: loadNotifications(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    List<Map<String, dynamic>> notifications = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: notifications.length,
-                      itemBuilder: (context, index) {
-                        final notification = notifications[index];
-                        return Container(
-                          height: 70,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
-                          ),
-                          margin: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: ListTile(
-                            title: Text(notification['title'],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'kufi',
-                                color: ThemeProvider.themeOf(context).id == 'dark'
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            subtitle: Text(intlPackage.DateFormat('HH:mm').format(notification['timestamp']),
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'kufi',
-                                color: ThemeProvider.themeOf(context).id == 'dark'
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                            trailing: Icon(
-                              Icons.notifications_active,
-                              size: 28,
-                              color: Theme.of(context).dividerColor,
-                            ),
-                            onTap: () {
-                              Navigator.of(navigatorNotificationKey.currentContext!).push(
-                                animatNameRoute(
-                                  pushName: '/post',
-                                  myWidget: PostPage(postId: notification['id']),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
 dropDownModalBottomSheet(BuildContext context, double height, width, Widget child) {
-  QuranCubit cubit = QuranCubit.get(context);
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
   showModalBottomSheet(
@@ -444,7 +311,6 @@ dropDownModalBottomSheet(BuildContext context, double height, width, Widget chil
 }
 
 allModalBottomSheet(BuildContext context, Widget child) {
-  QuranCubit cubit = QuranCubit.get(context);
   double hei = MediaQuery.of(context).size.height;
   double wid = MediaQuery.of(context).size.width;
   showModalBottomSheet(
@@ -485,7 +351,7 @@ screenModalBottomSheet(BuildContext context, Widget child) {
       constraints: BoxConstraints(
         maxWidth:  platformView(orientation(context,
             wid, wid * .7),
-            wid / 1/2),
+            wid / 1/2 * 1.5),
         maxHeight: orientation(context, hei * .9,
             platformView(hei, hei *
                 3/4))
@@ -822,7 +688,7 @@ Widget fontSizeDropDown(BuildContext context, var setState) {
     customButton: Icon(
       Icons.format_size,
       size: 28,
-      color: Theme.of(context).colorScheme.surface,
+      color: orientation(context, Theme.of(context).canvasColor, Theme.of(context).colorScheme.surface),
     ),
     iconStyleData: const IconStyleData(
       iconSize: 40,
@@ -864,7 +730,7 @@ Widget container(BuildContext context, Widget myWidget, bool show, {double? heig
       child: Stack(
         children: [
           show == true ? Transform.translate(
-            offset: Offset(0, -10),
+            offset: const Offset(0, -10),
             child: Opacity(
               opacity: .05,
               child: SvgPicture.asset(
@@ -890,3 +756,208 @@ Widget container(BuildContext context, Widget myWidget, bool show, {double? heig
     ),
   );
 }
+
+Widget borderRadiusContainer(BuildContext context, bool show, String title, details, {double? height, width}) {
+  return ClipRRect(
+    child: Container(
+      height: height,
+      width: width,
+      alignment: Alignment.bottomCenter,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+        ),
+      ),
+      child: Stack(
+        children: [
+          show == true ? Transform.translate(
+            offset: const Offset(0, -10),
+            child: Opacity(
+              opacity: .05,
+              child: SvgPicture.asset(
+                'assets/svg/azkary.svg',
+                width: MediaQuery.of(context).size.width,
+              ),
+            ),
+          ) : Container(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 35,
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).colorScheme.surface,
+              child: ClipRRect(
+                child: SvgPicture.asset('assets/svg/azkary.svg',
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).canvasColor.withOpacity(.05),
+                      BlendMode.srcIn),
+                fit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
+          ),
+          orientation(context,
+              Align(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 230,
+                  child: Text(
+                    details,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'naskh',
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+                Container(
+                  height: 155,
+                  width: 100,
+                  margin: const EdgeInsets.all(16.0),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      book_cover(),
+                      Transform.translate(
+                        offset: const Offset(0, 10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'kufi',
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).canvasColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+              Align(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 155,
+                  width: 100,
+                  margin: const EdgeInsets.all(16.0),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      book_cover(),
+                      Transform.translate(
+                        offset: const Offset(0, 10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'kufi',
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).canvasColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 230,
+                  child: Text(
+                    details,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'naskh',
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ],
+            ),
+          ))
+        ],
+      ),
+    ),
+  );
+}
+
+Widget contentContainer(BuildContext context, Widget myWidget) {
+  return ClipRRect(
+    child: Container(
+      alignment: Alignment.bottomCenter,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 35,
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).colorScheme.surface,
+              child: ClipRRect(
+                child: SvgPicture.asset('assets/svg/azkary.svg',
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).canvasColor.withOpacity(.05),
+                      BlendMode.srcIn),
+                fit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
+          ),
+          myWidget,
+        ],
+      ),
+    ),
+  );
+}
+
+Widget greenContainer(BuildContext context, double height, Widget myWidget, {double? width}) {
+  return Container(
+    height: height,
+    width: width,
+    // margin: EdgeInsets.symmetric(horizontal: 8.0),
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    color: Theme.of(context).colorScheme.surface,
+    child: ClipRRect(
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          SvgPicture.asset('assets/svg/azkary.svg',
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).canvasColor.withOpacity(.05),
+                BlendMode.srcIn),
+            fit: BoxFit.fitWidth,
+          ),
+          myWidget
+        ],
+      ),
+    ),
+  );
+}
+

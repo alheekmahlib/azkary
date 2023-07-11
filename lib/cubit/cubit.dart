@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:husn_al_muslim/azkar/screens/azkar_item.dart';
-import 'package:husn_al_muslim/cubit/states.dart';
+import '../../azkar/screens/azkar_item.dart';
+import '../../cubit/states.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
@@ -27,6 +27,7 @@ class QuranCubit extends Cubit<QuranState> {
   int? shareTafseerValue;
   bool isShowSettings = false;
   Locale? initialLang;
+  var controller = ScrollController();
 
 
   /// Shared Preferences

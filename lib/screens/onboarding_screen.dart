@@ -1,12 +1,10 @@
-import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:square_percent_indicater/square_percent_indicater.dart';
 import '../azkar/screens/azkar_home.dart';
-import '../home_page.dart';
+import '../shared/lists.dart';
 import '../shared/widgets/widgets.dart';
-
-
 
 class OnboardingScreen extends StatefulWidget {
   OnboardingScreen({Key? key}) : super(key: key);
@@ -18,379 +16,224 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
   int? pageNumber;
+  double indicatorProgress = .25;
+  bool progress = true;
 
-
-  List<String> images = <String>[
-    'assets/onboarding/onboarding_p.png',
-    'assets/onboarding/onboarding_p2.png',
-    'assets/onboarding/onboarding_p3.png',
-    'assets/onboarding/onboarding_p4.png',
-  ];
-
-  List<String> imagesL = <String>[
-    'assets/onboarding/onboarding_l.png',
-    'assets/onboarding/onboarding_l2.png',
-    'assets/onboarding/onboarding_l3.png',
-    'assets/onboarding/onboarding_l4.png',
-  ];
-
-  List<String> imagesD = <String>[
-    'assets/onboarding/onboarding_d.png',
-    'assets/onboarding/onboarding_d2.png',
-    'assets/onboarding/onboarding_d3.png',
-    'assets/onboarding/onboarding_d4.png',
-  ];
-
+  indicator(int pageNumber){
+    if (pageNumber == 0){
+        indicatorProgress = .25;
+    } else if (pageNumber == 1){
+        indicatorProgress = .50;
+    } else if (pageNumber == 2){
+        indicatorProgress = .75;
+    } else if (pageNumber == 3){
+        indicatorProgress = 1.0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-          backgroundColor: const Color(0xfff3efdf),
-          body: Padding(
-            padding: const EdgeInsets.only(
-                right: 16.0, left: 16.0, top: 56.0, bottom: 32.0),
-            child: (Platform.isMacOS || Platform.isWindows || Platform.isLinux)
-                ? Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 56.0,
-                        ),
-                        child: PageView.builder(
-                            controller: controller,
-                            itemCount: imagesD.length,
-                            onPageChanged: (page) {
-                              setState(() {
-                                pageNumber = page;
-                              });
-                            },
-                            itemBuilder: (context, index) {
-                              return Center(
-                                child: Image.asset(
-                                  imagesD[index],
-                                  // scale: 6,
-                                  width: MediaQuery.of(context).size.width,
-                                ),
-                              );
-                            }),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: SmoothPageIndicator(
-                          textDirection: TextDirection.rtl,
-                          controller: controller,
-                          count: imagesD.length,
-                          effect: ExpandingDotsEffect(
-                            dotHeight: 10,
-                            dotWidth: 13,
-                            paintStyle: PaintingStyle.fill,
-                            dotColor: const Color(0xff39412a).withOpacity(.5),
-                            activeDotColor: const Color(0xff232c13),
-                            // strokeWidth: 5,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: ElevatedButton(
-                          child: ClipPath(
-                            clipper: const ShapeBorderClipper(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)))),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                  color:
-                                      const Color(0xff91a57d).withOpacity(.2),
-                                  border: const Border.symmetric(
-                                      vertical: BorderSide(
-                                          color: Color(0xff91a57d),
-                                          width: 2))),
-                              child: const Text(
-                                'تخطي',
-                                style: TextStyle(
-                                  color: Color(0xff91a57d),
-                                  fontSize: 18.0,
-                                  fontFamily: 'kufi',
-                                  fontWeight: FontWeight.w600,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+            )),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: [
+              Padding(
+                padding: orientation(context,
+                    const EdgeInsets.only(top: 84.0,),
+                    const EdgeInsets.only(top: 60.0,)),
+                child: PageView.builder(
+                    controller: controller,
+                    itemCount: platformView(
+                        orientation(context, images.length, images.length),
+                        images.length),
+                    onPageChanged: (page) {
+                      setState(() {
+                        pageNumber = page;
+                        indicator(page);
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      return SingleChildScrollView(
+                        child: Wrap(
+                          children: [
+                            Center(
+                              child: Container(
+                                width: platformView(
+                                    MediaQuery.of(context).size.width / 1 / 2,
+                                    MediaQuery.of(context).size.width / 1 / 2 * .8),
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.surface,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: ClipRRect(
+                                  child: Image.asset(
+                                    platformView(
+                                        orientation(context, images[index], imagesL[index]),
+                                        imagesD[index]),
+                                  ),
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(8)),
                                 ),
                               ),
                             ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => const AzkarHome(),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.surface,
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(4),
+                                        bottomRight: Radius.circular(4),
+                                      )
+                                    )
+                                  ),
+                                  const SizedBox(
+                                    width: 32,
+                                  ),
+                                  SizedBox(
+                                    width: 300,
+                                    child: Text(
+                                      onboardingTitle[index],
+                                      style: TextStyle(
+                                          color:
+                                              Theme.of(context).colorScheme.surface,
+                                          fontSize: 18,
+                                          height: 2,
+                                          fontFamily: 'kufi'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                ],
                               ),
-                            );
-                          },
+                            )
+                          ],
                         ),
-                      ),
-                      pageNumber == 3
-                          ? Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: GestureDetector(
+                      );
+                    }),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: ElevatedButton(
+                  child: const Text(
+                    'تخطي',
+                    style: TextStyle(
+                      color: Color(0xff91a57d),
+                      fontSize: 18.0,
+                      fontFamily: 'kufi',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent, elevation: 0),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              pageNumber == 3
+                  ? Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: GestureDetector(
+                          child: SquarePercentIndicator(
+                            height: 70,
+                            width: 70,
+                            startAngle: StartAngle.topRight,
+                            // reverse: true,
+                            borderRadius: 8,
+                            shadowWidth: 7,
+                            progressWidth: 7,
+                            shadowColor: Colors.grey,
+                            progressColor: Theme.of(context).primaryColorDark,
+                            progress: indicatorProgress,
                             child: Container(
                               height: 50,
                               width: 100,
                               decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(8)),
-                                color: Color(0xff91a57d),),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Color(0xff91a57d),
+                              ),
                               child: Center(
-                                child: Text(
-                                    'أبدأ',
+                                child: Text('أبدأ',
                                     style: TextStyle(
                                         fontFamily: 'kufi',
                                         fontSize: 20,
-                                        color: Theme.of(context).canvasColor
-                                    )
-                                ),
-                              ),
-
-                            ),
-                            onTap: () {
-                              if (pageNumber == 3) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) => const AzkarHome(),
-                                  ),
-                                );
-                              } else {
-                                controller.animateToPage(controller.page!.toInt() + 1,
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeIn);
-                              }
-                            },
-                          ),
-                        ),
-                      )
-                          : Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: GestureDetector(
-                            child: Container(
-                              height: 50,
-                              width: 60,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(8)),
-                                color: Color(0xff91a57d),),
-                              child: const Icon(
-                                Icons.arrow_forward,
-                                color: Color(0xfff3efdf),
+                                        color: Theme.of(context).canvasColor)),
                               ),
                             ),
-                            onTap: () {
-                              controller.animateToPage(controller.page!.toInt() + 1,
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.easeIn);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                : Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 56.0,
-                        ),
-                        child: PageView.builder(
-                            controller: controller,
-                            itemCount: images.length,
-                            onPageChanged: (page) {
-                              setState(() {
-                                pageNumber = page;
-                              });
-                            },
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  ListView(
-                                    children: [
-                                      orientation(context,
-                                          Center(
-                                        child: Image.asset(
-                                          images[index],
-                                          width: orientation(context,
-                                              MediaQuery.of(context).size.width *
-                                                  3 /
-                                                  4,
-                                              MediaQuery.of(context).size.width),
-                                        ),
-                                      ),
-                                          Center(
-                                        child: Image.asset(
-                                          imagesL[index],
-                                          width: MediaQuery.of(context).size.width / 1/2,
-                                        ),
-                                      )),
-                                    ],
-                                  ),
-                                ],
-                              );
-                            }),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: SmoothPageIndicator(
-                          textDirection: TextDirection.rtl,
-                          controller: controller,
-                          count: images.length,
-                          effect: ExpandingDotsEffect(
-                            dotHeight: 10,
-                            dotWidth: 13,
-                            paintStyle: PaintingStyle.fill,
-                            dotColor: const Color(0xff39412a).withOpacity(.5),
-                            activeDotColor: const Color(0xff232c13),
-                            // strokeWidth: 5,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: ElevatedButton(
-                          child: ClipPath(
-                            clipper: const ShapeBorderClipper(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)))),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                  color:
-                                      const Color(0xff91a57d).withOpacity(.2),
-                                  border: const Border.symmetric(
-                                      vertical: BorderSide(
-                                          color: Color(0xff91a57d),
-                                          width: 2))),
-                              child: const Text(
-                                'تخطي',
-                                style: TextStyle(
-                                  color: Color(0xff91a57d),
-                                  fontSize: 18.0,
-                                  fontFamily: 'kufi',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              elevation: 0),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => const AzkarHome(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      pageNumber == 3
-                          ? Align(
-                        alignment: Alignment.bottomLeft,
-                            child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: GestureDetector(
-                          child: Container(
-                            height: 50,
-                              width: 100,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                color: Color(0xff91a57d),),
-                              child: Center(
-                                child: Text(
-                                  'أبدأ',
-                                  style: TextStyle(
-                                    fontFamily: 'kufi',
-                                    fontSize: 20,
-                                    color: Theme.of(context).canvasColor
-                                  )
-                                ),
-                              ),
-
                           ),
                           onTap: () {
                             if (pageNumber == 3) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => const AzkarHome(),
-                                ),
-                              );
+                              Navigator.pop(context);
                             } else {
-                              controller.animateToPage(controller.page!.toInt() + 1,
+                              controller.animateToPage(
+                                  controller.page!.toInt() + 1,
                                   duration: const Duration(milliseconds: 400),
                                   curve: Curves.easeIn);
                             }
                           },
                         ),
                       ),
-                          )
-                          : Align(
-                        alignment: Alignment.bottomLeft,
-                            child: Padding(
+                    )
+                  : Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: GestureDetector(
-                          child: Container(
-                            height: 50,
+                          child: SquarePercentIndicator(
+                            height: 60,
                             width: 60,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              color: Color(0xff91a57d),),
+                            startAngle: StartAngle.topRight,
+                            // reverse: true,
+                            borderRadius: 8,
+                            shadowWidth: 7,
+                            progressWidth: 7,
+                            shadowColor: Colors.grey.shade500,
+                            progressColor: Theme.of(context).primaryColorDark,
+                            progress: indicatorProgress,
+                            child: Container(
+                              height: 50,
+                              width: 60,
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Color(0xff91a57d),
+                              ),
                               child: const Icon(
                                 Icons.arrow_forward,
                                 color: Color(0xfff3efdf),
                               ),
+                            ),
                           ),
                           onTap: () {
-                            controller.animateToPage(controller.page!.toInt() + 1,
+                            controller.animateToPage(
+                                controller.page!.toInt() + 1,
                                 duration: const Duration(milliseconds: 400),
                                 curve: Curves.easeIn);
                           },
                         ),
                       ),
-                          ),
-                    ],
-                  ),
+                    ),
+            ],
           ),
-          // floatingActionButton: Padding(
-          //   padding: const EdgeInsets.all(16.0),
-          //   child: FloatingActionButton(
-          //     shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.all(Radius.circular(8))),
-          //     backgroundColor: const Color(0xff91a57d),
-          //     child: Icon(
-          //       Icons.arrow_forward,
-          //       color: const Color(0xfff3efdf),
-          //     ),
-          //     onPressed: () {
-          //       if (controller.page == 3) {
-          //         Get.off(() => HomePage());
-          //       } else {
-          //         controller.animateToPage(controller.page!.toInt() + 1,
-          //             duration: Duration(milliseconds: 400),
-          //             curve: Curves.easeIn);
-          //       }
-          //     },
-          //   ),
-          // ),
-          // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked
+        ),
       ),
     );
   }

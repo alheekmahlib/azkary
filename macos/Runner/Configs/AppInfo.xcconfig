@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = husn_al_muslim
+PRODUCT_NAME = Athkary
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.hisnulmuslim.husnAlMuslim
+PRODUCT_BUNDLE_IDENTIFIER = com.alheekmah.azkaryapp2
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 com.alheekmah.hisnulmuslim. All rights reserved.

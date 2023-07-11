@@ -7,7 +7,6 @@ import '../../azkar/models/azkar.dart';
 import '../../azkar/screens/azkar_item.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/share/ayah_to_images.dart';
-import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/widgets.dart';
 import '../cubit/rwqya_cubit.dart';
 import '../model/rwqya_model.dart';
@@ -26,7 +25,7 @@ class _RwqyaListState extends State<RwqyaList> {
       child: Container(
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
             )),
@@ -52,14 +51,14 @@ class _RwqyaListState extends State<RwqyaList> {
                                   .colorScheme
                                   .surface
                                   .withOpacity(.5),
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(8),
                                 bottomRight: Radius.circular(8),
                               ),
                             ),
-                            padding: EdgeInsets.all(4),
-                            child: surah_name(
-                                context, 'widget.surah.surah', 100, 30),
+                            padding: const EdgeInsets.all(4),
+                            // child: surah_name(
+                            //     context, widget.surah.surah),
                           ),
                         ],
                       )),
@@ -92,14 +91,14 @@ class _RwqyaListState extends State<RwqyaList> {
                                   .colorScheme
                                   .surface
                                   .withOpacity(.5),
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 bottomLeft: Radius.circular(8),
                               ),
                             ),
-                            padding: EdgeInsets.all(4),
-                            child: surah_name(
-                                context, 'widget.surah.surah', 100, 30),
+                            padding: const EdgeInsets.all(4),
+                            // child: surah_name(
+                            //     context, widget.surah.surah),
                           ),
                         ],
                       )),
