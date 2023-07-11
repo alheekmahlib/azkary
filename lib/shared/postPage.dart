@@ -1,9 +1,6 @@
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:husn_al_muslim/home_page.dart';
-import 'package:husn_al_muslim/shared/widgets/lottie.dart';
-import 'package:husn_al_muslim/shared/widgets/widgets.dart';
+import '../../shared/widgets/lottie.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -107,7 +104,7 @@ class _PostPageState extends State<PostPage> {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
         )

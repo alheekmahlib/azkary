@@ -4,15 +4,15 @@ import 'dart:math';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:husn_al_muslim/home_page.dart';
-import 'package:husn_al_muslim/screens/splash_screen.dart';
-import 'package:husn_al_muslim/shared/lists.dart';
+import '../../home_page.dart';
+import '../../screens/splash_screen.dart';
+import '../../shared/lists.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:home_widget/home_widget.dart';
-import 'package:husn_al_muslim/shared/postPage.dart';
+import '../../shared/postPage.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -334,7 +334,7 @@ class _MyAppState extends State<MyApp> {
             return GetMaterialApp(
               navigatorKey: navigatorKey,
               debugShowCheckedModeBanner: false,
-              title: 'Husn Al Muslim',
+              title: 'Azkary',
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -357,7 +357,7 @@ class _MyAppState extends State<MyApp> {
                   return PostPage(postId: postId);
                 },
               },
-              home: Directionality(
+              home: const Directionality(
                 textDirection: TextDirection.rtl,
                 child: HomePage(),
 

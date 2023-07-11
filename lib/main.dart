@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_native_timezone_updated_gradle/flutter_native_timezone.dart';
-import 'package:husn_al_muslim/quran_azkar/cubit/quran_azkar_cubit.dart';
-import 'package:husn_al_muslim/rwqya_azkar/cubit/rwqya_cubit.dart';
-import 'package:husn_al_muslim/shared/bloc_observer.dart';
-import 'package:husn_al_muslim/shared/local_notifications.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import '../../quran_azkar/cubit/quran_azkar_cubit.dart';
+import '../../rwqya_azkar/cubit/rwqya_cubit.dart';
+import '../../shared/bloc_observer.dart';
+import '../../shared/local_notifications.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:wakelock/wakelock.dart';
 import 'azkar/cubit/azkar_cubit.dart';
 import 'books/cubit/books_cubit.dart';
 import 'cubit/cubit.dart';
@@ -23,7 +21,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
   if (Platform.isWindows || Platform.isLinux) {
@@ -33,7 +31,6 @@ void main() async {
   if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
     windowSize();
   }
-  Wakelock.enable();
 
   init();
   tz.initializeTimeZones();
@@ -62,7 +59,7 @@ void main() async {
 
 
 Future windowSize() async {
-  await DesktopWindow.setMinWindowSize(const Size(900, 840));
+  await DesktopWindow.setMinWindowSize(const Size(860, 640));
 }
 
 init() async {

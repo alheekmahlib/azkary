@@ -1,15 +1,10 @@
 PODS:
-  - audioplayers_darwin (0.0.1):
-    - Flutter
-  - connectivity_plus (0.0.1):
-    - Flutter
-    - ReachabilitySwift
   - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_native_splash (0.0.1):
     - Flutter
-  - flutter_native_timezone_updated_gradle (0.0.1):
+  - flutter_timezone (0.0.1):
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -23,7 +18,6 @@ PODS:
     - FlutterMacOS
   - rate_my_app (2.0.0):
     - Flutter
-  - ReachabilitySwift (5.0.0)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -34,18 +28,14 @@ PODS:
     - FMDB (>= 2.7.5)
   - url_launcher_ios (0.0.1):
     - Flutter
-  - wakelock (0.0.1):
-    - Flutter
   - workmanager (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
-  - flutter_native_timezone_updated_gradle (from `.symlinks/plugins/flutter_native_timezone_updated_gradle/ios`)
+  - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -54,27 +44,21 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
-  - wakelock (from `.symlinks/plugins/wakelock/ios`)
   - workmanager (from `.symlinks/plugins/workmanager/ios`)
 
 SPEC REPOS:
   trunk:
     - FMDB
-    - ReachabilitySwift
 
 EXTERNAL SOURCES:
-  audioplayers_darwin:
-    :path: ".symlinks/plugins/audioplayers_darwin/ios"
-  connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
-  flutter_native_timezone_updated_gradle:
-    :path: ".symlinks/plugins/flutter_native_timezone_updated_gradle/ios"
+  flutter_timezone:
+    :path: ".symlinks/plugins/flutter_timezone/ios"
   home_widget:
     :path: ".symlinks/plugins/home_widget/ios"
   image_gallery_saver:
@@ -91,29 +75,23 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
-  wakelock:
-    :path: ".symlinks/plugins/wakelock/ios"
   workmanager:
     :path: ".symlinks/plugins/workmanager/ios"
 
 SPEC CHECKSUMS:
-  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
-  flutter_native_timezone_updated_gradle: d144a6b4980d61d022c539d090ab39bb390aac90
+  flutter_timezone: ffb07bdad3c6276af8dada0f11978d8a1f8a20bb
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   home_widget: 0434835a4c9a75704264feff6be17ea40e0f0d57
   image_gallery_saver: cb43cc43141711190510e92c460eb1655cd343cb
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   rate_my_app: 80fba94c4885cd31738231b7b1f51c1ad726f5c7
-  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
-  wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
   workmanager: 0afdcf5628bbde6924c21af7836fed07b42e30e6
 
 PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189

@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:husn_al_muslim/cubit/cubit.dart';
 import 'package:image/image.dart' as img;
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +169,6 @@ Future<Uint8List> createVerseImage(String zkrText, zkrCategory, zkrDescription) 
 
 Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
     String zkrText, zkrCategory, zkrDescription, zkrCount, azkarReference) async {
-  QuranCubit cubit = QuranCubit.get(context);
 
   // Set a fixed canvas width
   const canvasWidth = 960.0;
@@ -252,10 +249,7 @@ Future<Uint8List> createVerseWithTranslateImage(BuildContext context,
   final image3Height = pngImage3.height.toDouble() / 1.0;
   final image3X = (canvasWidth - image3Width) / 2; // Center the image horizontally
 
-  List<String> transName = <String>[
-    'English',
-    'Spanish',
-  ];
+
   // String? countZkr;
   // if (cubit.shareTafseerValue == 1) {
   //   countZkr = cubit.radioValue != 3 ? null : AppLocalizations.of(context)!.tafSaadiN;
@@ -524,7 +518,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: shareLottie(40.0, 40.0),
             )
             

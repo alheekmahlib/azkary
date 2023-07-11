@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../lists.dart';
 
 class ThemeChange extends StatefulWidget {
   const ThemeChange({Key? key}) : super(key: key);
@@ -11,209 +12,63 @@ class ThemeChange extends StatefulWidget {
 }
 
 class _ThemeChangeState extends State<ThemeChange> {
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-          child: SizedBox(
-            height: 30,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-                    border:
-                        Border.all(color: const Color(0xff91a57d), width: 2),
-                    color: const Color(0xff39412a),
+    List<String> themeTitle = <String>[
+      '${AppLocalizations.of(context)!.green}',
+      '${AppLocalizations.of(context)!.blue}',
+      '${AppLocalizations.of(context)!.dark}',
+    ];
+    return Container(
+      height: 90,
+      child: ListView.builder(
+        itemCount: 3,
+          itemBuilder: (context, index) => InkWell(
+            child: SizedBox(
+              height: 30,
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+                      border:
+                      Border.all(color: ThemeProvider.themeOf(context).id == themeName[index]
+                          ? const Color(0xff91a57d) : Theme.of(context)
+                          .secondaryHeaderColor, width: 2),
+                      color: const Color(0xff39412a),
+                    ),
+                    child: ThemeProvider.themeOf(context).id == themeName[index]
+                        ? const Icon(Icons.done,
+                        size: 14, color: Color(0xffF27127))
+                        : null,
                   ),
-                  child: ThemeProvider.themeOf(context).id == 'green'
-                      ? const Icon(Icons.done,
-                          size: 14, color: Color(0xffF27127))
-                      : null,
-                ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.green,
-                  style: TextStyle(
-                    color: ThemeProvider.themeOf(context).id == 'green'
-                        ? const Color(0xffF27127)
-                        : const Color(0xffcdba72),
-                    fontSize: 14,
-                    fontFamily: 'kufi',
-                    fontStyle: FontStyle.italic,
+                  const SizedBox(
+                    width: 16.0,
                   ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            ThemeProvider.controllerOf(context).setTheme('green');
-          },
-        ),
-        InkWell(
-          child: SizedBox(
-            height: 30,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-                    border:
-                        Border.all(color: const Color(0xffbc6c25), width: 2),
-                    color: const Color(0xff814714),
+                  Text(
+                    '${themeTitle[index]}',
+                    style: TextStyle(
+                      color: ThemeProvider.themeOf(context).id == themeName[index]
+                          ? const Color(0xffF27127)
+                          : Theme.of(context)
+                          .colorScheme.surface
+                          .withOpacity(.5),
+                      fontSize: 14,
+                      fontFamily: 'kufi',
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
-                  child: ThemeProvider.themeOf(context).id == 'blue'
-                      ? const Icon(Icons.done,
-                          size: 14, color: Color(0xffF27127))
-                      : null,
-                ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.brown,
-                  style: TextStyle(
-                    color: ThemeProvider.themeOf(context).id == 'blue'
-                        ? const Color(0xffF27127)
-                        : const Color(0xffcdba72),
-                    fontSize: 14,
-                    fontFamily: 'kufi',
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            ThemeProvider.controllerOf(context).setTheme('blue');
-          },
-        ),
-        InkWell(
-          child: SizedBox(
-            height: 30,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: [
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-                    border:
-                        Border.all(color: const Color(0xff4d4d4d), width: 2),
-                    color: const Color(0xff2d2d2d),
-                  ),
-                  child: ThemeProvider.themeOf(context).id == 'dark'
-                      ? const Icon(Icons.done,
-                          size: 14, color: Color(0xffF27127))
-                      : null,
-                ),
-                const SizedBox(
-                  width: 16.0,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.dark,
-                  style: TextStyle(
-                    color: ThemeProvider.themeOf(context).id == 'dark'
-                        ? const Color(0xffF27127)
-                        : const Color(0xffcdba72),
-                    fontSize: 14,
-                    fontFamily: 'kufi',
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            ThemeProvider.controllerOf(context).setTheme('dark');
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class MThemeChange extends StatefulWidget {
-  const MThemeChange({Key? key}) : super(key: key);
-
-  @override
-  State<MThemeChange> createState() => _MThemeChangeState();
-}
-
-class _MThemeChangeState extends State<MThemeChange> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150,
-      width: 50,
-      child: Column(
-        children: [
-          GestureDetector(
-            child: CircleAvatar(
-              backgroundColor: const Color(0xff91a57d),
-              radius: 20,
-              child: CircleAvatar(
-                backgroundColor: const Color(0xff39412a),
-                radius: 15,
-                child: Icon(Icons.done,
-                    size: 14,
-                    color: ThemeProvider.themeOf(context).id == 'green'
-                        ? const Color(0xffF27127)
-                        : Colors.transparent),
+                ],
               ),
             ),
-            onTap: () => ThemeProvider.controllerOf(context).setTheme('green'),
-          ),
-          Container(
-            height: 4,
-          ),
-          GestureDetector(
-            child: CircleAvatar(
-              backgroundColor: const Color(0xffbc6c25),
-              radius: 20,
-              child: CircleAvatar(
-                backgroundColor: const Color(0xff814714),
-                radius: 15,
-                child: Icon(Icons.done,
-                    size: 14,
-                    color: ThemeProvider.themeOf(context).id == 'blue'
-                        ? const Color(0xffF27127)
-                        : Colors.transparent),
-              ),
-            ),
-            onTap: () => ThemeProvider.controllerOf(context).setTheme('blue'),
-          ),
-          Container(
-            height: 4,
-          ),
-          GestureDetector(
-            child: CircleAvatar(
-              backgroundColor: const Color(0xff4d4d4d),
-              radius: 20,
-              child: CircleAvatar(
-                backgroundColor: const Color(0xff2d2d2d),
-                radius: 15,
-                child: Icon(Icons.done,
-                    size: 14,
-                    color: ThemeProvider.themeOf(context).id == 'dark'
-                        ? const Color(0xffF27127)
-                        : Colors.transparent),
-              ),
-            ),
-            onTap: () => ThemeProvider.controllerOf(context).setTheme('dark'),
-          ),
-        ],
-      ),
+            onTap: () {
+              ThemeProvider.controllerOf(context).setTheme(themeName[index]);
+            },
+          )),
     );
   }
 }

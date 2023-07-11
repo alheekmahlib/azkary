@@ -1,5 +1,3 @@
-
-import 'package:husn_al_muslim/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -35,7 +33,7 @@ azkary_logo(BuildContext context, {double? width, height}) {
 
 book_cover() {
   return ClipRRect(
-    borderRadius: BorderRadius.all(Radius.circular(4)),
+    borderRadius: const BorderRadius.all(Radius.circular(4)),
     child: SvgPicture.asset(
       'assets/svg/azkary_book.svg',
       fit: BoxFit.cover,
@@ -43,14 +41,23 @@ book_cover() {
   );
 }
 
-surah_name(BuildContext context, String? index, double? width, double? height) {
-  return SvgPicture.asset(
-    "assets/svg/surah_name/00$index.svg",
-    height: height,
-    width: width,
-    colorFilter: ColorFilter.mode(
-        Theme.of(context)
-            .canvasColor,
-        BlendMode.srcIn),
+surah_name(BuildContext context, int? index) {
+  return Container(
+    height: 80,
+    width: 150,
+    decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        borderRadius: const BorderRadius.all(Radius.circular(8))
+    ),
+    child: SvgPicture.asset(
+      "assets/svg/surah_name/00$index.svg",
+      colorFilter: ColorFilter.mode(
+          ThemeProvider.themeOf(context).id ==
+              'dark'
+              ? Theme.of(context)
+              .canvasColor
+              : Theme.of(context).primaryColorDark,
+          BlendMode.srcIn),
+    ),
   );
 }

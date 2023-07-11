@@ -1,5 +1,5 @@
 class Surah {
-  final String surah;
+  final int surah;
   final String name;
   final List<Ayah> ayahs;
 
@@ -10,7 +10,7 @@ class Surah {
     List<Ayah> ayahList = list.map((i) => Ayah.fromJson(i)).toList();
 
     return Surah(
-      surah: json['surah'],
+      surah: int.parse(json['surah']),
       name: json['name'],
       ayahs: ayahList,
     );

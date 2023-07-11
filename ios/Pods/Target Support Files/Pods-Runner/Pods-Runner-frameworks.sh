@@ -177,12 +177,9 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/audioplayers_darwin/audioplayers_darwin.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/connectivity_plus/connectivity_plus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_local_notifications/flutter_local_notifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_timezone_updated_gradle/flutter_native_timezone_updated_gradle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_timezone/flutter_timezone.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/home_widget/home_widget.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/image_gallery_saver/image_gallery_saver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/path_provider_foundation/path_provider_foundation.framework"
@@ -191,17 +188,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/sqflite/sqflite.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/url_launcher_ios/url_launcher_ios.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/wakelock/wakelock.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/workmanager/workmanager.framework"
 fi
 if [[ "$CONFIGURATION" == "Profile" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/audioplayers_darwin/audioplayers_darwin.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/connectivity_plus/connectivity_plus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_local_notifications/flutter_local_notifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_timezone_updated_gradle/flutter_native_timezone_updated_gradle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_timezone/flutter_timezone.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/home_widget/home_widget.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/image_gallery_saver/image_gallery_saver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/path_provider_foundation/path_provider_foundation.framework"
@@ -210,17 +203,13 @@ if [[ "$CONFIGURATION" == "Profile" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/sqflite/sqflite.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/url_launcher_ios/url_launcher_ios.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/wakelock/wakelock.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/workmanager/workmanager.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/audioplayers_darwin/audioplayers_darwin.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/connectivity_plus/connectivity_plus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_local_notifications/flutter_local_notifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_timezone_updated_gradle/flutter_native_timezone_updated_gradle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_timezone/flutter_timezone.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/home_widget/home_widget.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/image_gallery_saver/image_gallery_saver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/path_provider_foundation/path_provider_foundation.framework"
@@ -229,7 +218,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/sqflite/sqflite.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/url_launcher_ios/url_launcher_ios.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/wakelock/wakelock.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/workmanager/workmanager.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

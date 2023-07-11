@@ -1,7 +1,7 @@
 
-import 'package:husn_al_muslim/cubit/cubit.dart';
-import 'package:husn_al_muslim/shared/widgets/settings_list.dart';
-import 'package:husn_al_muslim/shared/widgets/widgets.dart';
+import '../../cubit/cubit.dart';
+import '../../shared/widgets/settings_list.dart';
+import '../../shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../custom_rect_tween.dart';
@@ -81,8 +81,6 @@ class settingsPopupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuranCubit cubit = QuranCubit.get(context);
-    double paddingHeight = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Align(
         alignment: alignment,

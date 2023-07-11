@@ -116,7 +116,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get green => 'المظهر الأخظر';
 
   @override
-  String get brown => 'المظهر البني';
+  String get blue => 'المظهر الأزرق';
 
   @override
   String get dark => 'المظهر الداكن';
