@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:husn_al_muslim/azkar/models/azkar.dart';
+import '../../azkar/models/azkar.dart';
 import '../../database/databaseHelper.dart';
 import '../../l10n/app_localizations.dart';
 import '../../../shared/widgets/widgets.dart';

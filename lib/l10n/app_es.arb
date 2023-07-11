@@ -194,8 +194,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "brown": "Modo Marrón",
-  "@brown": {
+  "blue": "Modo Azul",
+  "@blue": {
     "type": "text",
     "placeholders": {}
   },

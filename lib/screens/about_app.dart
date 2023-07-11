@@ -1,7 +1,4 @@
 import 'dart:io';
-import 'package:husn_al_muslim/cubit/cubit.dart';
-import 'package:husn_al_muslim/shared/widgets/theme_change.dart';
-import 'package:husn_al_muslim/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,10 +6,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../home_page.dart';
-import '../l10n/app_localizations.dart';
 import '../myApp.dart';
+import '../../cubit/cubit.dart';
+import '../l10n/app_localizations.dart';
+import '../../shared/widgets/widgets.dart';
 import '../shared/widgets/svg_picture.dart';
+import '../../shared/widgets/theme_change.dart';
 
 class AboutApp extends StatelessWidget {
   const AboutApp({Key? key}) : super(key: key);

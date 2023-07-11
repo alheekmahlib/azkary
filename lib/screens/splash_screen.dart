@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:husn_al_muslim/azkar/screens/azkar_home.dart';
-import 'package:husn_al_muslim/cubit/cubit.dart';
-import 'package:husn_al_muslim/screens/onboarding_screen.dart';
+import '../../azkar/screens/azkar_home.dart';
+import '../../cubit/cubit.dart';
+import '../../screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:husn_al_muslim/shared/widgets/widgets.dart';
+import '../../shared/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import '../shared/widgets/lottie.dart';
@@ -36,9 +35,10 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     await Future.delayed(const Duration(seconds: 3));
     // Get.off(() => OnboardingScreen());
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      navigationPage();
-    });
+    Get.off(() => const AzkarHome());
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   navigationPage();
+    // });
   }
 
   void navigationPage() async {
@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Stack(
           children: [
             Transform.translate(
-              offset: Offset(300, -10),
+              offset: const Offset(300, -10),
               child: Opacity(
                 opacity: .05,
                 child: SvgPicture.asset(
@@ -96,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Align(
                 alignment: Alignment.center,
                 child: Transform.translate(
-                    offset: Offset(0, -50),
+                    offset: const Offset(0, -50),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -106,10 +106,10 @@ class _SplashScreenState extends State<SplashScreen> {
                         Container(
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.all(Radius.circular(4))
+                              borderRadius: const BorderRadius.all(Radius.circular(4))
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                          margin: EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text('من الكتاب والسُّنة',
                             style: TextStyle(
                               fontSize: 14,
@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Transform.translate(
-                  offset: orientation(context, Offset(0, 20), Offset(0, 50)),
+                  offset: orientation(context, const Offset(0, 20), const Offset(0, 50)),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -138,7 +138,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         width: 90,
                       ),
                       Transform.translate(
-                        offset: Offset(0, 20),
+                        offset: const Offset(0, 20),
                         child: RotatedBox(
                           quarterTurns: 2,
                           child: loading(240.0, 170.0),

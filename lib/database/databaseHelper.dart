@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import '../azkar/models/azkar.dart';
 
@@ -85,7 +84,7 @@ class DatabaseHelper {
   static Future<int?> addAzkar(Azkar? azkar) async {
     print('Save Azkar ${azkar!.id}');
     try {
-      return await _db!.insert(tableAzkar, azkar!.toJson());
+      return await _db!.insert(tableAzkar, azkar.toJson());
     } catch (e) {
       return 90000;
     }

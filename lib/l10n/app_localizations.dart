@@ -321,7 +321,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Brown Mode'**
-  String get brown;
+  String get blue;
 
   /// No description provided for @dark.
   ///

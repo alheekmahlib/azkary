@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:husn_al_muslim/azkar/screens/azkar_fav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../azkar/screens/azkar_fav.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
-import '../../home_page.dart';
 import '../../screens/azkar_list.dart';
 import '../../screens/main_screen.dart';
+import '../../screens/onboarding_screen.dart';
 import '../../screens/sentNotification.dart';
 import '../../shared/custom_rect_tween.dart';
 import '../../shared/hero_dialog_route.dart';
 import '../../shared/widgets/settings_list.dart';
 import '../../shared/widgets/settings_popUp.dart';
 import '../../shared/widgets/widgets.dart';
-import 'alzkar_view.dart';
 
 class AzkarHome extends StatefulWidget {
   const AzkarHome({super.key});
@@ -30,6 +29,25 @@ class _AzkarHomeState extends State<AzkarHome> {
 
 
   @override
+  void initState() {
+    onboarding();
+    super.initState();
+  }
+
+  void onboarding() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print('is_first_time ${prefs.getBool("is_first_time")}');
+    if (prefs.getBool("is_first_time") == null) {
+      // Get.off(() => OnboardingScreen());
+      await Future.delayed(const Duration(seconds: 2));
+      screenModalBottomSheet(
+        context, OnboardingScreen(),
+      );
+      prefs.setBool("is_first_time", false);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Directionality(
@@ -37,7 +55,6 @@ class _AzkarHomeState extends State<AzkarHome> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: Theme.of(context).primaryColorDark,
-        // body: _selectedWidget,
         body: Stack(
           children: [
             PageView(
@@ -49,17 +66,17 @@ class _AzkarHomeState extends State<AzkarHome> {
                 print('selected $selected');
               },
               children: [
-                MainScreen(),
-                AzkarList(),
-                SentNotification(),
+                const MainScreen(),
+                const AzkarList(),
+                const SentNotification(),
               ],
             ),
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: orientation(context,
-                    const EdgeInsets.symmetric(vertical: 75.0, horizontal: 16.0),
-                    const EdgeInsets.all(8.0)),
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 74.0),
+                    const EdgeInsets.all(16.0)),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
@@ -72,7 +89,7 @@ class _AzkarHomeState extends State<AzkarHome> {
                                     MediaQuery.of(context).size.height * 1/2 * 1.6),
                                 alignment: Alignment.topCenter,
                                 padding: orientation(context,
-                                    EdgeInsets.only(right: 16.0, left: 16.0),
+                                    const EdgeInsets.only(right: 16.0, left: 16.0),
                                     EdgeInsets.only(top: 70.0, right: width * .5, left: 16.0)),
                               );
                             }));
@@ -173,7 +190,7 @@ class _AzkarHomeState extends State<AzkarHome> {
             iconStyle: IconStyle.animated,
           ),
           backgroundColor: Theme.of(context).colorScheme.background,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),
           ),
@@ -181,10 +198,10 @@ class _AzkarHomeState extends State<AzkarHome> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            screenModalBottomSheet(context, AzkarFav());
+            screenModalBottomSheet(context, const AzkarFav());
           },
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: Icon(
+          child: const Icon(
             CupertinoIcons.heart,
             color: Colors.red,
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_native_timezone_updated_gradle/flutter_native_timezone.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -76,7 +76,7 @@ class NotifyHelper {
   scheduledNotification(BuildContext context, int reminderId, int hour, int minutes, String reminderName) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       reminderId,
-      'القرآن الكريم - مكتبة الحكمة',
+      'أذكاري - مكتبة الحكمة',
       reminderName, // Use the reminder name here
       _nextInstanceOfTenAM(hour, minutes),
       const NotificationDetails(
@@ -130,7 +130,7 @@ class NotifyHelper {
 
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
-    final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    final String timeZoneName = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 

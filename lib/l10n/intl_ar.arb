@@ -194,8 +194,8 @@
                           "type": "text",
                           "placeholders": {}
                         },
-  "brown": "المظهر البني",
-  "@brown": {
+  "blue": "المظهر الأزرق",
+  "@blue": {
     "type": "text",
     "placeholders": {}
   },

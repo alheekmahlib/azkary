@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:husn_al_muslim/cubit/cubit.dart';
-import 'package:husn_al_muslim/screens/splash_screen.dart';
-import 'package:husn_al_muslim/shared/local_notifications.dart';
-import 'package:husn_al_muslim/shared/widgets/widgets.dart';
+import '../../cubit/cubit.dart';
+import '../../screens/splash_screen.dart';
+import '../../shared/local_notifications.dart';
+import '../../shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -15,7 +15,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:husn_al_muslim/shared/postPage.dart';
+import '../../shared/postPage.dart';
 
 final GlobalKey<NavigatorState> navigatorNotificationKey =
     GlobalKey<NavigatorState>();
@@ -101,13 +101,13 @@ class _HomePageState extends State<HomePage> {
     try {
       await flutterLocalNotificationsPlugin.zonedSchedule(
         reminderId,
-        'حصن المسلم - مكتبة الحكمة',
+        'أذكاري - مكتبة الحكمة',
         reminderName,
         _nextInstanceOfTenAM(hour, minutes),
         const NotificationDetails(
           android: AndroidNotificationDetails(
               'notificationIdChannel', 'notificationChannel',
-              icon: '@drawable/ic_launcher'),
+              icon: '@drawable/icon'),
         ),
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
       'notificationIdChannel',
       'notificationChannel',
       importance: Importance.max,
-      icon: '@drawable/ic_launcher',
+      icon: '@drawable/icon',
     );
     var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
@@ -299,6 +299,7 @@ class _HomePageState extends State<HomePage> {
     notifyHelper.requestIOSPermissions();
     notifyHelper.requestMACPermissions();
     QuranCubit.get(context).updateGreeting();
+    QuranCubit.get(context).loadAzkarFontSize();
     // WidgetsBinding.instance!.addPostFrameCallback((_) {
     //   PostPage.of(context)?.initializeLocalNotifications();
     //   // PostPage.of(context)?.startPeriodicTask(timesADay: 4);

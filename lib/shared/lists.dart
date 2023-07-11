@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
+
 import '../books/model/books_details_model.dart';
+import '../l10n/app_localizations.dart';
 
 List<String> zikr = <String>[
   'اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور.',
@@ -105,4 +108,38 @@ final List<BooksDetails> booksDetails = [
   BooksDetails('الأذكار من القرآن', 'الأذكار التي وردت في القرآن، مقسمة كما وردت في السور.'),
   BooksDetails('حصن المسلم', 'حِصن المسلمِ مِن أذكار الكتاب والسُّنة (د. سعيد بن على بن وهف القحطاني).'),
   BooksDetails('الطب النبوي', 'مقتبس من كتاب الطب النبوي (جزء من كتاب زاد المعاد لابن القيم -رحمه الله-)'),
+];
+
+List<String> images = <String>[
+  'assets/onboarding/onboarding_p.png',
+  'assets/onboarding/onboarding_p2.png',
+  'assets/onboarding/onboarding_p3.png',
+  'assets/onboarding/onboarding_p4.png',
+];
+
+List<String> imagesL = <String>[
+  'assets/onboarding/onboarding_l.png',
+  'assets/onboarding/onboarding_l2.png',
+  'assets/onboarding/onboarding_l3.png',
+  'assets/onboarding/onboarding_l4.png',
+];
+
+List<String> imagesD = <String>[
+  'assets/onboarding/onboarding_d.png',
+  'assets/onboarding/onboarding_d2.png',
+  'assets/onboarding/onboarding_d3.png',
+  'assets/onboarding/onboarding_d4.png',
+];
+
+List<String> onboardingTitle = <String>[
+  'السلام عليكم، حياكم الله في تطبيق "أذكاري من الكتاب والسنة"',
+  'واجهة جميلة وسهلة الأستخدام وبدون إعلانات',
+  'قراءة الكثير من الأذكار',
+  'شارك الذكر كنص أو كصورة بكل سهولة',
+];
+
+List<String> themeName = <String>[
+  'green',
+  'blue',
+  'dark',
 ];

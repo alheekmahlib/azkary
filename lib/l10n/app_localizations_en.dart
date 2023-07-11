@@ -116,7 +116,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get green => 'Green Mode';
 
   @override
-  String get brown => 'Brown Mode';
+  String get blue => 'Blue Mode';
 
   @override
   String get dark => 'Dark Mode';

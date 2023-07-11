@@ -1,7 +1,6 @@
-import 'package:husn_al_muslim/cubit/cubit.dart';
-import 'package:husn_al_muslim/shared/widgets/svg_picture.dart';
-import 'package:husn_al_muslim/shared/widgets/theme_change.dart';
-import 'package:husn_al_muslim/shared/widgets/widgets.dart';
+import '../../shared/widgets/svg_picture.dart';
+import '../../shared/widgets/theme_change.dart';
+import '../../shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -14,7 +13,6 @@ class SettingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuranCubit cubit = QuranCubit.get(context);
     return ListView(
       padding: EdgeInsets.zero,
       // direction: Axis.vertical,
@@ -24,15 +22,13 @@ class SettingsList extends StatelessWidget {
         ),
         Directionality(
           textDirection: TextDirection.rtl,
-          child: Container(
-            color: Theme.of(context)
-                .colorScheme.surface
-                .withOpacity(.2),
-            child: Column(
+          child: contentContainer(
+            context,
+            Column(
               children: [
-                customContainer(
-                  context,
-                  Row(
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SvgPicture.asset(
@@ -43,13 +39,8 @@ class SettingsList extends StatelessWidget {
                         AppLocalizations.of(context)!
                             .langChange,
                         style: TextStyle(
-                            color:
-                            ThemeProvider.themeOf(context)
-                                .id ==
-                                'dark'
-                                ? Colors.white
-                                : Theme.of(context)
-                                .primaryColor,
+                            color: Theme.of(context)
+                                .canvasColor,
                             fontFamily: 'kufi',
                             fontStyle: FontStyle.italic,
                             fontSize: 16),
@@ -85,11 +76,8 @@ class SettingsList extends StatelessWidget {
                                           context)!
                                           .appLang ==
                                           "لغة التطبيق"
-                                          ? Theme.of(context)
-                                          .secondaryHeaderColor
-                                          : Theme.of(context)
-                                          .colorScheme.surface
-                                          .withOpacity(.5),
+                                          ? const Color(0xff91a57d) : Theme.of(context)
+                                          .secondaryHeaderColor,
                                       width: 2),
                                   color:
                                   const Color(0xff39412a),
@@ -98,10 +86,9 @@ class SettingsList extends StatelessWidget {
                                     context)!
                                     .appLang ==
                                     "لغة التطبيق"
-                                    ? Icon(Icons.done,
+                                    ? const Icon(Icons.done,
                                     size: 14,
-                                    color: Theme.of(context)
-                                        .colorScheme.surface)
+                                    color: Color(0xffF27127))
                                     : null,
                               ),
                               const SizedBox(
@@ -114,8 +101,7 @@ class SettingsList extends StatelessWidget {
                                       context)!
                                       .appLang ==
                                       "لغة التطبيق"
-                                      ? Theme.of(context)
-                                      .secondaryHeaderColor
+                                      ? const Color(0xffF27127)
                                       : Theme.of(context)
                                       .colorScheme.surface
                                       .withOpacity(.5),
@@ -281,15 +267,13 @@ class SettingsList extends StatelessWidget {
         ),
         Directionality(
           textDirection: TextDirection.rtl,
-          child: Container(
-            color: Theme.of(context)
-                .colorScheme.surface
-                .withOpacity(.2),
-            child: Column(
+          child: contentContainer(
+            context,
+            Column(
               children: [
-                customContainer(
-                  context,
-                  Row(
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment:
                     MainAxisAlignment.spaceBetween,
@@ -302,13 +286,8 @@ class SettingsList extends StatelessWidget {
                         AppLocalizations.of(context)!
                             .themeTitle,
                         style: TextStyle(
-                            color:
-                            ThemeProvider.themeOf(context)
-                                .id ==
-                                'dark'
-                                ? Colors.white
-                                : Theme.of(context)
-                                .primaryColor,
+                            color: Theme.of(context)
+                                .canvasColor,
                             fontFamily: 'kufi',
                             fontStyle: FontStyle.italic,
                             fontSize: 16),

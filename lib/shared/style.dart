@@ -3,14 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-class Style {
+class ColorStyle {
   final BuildContext context;
 
-  Style(this.context);
+  ColorStyle(this.context);
 
-  Color getTextColor() {
+  Color greenTextColor() {
     return ThemeProvider.themeOf(context).id == 'dark'
         ? Theme.of(context).canvasColor :
     Theme.of(context).primaryColorDark;
+  }
+
+  Color whiteTextColor() {
+    return ThemeProvider.themeOf(context).id == 'dark'
+        ? Theme.of(context).canvasColor :
+    Theme.of(context).colorScheme.secondary;
   }
 }

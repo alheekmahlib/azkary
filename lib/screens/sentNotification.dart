@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:husn_al_muslim/screens/splash_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -59,7 +58,9 @@ class _SentNotificationState extends State<SentNotification> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       body: Padding(
-        padding: const EdgeInsets.only(top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
+        padding: orientation(context,
+            const EdgeInsets.only(top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
+            const EdgeInsets.all(16.0)),
         child: Column(
           children: [
             Text('الإشعارات',
@@ -100,7 +101,7 @@ class _SentNotificationState extends State<SentNotification> {
                           return Container(
                             height: 70,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface.withOpacity(.2),
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: const BorderRadius.all(Radius.circular(8)),
                             ),
                             margin: const EdgeInsets.symmetric(vertical: 4.0),

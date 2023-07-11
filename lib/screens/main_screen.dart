@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:theme_provider/theme_provider.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../l10n/app_localizations.dart';
@@ -84,9 +83,15 @@ class _MainScreenState extends State<MainScreen> {
                               alignment: Alignment.topRight,
                               child: Container(
                                   alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
                                   width: MediaQuery.of(context).size.width,
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.secondary,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8),
+                                      )
+                                  ),
                                   child: greeting(context)),
                             ),
                             Align(
@@ -116,24 +121,46 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                           Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                                alignment: Alignment.centerRight,
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                                // margin: EdgeInsets.only(bottom: 8.0),
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.secondary,
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(8),
+                                      topRight: Radius.circular(8),
+                                    )
+                                ),
+                                child: greeting(context)),),
+                          Align(
                             alignment: Alignment.centerRight,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * .4,
+                            child: Container(
+                              width: platformView(
+                                  orientation(
+                                      context,
+                                      MediaQuery.of(context).size.width * .4,
+                                      MediaQuery.of(context).size.width * .45),
+                                  MediaQuery.of(context).size.width * .5),
+                              margin: const EdgeInsets.only(top: 64.0),
                               child: Column(
                                 children: [
-                                  Align(
-                                      alignment: Alignment.topRight,
-                                      child: greeting(context)),
                                   hijriDate(context),
-                                  reminderWidget(),
+                                  Padding(
+                                    padding: platformView(const EdgeInsets.all(0.0), const EdgeInsets.only(top: 80.0)),
+                                    child: reminderWidget(),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: SizedBox(
+                            child: Container(
                               width: MediaQuery.of(context).size.width * .4,
+                              margin: const EdgeInsets.only(top: 51.0),
                               child: zkrWidget(context),
                             ),
                           )
@@ -178,13 +205,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               border: Border.all(
                 color: Theme.of(context).colorScheme.surface,
                 width: 2
               )
             ),
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
@@ -323,7 +350,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget zkrWidget(BuildContext context) {
-    Style style = Style(context);
+    ColorStyle style = ColorStyle(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0, right: 16.0, left: 16.0),
       child: container(
@@ -336,7 +363,7 @@ class _MainScreenState extends State<MainScreen> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(8),
                       bottomRight: Radius.circular(8),
                     )),
@@ -363,7 +390,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: Text(
                   element,
                   style: TextStyle(
-                      color: style.getTextColor(),
+                      color: style.greenTextColor(),
                       fontSize: 22.0,
                       height: 1.7,
                       fontFamily: 'naskh',
