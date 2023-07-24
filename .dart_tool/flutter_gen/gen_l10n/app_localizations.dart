@@ -317,11 +317,11 @@ abstract class AppLocalizations {
   /// **'Green Mode'**
   String get green;
 
-  /// No description provided for @brown.
+  /// No description provided for @blue.
   ///
   /// In en, this message translates to:
-  /// **'Brown Mode'**
-  String get brown;
+  /// **'Blue Mode'**
+  String get blue;
 
   /// No description provided for @dark.
   ///
