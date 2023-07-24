@@ -1,11 +1,14 @@
+import 'package:Azkary/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../database/notificationDatabase.dart';
 import '../home_page.dart';
 import '../shared/postPage.dart';
+import '../shared/style.dart';
+import '../shared/widgets/lottie.dart';
 import '../shared/widgets/widgets.dart';
 
 class SentNotification extends StatefulWidget {
@@ -53,90 +56,97 @@ class _SentNotificationState extends State<SentNotification> {
       };
     }).toList();
   }
+
   @override
   Widget build(BuildContext context) {
+    ColorStyle colorStyle = ColorStyle(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorDark,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
-        padding: orientation(context,
-            const EdgeInsets.only(top: 70.0, bottom: 16.0, right: 16.0, left: 16.0),
-            const EdgeInsets.all(16.0)),
-        child: Column(
-          children: [
-            Text('الإشعارات',
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'kufi',
-                color: Theme.of(context).canvasColor,
-              ),
-            ),
-            SvgPicture.asset(
-              'assets/svg/space_line.svg',
-              height: 30,
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+        padding: const EdgeInsets.only(bottom: 16.0, right: 16.0, left: 16.0).r,
+        child: Container(
+          width: MediaQuery.sizeOf(context).width,
+          height: MediaQuery.sizeOf(context).height,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(8),
+              bottomLeft: Radius.circular(8),
+              bottomRight: Radius.circular(8),
+            ).r,
+          ),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0).r,
+          child: Column(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.notification,
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  fontFamily: 'kufi',
+                  color: Theme.of(context).colorScheme.surface,
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              ),
+              SvgPicture.asset(
+                'assets/svg/space_line.svg',
+                height: 30.h,
+              ),
+              SizedBox(
+                height: 16.0.h,
+              ),
+              Expanded(
                 child: FutureBuilder<List<Map<String, dynamic>>>(
                   future: loadNotifications(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return bookLoading(200.0.w, 200.0.h);
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
                       List<Map<String, dynamic>> notifications = snapshot.data!;
                       return ListView.builder(
                         itemCount: notifications.length,
+                        padding: EdgeInsets.zero,
                         itemBuilder: (context, index) {
                           final notification = notifications[index];
                           return Container(
-                            height: 70,
+                            height: 60.h,
+                            alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              borderRadius: const BorderRadius.all(Radius.circular(8)),
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
                             ),
                             margin: const EdgeInsets.symmetric(vertical: 4.0),
                             child: ListTile(
-                              title: Text(notification['title'],
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id == 'dark'
-                                      ? Colors.white
-                                      : Colors.black,
+                              title: Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: Text(
+                                  notification['title'],
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontFamily: 'kufi',
+                                    color: colorStyle.greenTextColor(),
+                                  ),
                                 ),
                               ),
-                              subtitle: Text(DateFormat('HH:mm').format(notification['timestamp']),
+                              subtitle: Text(
+                                DateFormat('HH:mm')
+                                    .format(notification['timestamp']),
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                   fontFamily: 'kufi',
-                                  color: ThemeProvider.themeOf(context).id == 'dark'
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color: colorStyle.greenTextColor(),
                                 ),
                               ),
                               trailing: Icon(
                                 Icons.notifications_active,
-                                size: 28,
+                                size: 24.h,
                                 color: Theme.of(context).colorScheme.surface,
                               ),
                               onTap: () {
-                                screenModalBottomSheet(context, PostPage(postId: notification['id']));
-                                  //   Navigator.of(navigatorKey.currentContext!).push(
-                                  // animatNameRoute(
-                                  //   pushName: '/post',
-                                  //   myWidget: PostPage(postId: notification['id']),
-                                  // ),
-                                // );
+                                screenModalBottomSheet(context,
+                                    PostPage(postId: notification['id']));
                               },
                             ),
                           );
@@ -146,8 +156,8 @@ class _SentNotificationState extends State<SentNotification> {
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

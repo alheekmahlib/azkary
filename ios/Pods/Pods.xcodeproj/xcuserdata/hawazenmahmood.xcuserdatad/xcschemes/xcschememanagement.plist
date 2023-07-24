@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>device_info_plus.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>flutter_local_notifications.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,12 +44,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>home_widget.xcscheme</key>
+		<key>image_gallery_saver.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>image_gallery_saver.xcscheme</key>
+		<key>in_app_review.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>package_info_plus.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -75,11 +85,6 @@
 			<false/>
 		</dict>
 		<key>url_launcher_ios.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>workmanager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

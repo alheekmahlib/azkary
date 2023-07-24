@@ -1,8 +1,7 @@
 import 'package:lottie/lottie.dart';
 
 notFound() {
-  return Lottie.asset('assets/lottie/notFound.json',
-      width: 200, height: 200);
+  return Lottie.asset('assets/lottie/notFound.json', width: 200, height: 200);
 }
 
 search(double? width, height) {
@@ -19,15 +18,14 @@ loadingLottie(double? width, height) {
   return Lottie.asset('assets/lottie/loading.json',
       width: width, height: height);
 }
+
 loading(double? width, height) {
   return Lottie.asset('assets/lottie/splash_loading.json',
-      reverse: true,
-      width: width, height: height);
+      reverse: true, width: width, height: height);
 }
 
 noteLottie(double? width, height) {
-  return Lottie.asset('assets/lottie/notes.json',
-      width: width, height: height);
+  return Lottie.asset('assets/lottie/notes.json', width: width, height: height);
 }
 
 playButtonLottie(double? width, height) {
@@ -36,6 +34,10 @@ playButtonLottie(double? width, height) {
 }
 
 shareLottie(double? width, height) {
-  return Lottie.asset('assets/lottie/share.json',
+  return Lottie.asset('assets/lottie/share.json', width: width, height: height);
+}
+
+bookLoading(double? width, height) {
+  return Lottie.asset('assets/lottie/bookLoading.json',
       width: width, height: height);
 }

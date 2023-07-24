@@ -1,21 +1,24 @@
 import 'dart:async';
-import '../../cubit/cubit.dart';
-import '../../screens/splash_screen.dart';
-import '../../shared/local_notifications.dart';
-import '../../shared/widgets/widgets.dart';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'dart:io';
-import 'database/notificationDatabase.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
+
+import '../../cubit/cubit.dart';
+import '../../screens/splash_screen.dart';
+import '../../shared/local_notifications.dart';
 import '../../shared/postPage.dart';
+import '../../shared/widgets/widgets.dart';
+import 'database/notificationDatabase.dart';
 
 final GlobalKey<NavigatorState> navigatorNotificationKey =
     GlobalKey<NavigatorState>();
@@ -35,7 +38,6 @@ List<Map<String, dynamic>> sentNotifications = [];
 class _HomePageState extends State<HomePage> {
   late NotifyHelper notifyHelper;
   DateTime now = DateTime.now();
-
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -294,18 +296,12 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
-    QuranCubit.get(context).loadLang();
+    AzkaryCubit.get(context).loadLang();
     notifyHelper = NotifyHelper();
     notifyHelper.requestIOSPermissions();
     notifyHelper.requestMACPermissions();
-    QuranCubit.get(context).updateGreeting();
-    QuranCubit.get(context).loadAzkarFontSize();
-    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-    //   PostPage.of(context)?.initializeLocalNotifications();
-    //   // PostPage.of(context)?.startPeriodicTask(timesADay: 4);
-    //   PostPage.of(context)?.startPeriodicTask(minutesInterval: 15);
-    // });
-    // initialization();
+    AzkaryCubit.get(context).updateGreeting();
+    AzkaryCubit.get(context).loadAzkarFontSize();
     super.initState();
   }
 
@@ -336,17 +332,20 @@ class _HomePageState extends State<HomePage> {
     minLaunches: 7,
     remindDays: 15,
     remindLaunches: 20,
-    googlePlayIdentifier: 'com.alheekmah.alquranalkareem.alquranalkareem',
+    googlePlayIdentifier: 'com.alheekmah.azkaryapp',
     appStoreIdentifier: '1500153222',
   );
 
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => SplashScreen(),
-      desktop: (BuildContext context) => SplashScreen(),
-      breakpoints:
-      const ScreenBreakpoints(desktop: 650, tablet: 450, watch: 300),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: ScreenTypeLayout.builder(
+        mobile: (BuildContext context) => SplashScreen(),
+        desktop: (BuildContext context) => SplashScreen(),
+        breakpoints:
+            const ScreenBreakpoints(desktop: 650, tablet: 450, watch: 300),
+      ),
     );
   }
 }

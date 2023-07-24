@@ -724,6 +724,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'verse'**
   String get ayah;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @athkar.
+  ///
+  /// In en, this message translates to:
+  /// **'Athkar'**
+  String get athkar;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notification;
+
+  /// No description provided for @rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate the app'**
+  String get rating;
+
+  /// No description provided for @ourApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Our apps'**
+  String get ourApps;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

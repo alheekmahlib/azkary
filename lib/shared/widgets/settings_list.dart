@@ -1,316 +1,411 @@
+import 'package:Azkary/cubit/cubit.dart';
+import 'package:Azkary/screens/about_app.dart';
+import 'package:Azkary/screens/ourApps_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../l10n/app_localizations.dart';
+import '../../myApp.dart';
 import '../../shared/widgets/svg_picture.dart';
 import '../../shared/widgets/theme_change.dart';
 import '../../shared/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
-import '../../l10n/app_localizations.dart';
-import '../../myApp.dart';
-
 
 class SettingsList extends StatelessWidget {
   const SettingsList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      // direction: Axis.vertical,
-      children: [
-        Center(
-          child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32.0).r,
+      child: SizedBox(
+        height: orientation(context, height / 1 / 2 * 1.1, height),
+        width: width,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          // direction: Axis.vertical,
+          children: [
+            Center(
+              child: spaceLine(
+                20.h,
+                width * 3 / 4,
+              ),
+            ),
+            langChange(context),
+            const SizedBox(
+              height: 16.0,
+            ),
+            themeChange(context),
+            const SizedBox(
+              height: 16.0,
+            ),
+            otherWidget(context),
+            Center(
+              child: spaceLine(
+                20.h,
+                width * 3 / 4,
+              ),
+            ),
+          ],
         ),
-        Directionality(
-          textDirection: TextDirection.rtl,
-          child: contentContainer(
-            context,
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/svg/line.svg',
-                        height: 15,
-                      ),
-                      Text(
-                        AppLocalizations.of(context)!
-                            .langChange,
-                        style: TextStyle(
-                            color: Theme.of(context)
-                                .canvasColor,
-                            fontFamily: 'kufi',
-                            fontStyle: FontStyle.italic,
-                            fontSize: 16),
-                      ),
-                      SvgPicture.asset(
-                        'assets/svg/line2.svg',
-                        height: 15,
-                      ),
-                    ],
+      ),
+    );
+  }
+
+  Widget langChange(BuildContext context) {
+    AzkaryCubit cubit = AzkaryCubit.get(context);
+    double width = MediaQuery.sizeOf(context).width;
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: contentContainer(
+        context,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0).r,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    'assets/svg/line.svg',
+                    height: 12.h,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      InkWell(
-                        child: SizedBox(
-                          height: 30,
-                          width:
-                          MediaQuery.of(context).size.width,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  const BorderRadius.all(
-                                      Radius.circular(2.0)),
-                                  border: Border.all(
-                                      color: AppLocalizations.of(
-                                          context)!
-                                          .appLang ==
+                  Text(
+                    AppLocalizations.of(context)!.langChange,
+                    style: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                        fontFamily: 'kufi',
+                        fontStyle: FontStyle.italic,
+                        fontSize: 14.sp),
+                  ),
+                  SvgPicture.asset(
+                    'assets/svg/line2.svg',
+                    height: 12.h,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0).r,
+              child: Column(
+                children: [
+                  InkWell(
+                    child: SizedBox(
+                      height: 20.h,
+                      width: width,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 15.h,
+                            width: 15.h,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(2.0)),
+                              border: Border.all(
+                                  color: AppLocalizations.of(context)!
+                                              .appLang ==
                                           "لغة التطبيق"
-                                          ? const Color(0xff91a57d) : Theme.of(context)
-                                          .secondaryHeaderColor,
-                                      width: 2),
-                                  color:
-                                  const Color(0xff39412a),
-                                ),
-                                child: AppLocalizations.of(
-                                    context)!
-                                    .appLang ==
+                                      ? const Color(0xff91a57d)
+                                      : Theme.of(context).secondaryHeaderColor,
+                                  width: 1.5.w),
+                              color: const Color(0xff39412a),
+                            ),
+                            child: AppLocalizations.of(context)!.appLang ==
                                     "لغة التطبيق"
-                                    ? const Icon(Icons.done,
-                                    size: 14,
-                                    color: Color(0xffF27127))
-                                    : null,
-                              ),
-                              const SizedBox(
-                                width: 16.0,
-                              ),
-                              Text(
-                                'العربية',
-                                style: TextStyle(
-                                  color: AppLocalizations.of(
-                                      context)!
-                                      .appLang ==
+                                ? Icon(Icons.done,
+                                    size: 10.h, color: const Color(0xffF27127))
+                                : null,
+                          ),
+                          SizedBox(
+                            width: 16.0.w,
+                          ),
+                          Text(
+                            'العربية',
+                            style: TextStyle(
+                              color: AppLocalizations.of(context)!.appLang ==
                                       "لغة التطبيق"
-                                      ? const Color(0xffF27127)
-                                      : Theme.of(context)
-                                      .colorScheme.surface
+                                  ? const Color(0xffF27127)
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .surface
                                       .withOpacity(.5),
-                                  fontSize: 14,
-                                  fontFamily: 'kufi',
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ],
+                              fontSize: 13.sp,
+                              fontFamily: 'kufi',
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          MyApp.of(context)!.setLocale(
-                              const Locale.fromSubtags(
-                                  languageCode: "ar"));
-                        },
+                        ],
                       ),
-                      InkWell(
-                        child: SizedBox(
-                          height: 30,
-                          width:
-                          MediaQuery.of(context).size.width,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  const BorderRadius.all(
-                                      Radius.circular(2.0)),
-                                  border: Border.all(
-                                      color: AppLocalizations.of(
-                                          context)!
-                                          .appLang ==
-                                          "App Language"
-                                          ? Theme.of(context)
-                                          .secondaryHeaderColor
-                                          : Theme.of(context)
-                                          .colorScheme.surface
-                                          .withOpacity(.5),
-                                      width: 2),
+                    ),
+                    onTap: () {
+                      MyApp.of(context)!.setLocale(
+                          const Locale.fromSubtags(languageCode: "ar"));
+                      cubit.saveLang("ar");
+                    },
+                  ),
+                  InkWell(
+                    child: SizedBox(
+                      height: 20.h,
+                      width: width.w,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 15.h,
+                            width: 15.h,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(2.0)),
+                              border: Border.all(
                                   color:
-                                  const Color(0xff39412a),
-                                ),
-                                child: AppLocalizations.of(
-                                    context)!
-                                    .appLang ==
+                                      AppLocalizations.of(context)!.appLang ==
+                                              "App Language"
+                                          ? const Color(0xff91a57d)
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .surface
+                                              .withOpacity(.5),
+                                  width: 1.5.w),
+                              color: const Color(0xff39412a),
+                            ),
+                            child: AppLocalizations.of(context)!.appLang ==
                                     "App Language"
-                                    ? Icon(Icons.done,
-                                    size: 14,
-                                    color: Theme.of(context)
-                                        .colorScheme.surface)
-                                    : null,
-                              ),
-                              const SizedBox(
-                                width: 16.0,
-                              ),
-                              Text(
-                                'English',
-                                style: TextStyle(
-                                  color: AppLocalizations.of(
-                                      context)!
-                                      .appLang ==
+                                ? Icon(Icons.done,
+                                    size: 10.h, color: const Color(0xffF27127))
+                                : null,
+                          ),
+                          SizedBox(
+                            width: 16.0.w,
+                          ),
+                          Text(
+                            'English',
+                            style: TextStyle(
+                              color: AppLocalizations.of(context)!.appLang ==
                                       "App Language"
-                                      ? Theme.of(context)
-                                      .secondaryHeaderColor
-                                      : Theme.of(context)
-                                      .colorScheme.surface
+                                  ? const Color(0xffF27127)
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .surface
                                       .withOpacity(.5),
-                                  fontSize: 14,
-                                  fontFamily: 'kufi',
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ],
+                              fontSize: 13.h,
+                              fontFamily: 'kufi',
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          MyApp.of(context)!.setLocale(
-                              const Locale.fromSubtags(
-                                  languageCode: "en"));
-                        },
+                        ],
                       ),
-                      InkWell(
-                        child: SizedBox(
-                          height: 30,
-                          width:
-                          MediaQuery.of(context).size.width,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  const BorderRadius.all(
-                                      Radius.circular(2.0)),
-                                  border: Border.all(
-                                      color: AppLocalizations.of(
-                                          context)!
-                                          .appLang ==
-                                          "Idioma de la aplicación"
-                                          ? Theme.of(context)
-                                          .secondaryHeaderColor
-                                          : Theme.of(context)
-                                          .colorScheme.surface
-                                          .withOpacity(.5),
-                                      width: 2),
+                    ),
+                    onTap: () {
+                      MyApp.of(context)!.setLocale(
+                          const Locale.fromSubtags(languageCode: "en"));
+                      cubit.saveLang("en");
+                    },
+                  ),
+                  InkWell(
+                    child: SizedBox(
+                      height: 20.h,
+                      width: width.w,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 15.h,
+                            width: 15.h,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(2.0)),
+                              border: Border.all(
                                   color:
-                                  const Color(0xff39412a),
-                                ),
-                                child: AppLocalizations.of(
-                                    context)!
-                                    .appLang ==
+                                      AppLocalizations.of(context)!.appLang ==
+                                              "Idioma de la aplicación"
+                                          ? const Color(0xff91a57d)
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .surface
+                                              .withOpacity(.5),
+                                  width: 1.5.w),
+                              color: const Color(0xff39412a),
+                            ),
+                            child: AppLocalizations.of(context)!.appLang ==
                                     "Idioma de la aplicación"
-                                    ? Icon(Icons.done,
-                                    size: 14,
-                                    color: Theme.of(context)
-                                        .colorScheme.surface)
-                                    : null,
-                              ),
-                              const SizedBox(
-                                width: 16.0,
-                              ),
-                              Text(
-                                'Español',
-                                style: TextStyle(
-                                  color: AppLocalizations.of(
-                                      context)!
-                                      .appLang ==
-                                      "Idioma de la aplicación"
-                                      ? Theme.of(context)
-                                      .secondaryHeaderColor
-                                      : Theme.of(context)
-                                      .colorScheme.surface
-                                      .withOpacity(.5),
-                                  fontSize: 14,
-                                  fontFamily: 'kufi',
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ],
+                                ? Icon(Icons.done,
+                                    size: 10.h, color: const Color(0xffF27127))
+                                : null,
                           ),
-                        ),
-                        onTap: () {
-                          MyApp.of(context)!.setLocale(
-                              const Locale.fromSubtags(
-                                  languageCode: "es"));
-                        },
+                          SizedBox(
+                            width: 16.0.w,
+                          ),
+                          Text(
+                            'Español',
+                            style: TextStyle(
+                              color: AppLocalizations.of(context)!.appLang ==
+                                      "Idioma de la aplicación"
+                                  ? const Color(0xffF27127)
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .surface
+                                      .withOpacity(.5),
+                              fontSize: 13.sp,
+                              fontFamily: 'kufi',
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    onTap: () {
+                      MyApp.of(context)!.setLocale(
+                          const Locale.fromSubtags(languageCode: "es"));
+                      cubit.saveLang("es");
+                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
-        const SizedBox(
-          height: 16.0,
+      ),
+    );
+  }
+
+  Widget themeChange(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: contentContainer(
+        context,
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0).r,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(
+                    'assets/svg/line.svg',
+                    height: 12.h,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.themeTitle,
+                    style: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                        fontFamily: 'kufi',
+                        fontStyle: FontStyle.italic,
+                        fontSize: 14.sp),
+                  ),
+                  SvgPicture.asset(
+                    'assets/svg/line2.svg',
+                    height: 12.h,
+                  ),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ThemeChange(),
+            ),
+          ],
         ),
-        Directionality(
-          textDirection: TextDirection.rtl,
-          child: contentContainer(
-            context,
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/svg/line.svg',
-                        height: 15,
+      ),
+    );
+  }
+
+  Widget otherWidget(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
+            borderRadius: const BorderRadius.all(Radius.circular(8)).r),
+        padding: const EdgeInsets.all(8.0).r,
+        margin: const EdgeInsets.only(top: 16.0).r,
+        child: Column(
+          children: [
+            InkWell(
+              child: Container(
+                height: 24.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: azkary_logo(
+                        context,
+                        width: 24.0.w,
                       ),
-                      Text(
-                        AppLocalizations.of(context)!
-                            .themeTitle,
+                    ),
+                    vDivider(context),
+                    Expanded(
+                      flex: 8,
+                      child: Text(
+                        AppLocalizations.of(context)!.aboutApp,
                         style: TextStyle(
-                            color: Theme.of(context)
-                                .canvasColor,
-                            fontFamily: 'kufi',
-                            fontStyle: FontStyle.italic,
-                            fontSize: 16),
+                          fontFamily: 'kufi',
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
                       ),
-                      SvgPicture.asset(
-                        'assets/svg/line2.svg',
-                        height: 15,
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      flex: 1,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Theme.of(context).colorScheme.surface,
+                        size: 18.h,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: ThemeChange(),
-                ),
-              ],
+              ),
+              onTap: () {
+                Navigator.push(context, animatRoute(AboutApp()));
+              },
             ),
-          ),
+            hDivider(context),
+            InkWell(
+              child: Container(
+                height: 24.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 1, child: alheekmah_logo(context, width: 24.0.w)),
+                    vDivider(context),
+                    Expanded(
+                      flex: 8,
+                      child: Text(
+                        AppLocalizations.of(context)!.ourApps,
+                        style: TextStyle(
+                          fontFamily: 'kufi',
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      flex: 1,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Theme.of(context).colorScheme.surface,
+                        size: 18.h,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () {
+                Navigator.push(context, animatRoute(OurApps()));
+              },
+            ),
+          ],
         ),
-        Center(
-          child: spaceLine(30, MediaQuery.of(context).size.width * 3 / 4,),
-        ),
-      ],
+      ),
     );
   }
 }

@@ -318,4 +318,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ayah => 'Verso';
+
+  @override
+  String get home => 'Principal';
+
+  @override
+  String get athkar => 'Athkar';
+
+  @override
+  String get notification => 'Notificación';
+
+  @override
+  String get rating => 'Califica la aplicación';
+
+  @override
+  String get ourApps => 'Nuestras aplicaciones';
 }

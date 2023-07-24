@@ -530,7 +530,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SizedBox(
-                    width: orientation(context, MediaQuery.of(context).size.width * .6, MediaQuery.of(context).size.width / 1/3),
+                    width: orientation(context, MediaQuery.sizeOf(context).width * .6, MediaQuery.sizeOf(context).width / 1/3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -547,7 +547,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
                         Container(
                           height: 2,
                           margin: const EdgeInsets.symmetric(horizontal: 8),
-                          width: MediaQuery.of(context).size.width / 1/3,
+                          width: MediaQuery.sizeOf(context).width / 1/3,
                           color: Theme.of(context).dividerColor,
                         ),
                       ],
@@ -557,7 +557,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
                 GestureDetector(
                   child: Container(
                     // height: 60,
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.sizeOf(context).width,
                     padding: const EdgeInsets.all(16.0),
                     margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                     decoration: BoxDecoration(
@@ -573,7 +573,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
                           size: 24,
                         ),
                         SizedBox(
-                          width: orientation(context, MediaQuery.of(context).size.width * .7, MediaQuery.of(context).size.width / 1/3),
+                          width: orientation(context, MediaQuery.sizeOf(context).width * .7, MediaQuery.sizeOf(context).width / 1/3),
                           child: Text("$zkrText",
                             style: TextStyle(
                                 color: ThemeProvider.themeOf(context).id ==
@@ -597,17 +597,17 @@ void showVerseOptionsBottomSheet(BuildContext context,
                 Container(
                   height: 2,
                   margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-                  width: MediaQuery.of(context).size.width * .3,
+                  width: MediaQuery.sizeOf(context).width * .3,
                   color: Theme.of(context).dividerColor,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.sizeOf(context).width,
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: SizedBox(
-                          width: orientation(context, MediaQuery.of(context).size.width * .6, MediaQuery.of(context).size.width / 1/3),
+                          width: orientation(context, MediaQuery.sizeOf(context).width * .6, MediaQuery.sizeOf(context).width / 1/3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
@@ -624,7 +624,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
                               Container(
                                 height: 2,
                                 margin: const EdgeInsets.symmetric(horizontal: 8),
-                                width: MediaQuery.of(context).size.width * .2,
+                                width: MediaQuery.sizeOf(context).width * .2,
                                 color: Theme.of(context).dividerColor,
                               ),
                             ],
@@ -633,7 +633,7 @@ void showVerseOptionsBottomSheet(BuildContext context,
                       ),
                       GestureDetector(
                         child: Container(
-                          // width: MediaQuery.of(context).size.width * .4,
+                          // width: MediaQuery.sizeOf(context).width * .4,
                           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                           margin: const EdgeInsets.only(top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                           decoration: BoxDecoration(

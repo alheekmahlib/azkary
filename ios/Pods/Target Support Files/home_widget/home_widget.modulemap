@@ -1,6 +1,0 @@
-framework module home_widget {
-  umbrella header "home_widget-umbrella.h"
-
-  export *
-  module * { export * }
-}

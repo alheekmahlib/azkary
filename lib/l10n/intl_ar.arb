@@ -538,5 +538,30 @@
   "@ayah": {
     "type": "text",
     "placeholders": {}
+  },
+  "home": "الرئيسية",
+  "@home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "athkar": "الأذكار",
+  "@athkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "الإشعارات",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "rating": "قيم التطبيق",
+  "@rating": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "تطبيقاتنا",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
   }
 }
