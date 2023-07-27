@@ -333,7 +333,7 @@ class _HomePageState extends State<HomePage> {
     remindDays: 15,
     remindLaunches: 20,
     googlePlayIdentifier: 'com.alheekmah.azkaryapp',
-    appStoreIdentifier: '1500153222',
+    appStoreIdentifier: '6451125110',
   );
 
   @override
