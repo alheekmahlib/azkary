@@ -40,7 +40,7 @@ class InfoApp extends StatelessWidget {
                       Center(
                         child: SizedBox(
                             height: 80,
-                            width: MediaQuery.of(context).size.width * 3 / 4,
+                            width: MediaQuery.sizeOf(context).width * 3 / 4,
                             child: SvgPicture.asset(
                               'assets/svg/Logo_line2.svg',
                             )),

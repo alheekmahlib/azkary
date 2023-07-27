@@ -318,4 +318,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ayah => 'آية';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get athkar => 'الأذكار';
+
+  @override
+  String get notification => 'الإشعارات';
+
+  @override
+  String get rating => 'قيم التطبيق';
+
+  @override
+  String get ourApps => 'تطبيقاتنا';
 }

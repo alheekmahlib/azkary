@@ -1,20 +1,22 @@
 import 'dart:async';
-import '../../azkar/screens/azkar_item.dart';
-import '../../cubit/states.dart';
+
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../azkar/screens/azkar_item.dart';
+import '../../cubit/states.dart';
 import '../l10n/app_localizations.dart';
 import '../shared/local_notifications.dart';
 import '../shared/reminder_model.dart';
 import '../shared/widgets/widgets.dart';
 
-class QuranCubit extends Cubit<QuranState> {
-  QuranCubit() : super(QuranPageState());
-  static QuranCubit get(context) => BlocProvider.of<QuranCubit>(context);
+class AzkaryCubit extends Cubit<QuranState> {
+  AzkaryCubit() : super(QuranPageState());
+  static AzkaryCubit get(context) => BlocProvider.of<AzkaryCubit>(context);
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   String greeting = '';
   TimeOfDay? changedTimeOfDay;
@@ -28,7 +30,6 @@ class QuranCubit extends Cubit<QuranState> {
   bool isShowSettings = false;
   Locale? initialLang;
   var controller = ScrollController();
-
 
   /// Shared Preferences
   // Save & Load Azkar Text Font Size
@@ -75,12 +76,6 @@ class QuranCubit extends Cubit<QuranState> {
     emit(greetingState());
   }
 
-  void initState() {
-    loadLang();
-    emit(QuranPageState());
-  }
-
-
   /// Time
   // var now = DateTime.now();
   String lastRead =
@@ -94,7 +89,7 @@ class QuranCubit extends Cubit<QuranState> {
   }
 
   Future<bool> showTimePicker(BuildContext context, Reminder reminder) async {
-    QuranCubit cubit = QuranCubit.get(context);
+    AzkaryCubit cubit = AzkaryCubit.get(context);
     bool isConfirmed = false;
     Time initialTime = time;
     TimeOfDay initialTimeOfDay =

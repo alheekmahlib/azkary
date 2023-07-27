@@ -1,33 +1,33 @@
 import 'dart:async';
-import 'package:get/get.dart';
-import '../../azkar/screens/azkar_home.dart';
-import '../../cubit/cubit.dart';
-import '../../screens/onboarding_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../shared/widgets/widgets.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
+
+import '../../screens/onboarding_screen.dart';
+import '../../shared/widgets/widgets.dart';
 import '../shared/widgets/lottie.dart';
 import '../shared/widgets/svg_picture.dart';
-
+import 'azkar_home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
-
 }
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class _SplashScreenState extends State<SplashScreen> {
   bool animate = false;
-
 
   @override
   void initState() {
     super.initState();
     startTime();
-    QuranCubit.get(context).loadLang();
   }
+
   Future startTime() async {
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
@@ -62,7 +62,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 opacity: .05,
                 child: SvgPicture.asset(
                   'assets/svg/azkary.svg',
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.sizeOf(context).width,
                 ),
               ),
             ),
@@ -90,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 Container(),
                 false,
                 height: 150.0,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.sizeOf(context).width,
               ),
             ),
             Align(
@@ -102,15 +101,18 @@ class _SplashScreenState extends State<SplashScreen> {
                       children: [
                         azkary_logo(
                           context,
-                          width: 120.0,),
+                          width: 120.0,
+                        ),
                         Container(
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.surface,
-                              borderRadius: const BorderRadius.all(Radius.circular(4))
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4))),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
                           margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text('من الكتاب والسُّنة',
+                          child: Text(
+                            'من الكتاب والسُّنة',
                             style: TextStyle(
                               fontSize: 14,
                               fontFamily: 'kufi',
@@ -126,7 +128,8 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Transform.translate(
-                  offset: orientation(context, const Offset(0, 20), const Offset(0, 50)),
+                  offset: orientation(
+                      context, const Offset(0, 20), const Offset(0, 50)),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [

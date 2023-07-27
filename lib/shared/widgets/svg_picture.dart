@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 
-spaceLine(double height, width) {
+spaceLine(double height, double? width) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: SvgPicture.asset(
@@ -14,20 +14,28 @@ spaceLine(double height, width) {
   );
 }
 
-fav_azkar(BuildContext context, double? width, height) {
+fav_azkar(BuildContext context, double? width, double? height) {
   return SvgPicture.asset('assets/svg/fav_azkar.svg',
       // colorFilter: ColorFilter.mode(
       //     Theme.of(context).colorScheme.surface, BlendMode.srcIn),
       width: width, height: height);
 }
 
-azkary_icon(BuildContext context, {double? width, height}) {
+azkary_icon(BuildContext context, {double? width, double? height}) {
   return SvgPicture.asset('assets/svg/azkary.svg',
       width: width, height: height);
 }
 
-azkary_logo(BuildContext context, {double? width, height}) {
+azkary_logo(BuildContext context, {double? width, double?height}) {
   return SvgPicture.asset('assets/svg/azkary_logo.svg',
+      width: width, height: height);
+}
+
+alheekmah_logo(BuildContext context, {double? width, double? height}) {
+  return SvgPicture.asset('assets/svg/alheekmah_logo.svg',
+      colorFilter: ColorFilter.mode(
+          Theme.of(context).colorScheme.surface,
+          BlendMode.srcIn),
       width: width, height: height);
 }
 

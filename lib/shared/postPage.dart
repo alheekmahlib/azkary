@@ -1,14 +1,17 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../../shared/widgets/lottie.dart';
+
+import 'package:Azkary/shared/style.dart';
+import 'package:Azkary/shared/widgets/widgets.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:html/parser.dart' as html_parser;
+import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-
+import '../../shared/widgets/lottie.dart';
 
 class PostPage extends StatefulWidget {
   final int postId;
@@ -53,30 +56,28 @@ class _PostPageState extends State<PostPage> {
     List<Widget> widgets = [];
 
     // Add the post body text
-    widgets.add(
-        Text(
-          post.body,
-          style: TextStyle(
-            color: ThemeProvider.themeOf(context).id == 'dark'
-                ? Colors.white
-                : Colors.black,
-            height: 1.4,
-            fontFamily: 'kufi',
-            fontSize: 20,
-          ),
-          textAlign: TextAlign.center,
-        ));
+    widgets.add(Text(
+      post.body,
+      style: TextStyle(
+        color: ThemeProvider.themeOf(context).id == 'dark'
+            ? Colors.white
+            : Colors.black,
+        height: 1.4,
+        fontFamily: 'kufi',
+        fontSize: 20.sp,
+      ),
+      textAlign: TextAlign.center,
+    ));
 
     // Add the Lottie animation if present
     if (post.isLottie) {
-      widgets.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Lottie.network(post.lottie,
-            width: MediaQuery.of(context).size.width * .7,
-
-            ),
-          ));
+      widgets.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Lottie.network(
+          post.lottie,
+          width: MediaQuery.sizeOf(context).width * .7,
+        ),
+      ));
     }
 
     // Add the image if present
@@ -86,8 +87,9 @@ class _PostPageState extends State<PostPage> {
         onTap: () {
           showImageViewer(context, imageProvider);
         },
-        child: Image.network(post.image,
-          width: MediaQuery.of(context).size.width * .8,
+        child: Image.network(
+          post.image,
+          width: MediaQuery.sizeOf(context).width * .8,
         ),
       ));
     }
@@ -98,25 +100,24 @@ class _PostPageState extends State<PostPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
+    ColorStyle colorStyle = ColorStyle(context);
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
-        )
-      ),
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          )),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0).r,
         child: FutureBuilder<BlogPost>(
           future: _postFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: loadingLottie(200.0, 200.0),
+                child: bookLoading(200.0.w, 200.0.h),
               );
             } else if (snapshot.hasError) {
               return SelectableText('Error: ${snapshot.error}');
@@ -126,44 +127,24 @@ class _PostPageState extends State<PostPage> {
               return Flex(
                 direction: Axis.vertical,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Align(
+                  Align(
                       alignment: Alignment.topRight,
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                            border: Border.all(
-                                width: 2, color: Theme.of(context).dividerColor)),
-                        child: Icon(
-                          Icons.close_outlined,
-                          color: Theme.of(context).colorScheme.surface,
-                        ),
-                      ),
-                    ),
-                  ),
+                      child: customClose(context)),
                   Text(
                     post.title,
                     style: TextStyle(
-                      color: ThemeProvider.themeOf(context).id == 'dark'
-                          ? Colors.white
-                          : Colors.black,
+                      color: colorStyle.greenTextColor(),
                       height: 1.4,
                       fontFamily: 'kufi',
-                      fontSize: 24,
+                      fontSize: 24.sp,
                     ),
                   ),
                   SvgPicture.asset(
                     'assets/svg/space_line.svg',
-                    height: 30,
+                    height: 30.h,
                   ),
-                  const SizedBox(
-                    height: 32.0,
+                  SizedBox(
+                    height: 32.0.h,
                   ),
                   Expanded(
                     child: SingleChildScrollView(
@@ -179,7 +160,6 @@ class _PostPageState extends State<PostPage> {
     );
   }
 }
-
 
 class BlogPost {
   final int id;
@@ -224,4 +204,3 @@ class BlogPost {
     };
   }
 }
-

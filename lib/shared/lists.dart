@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
 import '../books/model/books_details_model.dart';
-import '../l10n/app_localizations.dart';
 
 List<String> zikr = <String>[
   'اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور.',

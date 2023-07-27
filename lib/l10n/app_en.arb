@@ -538,5 +538,30 @@
   "@ayah": {
     "type": "text",
     "placeholders": {}
+  },
+  "home": "Home",
+  "@home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "athkar": "Athkar",
+  "@athkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notification": "Notification",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "rating": "Rate the app",
+  "@rating": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "Our apps",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
   }
 }

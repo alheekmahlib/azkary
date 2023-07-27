@@ -318,4 +318,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ayah => 'verse';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get athkar => 'Athkar';
+
+  @override
+  String get notification => 'Notification';
+
+  @override
+  String get rating => 'Rate the app';
+
+  @override
+  String get ourApps => 'Our apps';
 }
