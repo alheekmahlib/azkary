@@ -5,151 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4487db2f-e47c-47cf-9932-054938f80155" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/icons/bookList.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/email.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/facebook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/notification.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/rating.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/share.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Azkary_banner.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/lottie/bookLoading.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Runner/Runner.entitlements" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/ourApps_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/shared/ourApp_model.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/shared/rateApp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations_ar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations_ar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations_en.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations_es.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_gen/gen_l10n/app_localizations_es.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/athkary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/athkary.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/AlQuranAlKareem.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/ourApps.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_d2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_d2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_d3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_d3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_d4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_d4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_l2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_l2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_l3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_l3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_l4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_l4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_p2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_p2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_p3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_p3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/onboarding/onboarding_p4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/onboarding/onboarding_p4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.last_build_id" beforeDir="false" afterPath="$PROJECT_DIR$/build/.last_build_id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/34b2d4612d26ae891d10a16acce1cdcf/.filecache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/34b2d4612d26ae891d10a16acce1cdcf/gen_l10n_inputs_and_outputs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/34b2d4612d26ae891d10a16acce1cdcf/gen_localizations.d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/34b2d4612d26ae891d10a16acce1cdcf/gen_localizations.stamp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/34b2d4612d26ae891d10a16acce1cdcf/outputs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_local_notifications" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.symlinks/plugins/flutter_local_notifications" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/home_widget" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.symlinks/plugins/home_widget" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/image_gallery_saver" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.symlinks/plugins/image_gallery_saver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_foundation" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.symlinks/plugins/path_provider_foundation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/share_plus" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.symlinks/plugins/share_plus" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_foundation" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.symlinks/plugins/shared_preferences_foundation" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Local Podspecs/path_provider_foundation.podspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Local Podspecs/path_provider_foundation.podspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Local Podspecs/share_plus.podspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Local Podspecs/share_plus.podspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Local Podspecs/shared_preferences_foundation.podspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Local Podspecs/shared_preferences_foundation.podspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/hawazenmahmood.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Pods.xcodeproj/xcuserdata/hawazenmahmood.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-acknowledgements.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-acknowledgements.markdown" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-acknowledgements.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-acknowledgements.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Debug-input-files.xcfilelist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Debug-input-files.xcfilelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Debug-output-files.xcfilelist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Debug-output-files.xcfilelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Profile-input-files.xcfilelist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Profile-input-files.xcfilelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Profile-output-files.xcfilelist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Profile-output-files.xcfilelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Release-input-files.xcfilelist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Release-input-files.xcfilelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Release-output-files.xcfilelist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks-Release-output-files.xcfilelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Pods/Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcuserdata/hawazenmahmood.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcuserdata/hawazenmahmood.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/azkar/screens/azkar_fav.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/azkar_fav.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/azkar/screens/azkar_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/azkar_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/azkar/screens/azkar_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/azkar/screens/azkar_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/books/screen/books_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/books/screen/books_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/books/screen/books_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/books/screen/books_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cubit/cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cubit/cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cubit/states.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cubit/states.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/app_en.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_en.arb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/app_es.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_es.arb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/app_localizations.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_localizations.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/app_localizations_ar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_localizations_ar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/app_localizations_en.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_localizations_en.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/app_localizations_es.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/app_localizations_es.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/l10n/intl_ar.arb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/l10n/intl_ar.arb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/myApp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/myApp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/quran_azkar/screen/quran_azkar_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/quran_azkar/screen/quran_azkar_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rwqya_azkar/cubit/rwqya_cubit.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rwqya_azkar/cubit/rwqya_state.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rwqya_azkar/model/rwqya_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rwqya_azkar/widget/rwqya_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/about_app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/about_app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/azkar_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/azkar_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/info_app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/info_app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/main_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/onboarding_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/onboarding_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/sentNotification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/sentNotification.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/splash_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/custom_rect_tween.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/hero_dialog_route.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/lists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/lists.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/postPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/postPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/share/ayah_to_images.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/share/ayah_to_images.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/books_lists_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/books_lists_widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/lottie.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/lottie.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/settings_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/settings_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/settings_popUp.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/svg_picture.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/svg_picture.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/theme_change.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/theme_change.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/shared/widgets/widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/widgets/widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/share_plus" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/share_plus" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/ephemeral/.plugin_symlinks/shared_preferences_linux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Runner/Configs/AppInfo.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Runner/Configs/AppInfo.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Runner/DebugProfile.entitlements" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Runner/DebugProfile.entitlements" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Runner/Release.entitlements" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Runner/Release.entitlements" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/share_plus" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/share_plus" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/ephemeral/.plugin_symlinks/url_launcher_windows" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +42,7 @@
     &quot;ScreenshotViewer.SavePath&quot;: &quot;/Users/hawazenmahmood/Desktop/Azkary Icons&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/hawazenmahmood/Documents/GitHub/athkary/athkary/assets/onboarding&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hawazenmahmood/Documents/GitHub/athkary/athkary&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.saveactions&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
