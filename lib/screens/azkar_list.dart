@@ -16,7 +16,7 @@ class AzkarList extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Padding(
           padding:
               const EdgeInsets.only(bottom: 16.0, right: 16.0, left: 16.0).r,
@@ -57,7 +57,7 @@ Widget booksList(BuildContext context) {
               BooksPage(
                 title: booksDetails[0].title,
                 details: booksDetails[0].details,
-                myWidget: quranAzkarBuild(context),
+                myWidget: quranAzkarWidget(),
               ),
             ),
             book(
@@ -94,7 +94,7 @@ Widget booksList(BuildContext context) {
                     BooksPage(
                       title: booksDetails[0].title,
                       details: booksDetails[0].details,
-                      myWidget: quranAzkarBuild(context),
+                      myWidget: quranAzkarWidget(),
                     ),
                   ),
                   book(
@@ -134,7 +134,7 @@ Widget booksList(BuildContext context) {
                           BooksPage(
                             title: booksDetails[0].title,
                             details: booksDetails[0].details,
-                            myWidget: quranAzkarBuild(context),
+                            myWidget: quranAzkarWidget(),
                           ),
                         ),
                         book(
@@ -220,7 +220,6 @@ Widget book(BuildContext context, String title, var widget) {
 }
 
 Widget bookBanner(BuildContext context) {
-  bool screenWidth = MediaQuery.sizeOf(context).width < 400;
   return CarouselSlider(
     options: CarouselOptions(
       height: 150.0.h,
@@ -247,7 +246,7 @@ Widget bookBanner(BuildContext context) {
                 child: container(context, Container(), false,
                     height: 100.0.h,
                     width: MediaQuery.sizeOf(context).width,
-                    color: Theme.of(context).colorScheme.background),
+                    color: Theme.of(context).colorScheme.surface),
               ),
               Align(
                 alignment: Alignment.center,

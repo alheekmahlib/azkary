@@ -21,6 +21,11 @@
 
     ]
   },
+  "resource_bundles": {
+    "flutter_local_notifications_privacy": [
+      "Resources/PrivacyInfo.xcprivacy"
+    ]
+  },
   "platforms": {
     "ios": "8.0"
   }

@@ -4,20 +4,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/timezone.dart' as tz;
 
-import '../../cubit/cubit.dart';
+// import 'package:timezone/timezone.dart' as tz;
+
 import '../../screens/splash_screen.dart';
-import '../../shared/local_notifications.dart';
 import '../../shared/postPage.dart';
 import '../../shared/widgets/widgets.dart';
+import 'core/core.dart';
 import 'database/notificationDatabase.dart';
 
 final GlobalKey<NavigatorState> navigatorNotificationKey =
@@ -36,42 +35,41 @@ class HomePage extends StatefulWidget {
 List<Map<String, dynamic>> sentNotifications = [];
 
 class _HomePageState extends State<HomePage> {
-  late NotifyHelper notifyHelper;
+  // late notifications.NotifyHelper notifyHelper;
   DateTime now = DateTime.now();
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  //     FlutterLocalNotificationsPlugin();
   Timer? _timer;
 
-  Future<void> initializeLocalNotifications(BuildContext context) async {
-    print('Initializing local notifications...');
+  // Future<void> initializeLocalNotifications(BuildContext context) async {
+  //   print('Initializing local notifications...');
 
-    final DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
-      requestSoundPermission: false,
-      requestBadgePermission: false,
-      requestAlertPermission: false,
-      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-    );
+  //   final DarwinInitializationSettings initializationSettingsIOS =
+  //       const DarwinInitializationSettings(
+  //     requestSoundPermission: false,
+  //     requestBadgePermission: false,
+  //     requestAlertPermission: false,
+  //   );
 
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@drawable/icon');
+  //   const AndroidInitializationSettings initializationSettingsAndroid =
+  //       AndroidInitializationSettings('@drawable/icon');
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-      iOS: initializationSettingsIOS,
-      android: initializationSettingsAndroid,
-    );
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse? response) async {
-        if (response != null && response.payload != null) {
-          debugPrint('notification payload: ' + response.payload!);
-        }
-        // selectNotificationSubject.add(payload!);
-      },
-    );
-  }
+  //   final InitializationSettings initializationSettings =
+  //       InitializationSettings(
+  //     iOS: initializationSettingsIOS,
+  //     android: initializationSettingsAndroid,
+  //   );
+  //   await flutterLocalNotificationsPlugin.initialize(
+  //     initializationSettings,
+  //     onDidReceiveNotificationResponse: (NotificationResponse? response) async {
+  //       if (response != null && response.payload != null) {
+  //         debugPrint('notification payload: ' + response.payload!);
+  //       }
+  //       // selectNotificationSubject.add(payload!);
+  //     },
+  //   );
+  // }
 
   void selectNotification(String payload) async {
     print('Notification tapped, payload: $payload');
@@ -88,50 +86,50 @@ class _HomePageState extends State<HomePage> {
     Get.dialog(Text(body!));
   }
 
-  tz.TZDateTime _nextInstanceOfTenAM(int hour, int minutes) {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-        tz.local, now.year, now.month, now.day, now.hour, now.minute + 1);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
-  }
+  // tz.TZDateTime _nextInstanceOfTenAM(int hour, int minutes) {
+  //   final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+  //   tz.TZDateTime scheduledDate = tz.TZDateTime(
+  //       tz.local, now.year, now.month, now.day, now.hour, now.minute + 1);
+  //   if (scheduledDate.isBefore(now)) {
+  //     scheduledDate = scheduledDate.add(const Duration(days: 1));
+  //   }
+  //   return scheduledDate;
+  // }
 
-  Future<void> scheduledNotification(
-      int reminderId, int hour, int minutes, String reminderName) async {
-    try {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        reminderId,
-        'أذكاري - مكتبة الحكمة',
-        reminderName,
-        _nextInstanceOfTenAM(hour, minutes),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'notificationIdChannel', 'notificationChannel',
-              icon: '@drawable/icon'),
-        ),
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
-        payload: reminderId.toString(),
-      );
-    } catch (e) {
-      print('Error scheduling notification: $e');
-    }
+  // Future<void> scheduledNotification(
+  //     int reminderId, int hour, int minutes, String reminderName) async {
+  //   try {
+  //     await flutterLocalNotificationsPlugin.zonedSchedule(
+  //       reminderId,
+  //       'أذكاري - مكتبة الحكمة',
+  //       reminderName,
+  //       _nextInstanceOfTenAM(hour, minutes),
+  //       const NotificationDetails(
+  //         android: AndroidNotificationDetails(
+  //             'notificationIdChannel', 'notificationChannel',
+  //             icon: '@drawable/icon'),
+  //       ),
+  //       uiLocalNotificationDateInterpretation:
+  //           UILocalNotificationDateInterpretation.absoluteTime,
+  //       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+  //       payload: reminderId.toString(),
+  //     );
+  //   } catch (e) {
+  //     print('Error scheduling notification: $e');
+  //   }
 
-    // Add the notification to the sentNotifications list
-    setState(() {
-      sentNotifications.add({
-        'id': reminderId,
-        'title': reminderName,
-        'hour': hour,
-        'minutes': minutes,
-        'opened': false, // Add this line
-        'timestamp': now, // Add this line
-      });
-    });
-  }
+  // Add the notification to the sentNotifications list
+  //   setState(() {
+  //     sentNotifications.add({
+  //       'id': reminderId,
+  //       'title': reminderName,
+  //       'hour': hour,
+  //       'minutes': minutes,
+  //       'opened': false, // Add this line
+  //       'timestamp': now, // Add this line
+  //     });
+  //   });
+  // }
 
   void startPeriodicTask() async {
     print('Task triggered on app start');
@@ -148,14 +146,14 @@ class _HomePageState extends State<HomePage> {
       print('Post ID: ${post['id']}, lastSeenPostId: $lastSeenPostId');
       if (post['id'] > lastSeenPostId) {
         int reminderId = post['id'];
-        int hour = 10;
-        int minutes = 0;
+        // int hour = 10;
+        // int minutes = 0;
         String reminderName = post['title'];
 
         print(
             'Scheduling notification for post id: $reminderId, title: $reminderName');
-        await scheduledNotification(
-            reminderId, hour, minutes, reminderName); // pass context here
+        // await scheduledNotification(
+        //     reminderId, hour, minutes, reminderName); // pass context here
         print(
             'Notification scheduled for post id: $reminderId, title: $reminderName');
 
@@ -175,39 +173,39 @@ class _HomePageState extends State<HomePage> {
     await prefs.setInt('lastSeenPostId', newLastSeenPostId);
   }
 
-  displayNotification({
-    required String title,
-    required String body,
-    required int postId,
-  }) async {
-    print('doing test');
-    sentNotifications.add({'title': title, 'body': body, 'postId': postId});
-    var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-      'notificationIdChannel',
-      'notificationChannel',
-      importance: Importance.max,
-      icon: '@drawable/icon',
-    );
-    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: iOSPlatformChannelSpecifics,
-    );
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      title,
-      body,
-      platformChannelSpecifics,
-      payload: postId.toString(),
-    );
+  // displayNotification({
+  //   required String title,
+  //   required String body,
+  //   required int postId,
+  // }) async {
+  //   print('doing test');
+  //   sentNotifications.add({'title': title, 'body': body, 'postId': postId});
+  //   var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+  //     'notificationIdChannel',
+  //     'notificationChannel',
+  //     importance: Importance.max,
+  //     icon: '@drawable/icon',
+  //   );
+  //   var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
+  //   var platformChannelSpecifics = NotificationDetails(
+  //     android: androidPlatformChannelSpecifics,
+  //     iOS: iOSPlatformChannelSpecifics,
+  //   );
+  //   await flutterLocalNotificationsPlugin.show(
+  //     0,
+  //     title,
+  //     body,
+  //     platformChannelSpecifics,
+  //     payload: postId.toString(),
+  //   );
 
-    // Add sent notification to the sentNotifications list
-    sentNotifications.add({
-      'title': title,
-      'body': body,
-      'postId': postId,
-    });
-  }
+  //   // Add sent notification to the sentNotifications list
+  //   sentNotifications.add({
+  //     'title': title,
+  //     'body': body,
+  //     'postId': postId,
+  //   });
+  // }
 
   Future<List<Map<String, dynamic>>> fetchLatestPosts() async {
     final response = await http.get(Uri.parse(
@@ -241,7 +239,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _initializeApp(BuildContext context) async {
-    await initializeLocalNotifications(context);
+    // await initializeLocalNotifications(context);
     startPeriodicTask();
   }
 
@@ -249,9 +247,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     if (Platform.isIOS || Platform.isAndroid) {
       _initializeApp(context);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        initializeLocalNotifications(context);
-      });
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      //   initializeLocalNotifications(context);
+      // });
       rateMyApp.init().then((_) {
         if (rateMyApp.shouldOpenDialog) {
           rateMyApp.showRateDialog(
@@ -296,12 +294,12 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
-    AzkaryCubit.get(context).loadLang();
-    notifyHelper = NotifyHelper();
-    notifyHelper.requestIOSPermissions();
-    notifyHelper.requestMACPermissions();
-    AzkaryCubit.get(context).updateGreeting();
-    AzkaryCubit.get(context).loadAzkarFontSize();
+    AzkaryController.instance.loadLang();
+    // notifyHelper = notifications.NotifyHelper();
+    // notifyHelper.requestIOSPermissions();
+    // notifyHelper.requestMACPermissions();
+    AzkaryController.instance.updateGreeting();
+    AzkaryController.instance.loadAzkarFontSize();
     super.initState();
   }
 

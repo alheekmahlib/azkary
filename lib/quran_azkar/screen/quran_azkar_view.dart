@@ -2,10 +2,9 @@ import 'package:Azkary/shared/style.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../azkar/cubit/azkar_cubit.dart';
+import '../../azkar/controllers/azkar_controller.dart';
 import '../../azkar/models/azkar.dart';
 import '../../azkar/screens/azkar_item.dart';
 import '../../l10n/app_localizations.dart';
@@ -138,7 +137,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                     padding: const EdgeInsets.all(8).r,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                         border: Border.symmetric(
                           vertical: BorderSide(
                             color: Theme.of(context).colorScheme.surface,
@@ -173,7 +172,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                         padding: const EdgeInsets.symmetric(horizontal: 8).r,
                         margin: const EdgeInsets.symmetric(horizontal: 8).r,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -225,8 +224,9 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                             ),
                             IconButton(
                               onPressed: () async {
-                                final azkarCubit = context.read<AzkarCubit>();
-                                await azkarCubit
+                                final azkarController =
+                                    AzkarController.instance;
+                                await azkarController
                                     .addAzkar(Azkar(null, widget.surah.name,
                                         '1', '', ayah.ayahNumber, ayah.ayah))
                                     .then((value) => customSnackBar(

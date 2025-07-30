@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 import '../shared/widgets/azkar_fav.dart';
@@ -55,7 +54,7 @@ class _AzkarHomeState extends State<AzkarHome> {
       textDirection: TextDirection.ltr,
       child: Scaffold(
         extendBody: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Padding(
           padding: orientation(
               context,
@@ -65,42 +64,33 @@ class _AzkarHomeState extends State<AzkarHome> {
               const EdgeInsets.symmetric(horizontal: 32.0)),
           child: SliderDrawer(
             key: _key,
-            splashColor: Theme.of(context).colorScheme.background,
-            slideDirection: orientation(context, SlideDirection.TOP_TO_BOTTOM,
-                SlideDirection.LEFT_TO_RIGHT),
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            slideDirection: orientation(context, SlideDirection.topToBottom,
+                SlideDirection.leftToRight),
             sliderOpenSize: platformView(
                 orientation(
                     context, height / 1 / 2 * 1.1, height / 1 / 2 * 1.7),
                 height / 1 / 2 * 1.1),
-            isCupertino: true,
             isDraggable: true,
             appBar: SliderAppBar(
-              appBarColor: Theme.of(context).colorScheme.background,
-              appBarPadding: const EdgeInsets.symmetric(horizontal: 16.0).r,
-              drawerIconColor: Theme.of(context).colorScheme.secondary,
-              drawerIcon: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  size: 24.h,
-                  color: Theme.of(context).colorScheme.surface,
-                ),
-                onPressed: () => _key.currentState?.toggle(),
+              config: SliderAppBarConfig(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0).r,
+                drawerIconColor: Theme.of(context).colorScheme.secondary,
               ),
-              appBarHeight: 40.h,
-              title: Container(),
-              trailing: Container(
-                  alignment: Alignment.centerRight,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0)
-                          .r,
-                  // width: MediaQuery.sizeOf(context).width,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8),
-                      )),
-                  child: greeting(context)),
+              // trailing: Container(
+              //     alignment: Alignment.centerRight,
+              //     padding:
+              //         const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0)
+              //             .r,
+              //     // width: MediaQuery.sizeOf(context).width,
+              //     decoration: BoxDecoration(
+              //         color: Theme.of(context).colorScheme.secondary,
+              //         borderRadius: const BorderRadius.only(
+              //           topLeft: Radius.circular(8),
+              //           topRight: Radius.circular(8),
+              //         )),
+              //     child: greeting(context)),
             ),
             slider: const SettingsList(),
             child: PageView(
@@ -179,7 +169,7 @@ class _AzkarHomeState extends State<AzkarHome> {
             barAnimation: BarAnimation.liquid,
             iconStyle: IconStyle.animated,
           ),
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),
@@ -193,7 +183,7 @@ class _AzkarHomeState extends State<AzkarHome> {
             onPressed: () {
               screenModalBottomSheet(context, AzkarFav());
             },
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             child: Icon(
               CupertinoIcons.heart,
               color: Colors.red,

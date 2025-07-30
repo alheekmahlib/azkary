@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../../home_page.dart';
+import '../../home_page.dart' as pages;
 import '../../screens/splash_screen.dart';
 import '../../shared/postPage.dart';
-import 'cubit/cubit.dart';
+import 'core/core.dart';
 import 'l10n/app_localizations.dart';
 
 class MyApp extends StatefulWidget {
@@ -31,7 +31,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   void setLocale(Locale value) {
     setState(() {
-      AzkaryCubit.get(context).initialLang = value;
+      AzkaryController.instance.initialLang.value = value;
     });
   }
 
@@ -54,8 +54,7 @@ class _MyAppState extends State<MyApp> {
                 controller.setTheme(savedTheme);
               } else {
                 Brightness platformBrightness = SchedulerBinding
-                        .instance.platformDispatcher.platformBrightness ??
-                    Brightness.light;
+                    .instance.platformDispatcher.platformBrightness;
                 if (platformBrightness == Brightness.dark) {
                   controller.setTheme('dark');
                 } else {
@@ -77,8 +76,6 @@ class _MyAppState extends State<MyApp> {
                     onSecondary: Color(0xffD8C4B6),
                     error: Color(0xff213555),
                     onError: Color(0xff213555),
-                    background: Color(0xffF5EFE7),
-                    onBackground: Color(0xffF5EFE7),
                     surface: Color(0xff213555),
                     onSurface: Color(0xff213555),
                   ),
@@ -103,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                   cupertinoOverrideTheme: const CupertinoThemeData(
                     primaryColor: Color(0xff213555),
                   ),
-                ).copyWith(useMaterial3: true),
+                ).copyWith(),
               ),
               AppTheme(
                 id: 'green',
@@ -117,8 +114,6 @@ class _MyAppState extends State<MyApp> {
                     onSecondary: Color(0xff263A29),
                     error: Color(0xff41644A),
                     onError: Color(0xff41644A),
-                    background: Color(0xffF5EFE7),
-                    onBackground: Color(0xffF5EFE7),
                     surface: Color(0xff41644A),
                     onSurface: Color(0xff41644A),
                   ),
@@ -146,7 +141,7 @@ class _MyAppState extends State<MyApp> {
                   cupertinoOverrideTheme: const CupertinoThemeData(
                     primaryColor: Color(0xff606c38),
                   ),
-                ).copyWith(useMaterial3: true),
+                ).copyWith(),
               ),
               AppTheme(
                 id: 'dark',
@@ -160,8 +155,6 @@ class _MyAppState extends State<MyApp> {
                     onSecondary: Color(0xff4d4d4d),
                     error: Color(0xff41644A),
                     onError: Color(0xff41644A),
-                    background: Color(0xff19191a),
-                    onBackground: Color(0xff3F3F3F),
                     surface: Color(0xff41644A),
                     onSurface: Color(0xff41644A),
                   ),
@@ -186,7 +179,7 @@ class _MyAppState extends State<MyApp> {
                   cupertinoOverrideTheme: const CupertinoThemeData(
                     primaryColor: Color(0xff213555),
                   ),
-                ).copyWith(useMaterial3: true),
+                ).copyWith(),
               ),
             ],
             child: ThemeConsumer(
@@ -206,7 +199,7 @@ class _MyAppState extends State<MyApp> {
                     Locale('en', ''),
                     Locale('es', ''),
                   ],
-                  locale: AzkaryCubit.get(context).initialLang,
+                  locale: AzkaryController.instance.initialLang.value,
                   theme: ThemeProvider.themeOf(themeContext).data,
                   builder: BotToastInit(),
                   navigatorObservers: [BotToastNavigatorObserver()],
@@ -220,7 +213,7 @@ class _MyAppState extends State<MyApp> {
                   },
                   home: const Directionality(
                     textDirection: TextDirection.rtl,
-                    child: HomePage(),
+                    child: pages.HomePage(),
                   ),
                 );
               }),

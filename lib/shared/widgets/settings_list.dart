@@ -1,10 +1,10 @@
-import 'package:Azkary/cubit/cubit.dart';
 import 'package:Azkary/screens/about_app.dart';
 import 'package:Azkary/screens/ourApps_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../core/controllers/azkary_controller.dart';
 import '../../l10n/app_localizations.dart';
 import '../../myApp.dart';
 import '../../shared/widgets/svg_picture.dart';
@@ -55,7 +55,7 @@ class SettingsList extends StatelessWidget {
   }
 
   Widget langChange(BuildContext context) {
-    AzkaryCubit cubit = AzkaryCubit.get(context);
+    final ctrl = AzkaryController.instance;
     double width = MediaQuery.sizeOf(context).width;
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -144,7 +144,7 @@ class SettingsList extends StatelessWidget {
                     onTap: () {
                       MyApp.of(context)!.setLocale(
                           const Locale.fromSubtags(languageCode: "ar"));
-                      cubit.saveLang("ar");
+                      ctrl.saveLang("ar");
                     },
                   ),
                   InkWell(
@@ -202,7 +202,7 @@ class SettingsList extends StatelessWidget {
                     onTap: () {
                       MyApp.of(context)!.setLocale(
                           const Locale.fromSubtags(languageCode: "en"));
-                      cubit.saveLang("en");
+                      ctrl.saveLang("en");
                     },
                   ),
                   InkWell(
@@ -260,7 +260,7 @@ class SettingsList extends StatelessWidget {
                     onTap: () {
                       MyApp.of(context)!.setLocale(
                           const Locale.fromSubtags(languageCode: "es"));
-                      cubit.saveLang("es");
+                      ctrl.saveLang("es");
                     },
                   ),
                 ],

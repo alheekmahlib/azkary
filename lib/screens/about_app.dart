@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:Azkary/core/utils/constants/extensions/contact_us_extension.dart';
+import 'package:Azkary/core/utils/constants/extensions/share_app_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -321,9 +323,7 @@ class _AboutAppState extends State<AboutApp> {
                 ),
               ],
             ),
-            onTap: () {
-              share();
-            },
+            onTap: () => shareApp(),
           ),
           hDivider(
             context,
@@ -399,9 +399,10 @@ class _AboutAppState extends State<AboutApp> {
                 ),
               ],
             ),
-            onTap: () {
-              _launchEmail();
-            },
+            onTap: () => contactUs(
+                subject: 'أذكاري من الكتاب والسنة',
+                stringText:
+                    "يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |"),
           ),
           hDivider(
             context,

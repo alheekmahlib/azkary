@@ -14,7 +14,7 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../azkar/screens/azkar_item.dart';
-import '../../cubit/cubit.dart';
+import '../../core/controllers/azkary_controller.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/svg_picture.dart';
 
@@ -115,7 +115,7 @@ Widget delete(BuildContext context) {
 customSnackBar(BuildContext context, String text) async {
   final colorSchemeSurface = Theme.of(context).colorScheme.surface;
 
-  var cancel = BotToast.showCustomNotification(
+  BotToast.showCustomNotification(
     enableSlideOff: false,
     toastBuilder: (cancelFunc) {
       return Container(
@@ -229,7 +229,7 @@ allModalBottomSheet(BuildContext context, Widget child) {
           topRight: Radius.circular(8.0),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
@@ -253,7 +253,7 @@ screenModalBottomSheet(BuildContext context, Widget child) {
           topRight: Radius.circular(8.0),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
@@ -290,7 +290,7 @@ Widget customClose2(BuildContext context) {
         height: 30.h,
         width: 30.w,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(8),
               topLeft: Radius.circular(8),
@@ -325,7 +325,7 @@ Widget customClose3(BuildContext context) {
 
 Widget greeting(BuildContext context) {
   return Text(
-    '| ${AzkaryCubit.get(context).greeting} |',
+    '| ${AzkaryController.instance.greeting} |',
     style: TextStyle(
       fontSize: 14.0.sp,
       fontFamily: 'kufi',
@@ -335,7 +335,7 @@ Widget greeting(BuildContext context) {
   );
 }
 
-Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
+Widget rollingIconBuilder(int value, bool foreground) {
   IconData data = Icons.done;
   if (value.isEven) data = Icons.close;
   return Icon(
@@ -345,7 +345,7 @@ Widget rollingIconBuilder(int value, Size iconSize, bool foreground) {
 }
 
 Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
-  AzkaryCubit cubit = AzkaryCubit.get(context);
+  final ctrl = AzkaryController.instance;
   return DropdownButton2(
     isExpanded: true,
     items: [
@@ -364,7 +364,7 @@ Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
             ),
             activeTrackBar: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: Theme.of(context).colorScheme.background),
+                color: Theme.of(context).colorScheme.surface),
           ),
           handlerAnimation: const FlutterSliderHandlerAnimation(
               curve: Curves.elasticOut,
@@ -375,7 +375,7 @@ Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
             lowerValue = lowerValue;
             upperValue = upperValue;
             AzkarItem.fontSizeAzkar = lowerValue;
-            cubit.saveAzkarFontSize(AzkarItem.fontSizeAzkar);
+            ctrl.saveAzkarFontSize(AzkarItem.fontSizeAzkar);
             setState(() {});
           },
           handler: FlutterSliderHandler(
@@ -420,7 +420,7 @@ Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
         offset: const Offset(0, 0),
         scrollbarTheme: ScrollbarThemeData(
           radius: const Radius.circular(8),
-          thickness: MaterialStateProperty.all(6),
+          thickness: WidgetStateProperty.all(6),
         )),
     menuItemStyleData: MenuItemStyleData(
       height: 45.h,
@@ -883,7 +883,7 @@ Widget rightPage(BuildContext context, Widget child) {
         padding: const EdgeInsets.only(right: 12.0, top: 16.0, bottom: 16.0).r,
         child: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12))
@@ -928,7 +928,7 @@ Widget leftPage(BuildContext context, Widget child) {
         padding: const EdgeInsets.only(left: 12.0, top: 16.0, bottom: 16.0),
         child: Container(
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12))),

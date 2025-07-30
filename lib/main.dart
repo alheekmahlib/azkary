@@ -1,61 +1,63 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:Azkary/myApp.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:get/get.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
-import '../../quran_azkar/cubit/quran_azkar_cubit.dart';
-import '../../shared/bloc_observer.dart';
-import '../../shared/local_notifications.dart';
-import 'azkar/cubit/azkar_cubit.dart';
-import 'books/cubit/books_cubit.dart';
-import 'cubit/cubit.dart';
+import 'azkar/controllers/azkar_controller.dart';
+import 'books/controllers/books_controller.dart';
+import 'core/core.dart';
 import 'database/databaseHelper.dart';
 import 'database/notificationDatabase.dart';
-import 'myApp.dart';
+import 'quran_azkar/controllers/quran_azkar_controller.dart';
 
+// دالة التشغيل الرئيسية / Main function
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
-  tz.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
+
+  // تهيئة المنطقة الزمنية / Initialize timezone
+  // final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+  // tz.initializeTimeZones();
+  // tz.setLocalLocation(tz.getLocation(timeZoneName));
+
+  // تهيئة قاعدة البيانات للأنظمة المكتبية / Initialize database for desktop platforms
   if (Platform.isWindows || Platform.isLinux) {
-    // Initialize FFI
     sqfliteFfiInit();
   }
+
+  // تعيين حجم النافذة للأنظمة المكتبية / Set window size for desktop platforms
   if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
     windowSize();
   }
 
-  init();
-  tz.initializeTimeZones();
-  Bloc.observer = MyBlocObserver();
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider<AzkaryCubit>(
-      create: (BuildContext context) => AzkaryCubit(),
-    ),
-    BlocProvider<QuranAzkarCubit>(
-      create: (BuildContext context) => QuranAzkarCubit()..loadData(),
-    ),
-    BlocProvider<AzkarCubit>(
-      create: (BuildContext context) => AzkarCubit(),
-    ),
-    BlocProvider<BooksCubit>(
-      create: (BuildContext context) => BooksCubit(),
-    ),
-  ], child: MyApp(theme: ThemeData.light())));
+  // تهيئة قواعد البيانات والإشعارات / Initialize databases and notifications
+  await init();
+  // tz.initializeTimeZones();
+
+  // تهيئة الخدمات / Initialize services
+  await Get.putAsync(() async => ConnectivityService());
+  await Get.putAsync(() async => ApiClient());
+
+  // تهيئة Controllers / Initialize controllers
+  Get.put(AzkaryController());
+  Get.put(AzkarController());
+  Get.put(BooksController());
+  Get.put(QuranAzkarController()); // تشغيل التطبيق / Run app
+  runApp(MyApp(
+    theme: ThemeData.light(),
+  ));
 }
 
-Future windowSize() async {
+// تعيين حجم النافذة / Set window size
+Future<void> windowSize() async {
   await DesktopWindow.setMinWindowSize(const Size(860, 640));
 }
 
-init() async {
+// تهيئة قواعد البيانات والإشعارات / Initialize databases and notifications
+Future<void> init() async {
   DatabaseHelper databaseHelper = DatabaseHelper.instance;
   databaseHelper.database;
   NotificationDatabaseHelper notificationdatabaseHelper =

@@ -10,7 +10,6 @@
 #endif
 #endif
 
-#import "RateMyAppPlugin.h"
 
 FOUNDATION_EXPORT double rate_my_appVersionNumber;
 FOUNDATION_EXPORT const unsigned char rate_my_appVersionString[];

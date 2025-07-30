@@ -1,7 +1,7 @@
-part of 'quran_azkar_cubit.dart';
+// part of 'quran_azkar_cubit.dart';
 
-@immutable
-abstract class QuranAzkarState {}
+// @immutable
+// abstract class QuranAzkarState {}
 
-class QuranAzkarInitial extends QuranAzkarState {}
-class surahs extends QuranAzkarState {}
+// class QuranAzkarInitial extends QuranAzkarState {}
+// class surahs extends QuranAzkarState {}
