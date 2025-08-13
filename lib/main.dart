@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:Azkary/myApp.dart';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+import '/myApp.dart';
 import 'azkar/controllers/azkar_controller.dart';
 import 'books/controllers/books_controller.dart';
 import 'core/core.dart';
+import 'core/services/notifications_helper.dart' as notify;
 import 'database/databaseHelper.dart';
 import 'database/notificationDatabase.dart';
 import 'quran_azkar/controllers/quran_azkar_controller.dart';
@@ -63,5 +64,12 @@ Future<void> init() async {
   NotificationDatabaseHelper notificationdatabaseHelper =
       NotificationDatabaseHelper.instance;
   notificationdatabaseHelper.database;
-  NotifyHelper().initializeNotification();
+
+  // تهيئة Awesome Notifications / Initialize Awesome Notifications
+  notify.NotifyHelper.initAwesomeNotifications();
+
+  // تهيئة المستمعات والأذونات / Initialize listeners and permissions
+  final notifyHelper = notify.NotifyHelper();
+  notifyHelper.setNotificationsListeners();
+  await notifyHelper.requistPermissions();
 }

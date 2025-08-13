@@ -9,12 +9,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IosAwnCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Runner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-RunnerTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>awesome_notifications.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>awesome_notifications_core.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,16 +44,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>flutter_local_notifications-flutter_local_notifications_privacy.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>flutter_local_notifications.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>flutter_native_splash-flutter_native_splash_privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -49,12 +54,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>flutter_timezone-flutter_timezone_privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>flutter_timezone.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>image_gallery_saver.xcscheme</key>
+		<key>image_gallery_saver_plus.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>in_app_review-in_app_review_privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -109,12 +124,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>sqflite-sqflite_darwin_privacy.xcscheme</key>
+		<key>sqflite_darwin-sqflite_darwin_privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>sqflite.xcscheme</key>
+		<key>sqflite_darwin.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:Azkary/core/utils/constants/extensions/contact_us_extension.dart';
-import 'package:Azkary/core/utils/constants/extensions/share_app_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,12 +7,14 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../shared/widgets/widgets.dart';
+import '/core/utils/constants/extensions/contact_us_extension.dart';
+import '/core/utils/constants/extensions/share_app_extension.dart';
+import "../../core/themes/app_themes.dart";
 import '../l10n/app_localizations.dart';
-import '../shared/widgets/svg_picture.dart';
+import '../widgets/widgets/svg_picture.dart';
+import '../widgets/widgets/widgets.dart';
 
 class AboutApp extends StatefulWidget {
   AboutApp({Key? key}) : super(key: key);
@@ -28,20 +28,6 @@ class _AboutAppState extends State<AboutApp> {
 
   String? versionNumber;
   String? urlStore;
-
-  _launchEmail() async {
-    // ios specification
-    const String subject = "أذكاري من الكتاب والسنة";
-    const String stringText =
-        "يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |";
-    String uri =
-        'mailto:haozo89@gmail.com?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(stringText)}';
-    if (await canLaunchUrl(Uri.parse(uri))) {
-      await launchUrl(Uri.parse(uri));
-    } else {
-      print("No email client found");
-    }
-  }
 
   _launchUrl() async {
     // ios specification
@@ -93,8 +79,8 @@ class _AboutAppState extends State<AboutApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeProvider.themeOf(context).id == 'dark'
-          ? Theme.of(context).colorScheme.background
+      backgroundColor: ThemeController.instance.currentThemeId.value == 'dark'
+          ? Theme.of(context).colorScheme.primaryContainer
           : Theme.of(context).canvasColor,
       body: Directionality(
         textDirection: TextDirection.rtl,
@@ -237,7 +223,7 @@ class _AboutAppState extends State<AboutApp> {
           child: Text(
             '${AppLocalizations.of(context)!.version}: ${_packageInfo.version}',
             style: TextStyle(
-              color: ThemeProvider.themeOf(context).id == 'dark'
+              color: ThemeController.instance.currentThemeId.value == 'dark'
                   ? Colors.white
                   : Theme.of(context).canvasColor,
               fontSize: 12.sp,
@@ -250,7 +236,7 @@ class _AboutAppState extends State<AboutApp> {
   Widget appDetails(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.all(Radius.circular(8)).r),
       padding: const EdgeInsets.all(8.0).r,
       margin: const EdgeInsets.all(16.0).r,
@@ -294,7 +280,7 @@ class _AboutAppState extends State<AboutApp> {
   Widget shareRateApp(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.all(Radius.circular(8)).r),
       padding: const EdgeInsets.all(8.0).r,
       margin: const EdgeInsets.all(16.0).r,
@@ -366,7 +352,7 @@ class _AboutAppState extends State<AboutApp> {
     return Container(
       width: 230,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(8),
             bottomRight: Radius.circular(8),

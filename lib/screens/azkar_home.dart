@@ -1,4 +1,4 @@
-import 'package:Azkary/l10n/app_localizations.dart';
+import '/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,13 +6,14 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
-import '../shared/widgets/azkar_fav.dart';
-import '../shared/widgets/settings_list.dart';
-import '../shared/widgets/widgets.dart';
+import '../widgets/local_notification/notification_screen.dart';
+import '../widgets/widgets/azkar_fav.dart';
+import '../widgets/widgets/settings_list.dart';
+import '../widgets/widgets/svg_picture.dart';
+import '../widgets/widgets/widgets.dart';
 import 'azkar_list.dart';
 import 'main_screen.dart';
 import 'onboarding_screen.dart';
-import 'sentNotification.dart';
 
 class AzkarHome extends StatefulWidget {
   const AzkarHome({super.key});
@@ -54,7 +55,7 @@ class _AzkarHomeState extends State<AzkarHome> {
       textDirection: TextDirection.ltr,
       child: Scaffold(
         extendBody: false,
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         body: Padding(
           padding: orientation(
               context,
@@ -64,7 +65,7 @@ class _AzkarHomeState extends State<AzkarHome> {
               const EdgeInsets.symmetric(horizontal: 32.0)),
           child: SliderDrawer(
             key: _key,
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             slideDirection: orientation(context, SlideDirection.topToBottom,
                 SlideDirection.leftToRight),
             sliderOpenSize: platformView(
@@ -74,9 +75,14 @@ class _AzkarHomeState extends State<AzkarHome> {
             isDraggable: true,
             appBar: SliderAppBar(
               config: SliderAppBarConfig(
-                backgroundColor: Theme.of(context).colorScheme.surface,
+                title: azkary_icon(
+                  context,
+                  width: 60.0,
+                ),
+                splashColor: Theme.of(context).colorScheme.primaryContainer,
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0).r,
-                drawerIconColor: Theme.of(context).colorScheme.secondary,
+                drawerIconColor: Theme.of(context).colorScheme.inversePrimary,
               ),
               // trailing: Container(
               //     alignment: Alignment.centerRight,
@@ -104,7 +110,7 @@ class _AzkarHomeState extends State<AzkarHome> {
               children: [
                 const MainScreen(),
                 const AzkarList(),
-                const SentNotification(),
+                NotificationsScreen(),
               ],
             ),
           ),
@@ -112,8 +118,7 @@ class _AzkarHomeState extends State<AzkarHome> {
         bottomNavigationBar: StylishBottomBar(
           items: [
             BottomBarItem(
-              icon: Opacity(
-                  opacity: selected == 0 ? 1 : .5, child: iconsAsset('home')),
+              icon: iconsAsset('home'),
               selectedIcon: iconsAsset('home'),
               // selectedColor: Colors.teal,
               backgroundColor: Theme.of(context).colorScheme.surface,
@@ -122,14 +127,12 @@ class _AzkarHomeState extends State<AzkarHome> {
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontFamily: 'kufi',
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).canvasColor,
                 ),
               ),
             ),
             BottomBarItem(
-              icon: Opacity(
-                  opacity: selected == 1 ? 1 : .5,
-                  child: iconsAsset('bookList')),
+              icon: iconsAsset('bookList'),
               selectedIcon: iconsAsset('bookList'),
               backgroundColor: Theme.of(context).colorScheme.surface,
               title: Text(
@@ -137,14 +140,12 @@ class _AzkarHomeState extends State<AzkarHome> {
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontFamily: 'kufi',
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).canvasColor,
                 ),
               ),
             ),
             BottomBarItem(
-                icon: Opacity(
-                    opacity: selected == 2 ? 1 : .5,
-                    child: iconsAsset('notification')),
+                icon: iconsAsset('notification'),
                 selectedIcon: iconsAsset('notification'),
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 title: Text(
@@ -152,7 +153,7 @@ class _AzkarHomeState extends State<AzkarHome> {
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontFamily: 'kufi',
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).canvasColor,
                   ),
                 )),
           ],
@@ -169,7 +170,8 @@ class _AzkarHomeState extends State<AzkarHome> {
             barAnimation: BarAnimation.liquid,
             iconStyle: IconStyle.animated,
           ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor:
+              Theme.of(context).colorScheme.surface.withValues(alpha: .6),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(8),
             topRight: Radius.circular(8),

@@ -1,6 +1,6 @@
 {
   "name": "rate_my_app",
-  "version": "2.2.0",
+  "version": "2.3.2",
   "summary": "Allows to kindly ask users to rate your app if custom conditions are met (eg. install time, number of launches, etc...).",
   "description": "Allows to kindly ask users to rate your app if custom conditions are met (eg. install time, number of launches, etc...).",
   "homepage": "https://github.com/Skyost/RateMyApp",

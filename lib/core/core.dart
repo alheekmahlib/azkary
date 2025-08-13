@@ -13,5 +13,3 @@ export 'routes/app_router.dart';
 export 'services/app_services.dart';
 // Themes
 export 'themes/app_themes.dart';
-// Widgets
-export 'widgets/gap.dart';

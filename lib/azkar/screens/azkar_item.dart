@@ -6,9 +6,9 @@ import '../../azkar/controllers/azkar_controller.dart';
 import '../../azkar/models/azkar.dart';
 import '../../azkar/models/azkar_by_category.dart';
 import '../../l10n/app_localizations.dart';
-import '../../shared/share/ayah_to_images.dart';
-import '../../shared/style.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../widgets/share/ayah_to_images.dart';
+import '../../widgets/style.dart';
+import '../../widgets/widgets/widgets.dart';
 
 class AzkarItem extends StatefulWidget {
   const AzkarItem({Key? key, required this.azkar}) : super(key: key);
@@ -159,7 +159,7 @@ class _AzkarItemState extends State<AzkarItem> {
                     padding: const EdgeInsets.all(8).r,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         border: Border.symmetric(
                           vertical: BorderSide(
                             color: Theme.of(context).colorScheme.surface,
@@ -189,7 +189,8 @@ class _AzkarItemState extends State<AzkarItem> {
                         padding: const EdgeInsets.symmetric(horizontal: 8).r,
                         margin: const EdgeInsets.symmetric(horizontal: 8).r,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -214,7 +215,9 @@ class _AzkarItemState extends State<AzkarItem> {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 8).r,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
                                   border: Border.symmetric(
                                       vertical: BorderSide(
                                           color: Theme.of(context)

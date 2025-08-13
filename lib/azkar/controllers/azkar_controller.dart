@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../database/databaseHelper.dart';
 import '../../l10n/app_localizations.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../widgets/widgets/widgets.dart';
 import '../models/azkar.dart';
 
 /// AzkarController - تحكم في الأذكار المفضلة

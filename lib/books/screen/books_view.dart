@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../../azkar/screens/azkar_item.dart';
-import '../../shared/style.dart';
-import '../../shared/widgets/lottie.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../widgets/style.dart';
+import '../../widgets/widgets/lottie.dart';
+import '../../widgets/widgets/widgets.dart';
 import '../controllers/books_controller.dart';
 
 class BooksView extends StatefulWidget {
@@ -25,28 +24,21 @@ class _BooksViewState extends State<BooksView> {
               borderRadius: const BorderRadius.all(Radius.circular(8.0)).r),
           child: orientation(
               context,
-              Stack(
+              Column(
                 children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0).r,
-                      child: booksView(context),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0).r,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        customClose(context),
+                        fontSizeDropDown(context, setState,
+                            Theme.of(context).colorScheme.surface),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0).r,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          customClose(context),
-                          fontSizeDropDown(context, setState,
-                              Theme.of(context).colorScheme.surface),
-                        ],
-                      ),
-                    ),
+                  Expanded(
+                    child: booksView(context),
                   ),
                 ],
               ),
@@ -90,12 +82,13 @@ class _BooksViewState extends State<BooksView> {
             final selectedClass = controller.selectedClass.value!;
 
             return Padding(
-              padding: orientation(context, const EdgeInsets.only(top: 40.0).r,
-                  const EdgeInsets.only(top: 16.0).r),
+              padding: orientation(
+                  context, EdgeInsets.zero, const EdgeInsets.only(top: 16.0).r),
               child: PageView.builder(
                   itemCount: selectedClass.pages.length,
                   itemBuilder: (context, index) {
                     return SingleChildScrollView(
+                      padding: EdgeInsets.zero,
                       child: (index % 2 == 0
                           ? rightPage(
                               context,
@@ -104,7 +97,7 @@ class _BooksViewState extends State<BooksView> {
                                         horizontal: 16.0, vertical: 8.0)
                                     .r,
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text.rich(
                                       TextSpan(children: [
@@ -113,7 +106,7 @@ class _BooksViewState extends State<BooksView> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             selectedClass.pages[index].title ==
                                                     ''
@@ -155,20 +148,24 @@ class _BooksViewState extends State<BooksView> {
                                         TextSpan(
                                           text: selectedClass.pages[index].text,
                                           style: TextStyle(
-                                              color:
-                                                  colorStyle.greenTextColor(),
-                                              fontSize: AzkarItem.fontSizeAzkar,
-                                              fontFamily: 'naskh',
-                                              fontStyle: FontStyle.italic),
+                                            color: colorStyle.greenTextColor(),
+                                            fontSize: AzkarItem.fontSizeAzkar,
+                                            fontFamily: 'naskh',
+                                          ),
                                         ),
                                         WidgetSpan(
                                             child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             selectedClass.pages[index]
                                                         .footnote ==
                                                     ''
                                                 ? Container()
                                                 : Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       const Divider(),
                                                       Padding(
@@ -182,20 +179,12 @@ class _BooksViewState extends State<BooksView> {
                                                               .pages[index]
                                                               .footnote,
                                                           style: TextStyle(
-                                                              color: ThemeProvider.themeOf(
-                                                                              context)
-                                                                          .id ==
-                                                                      'dark'
-                                                                  ? Colors.white
-                                                                  : Theme.of(
-                                                                          context)
-                                                                      .primaryColorDark,
-                                                              fontSize: 20,
-                                                              fontFamily:
-                                                                  'naskh',
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .italic),
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .primaryColorDark,
+                                                            fontSize: 20,
+                                                            fontFamily: 'naskh',
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
@@ -319,14 +308,9 @@ class _BooksViewState extends State<BooksView> {
                                                               .pages[index]
                                                               .footnote,
                                                           style: TextStyle(
-                                                              color: ThemeProvider.themeOf(
-                                                                              context)
-                                                                          .id ==
-                                                                      'dark'
-                                                                  ? Colors.white
-                                                                  : Theme.of(
-                                                                          context)
-                                                                      .primaryColorDark,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColorDark,
                                                               fontSize: 20,
                                                               fontFamily:
                                                                   'naskh',

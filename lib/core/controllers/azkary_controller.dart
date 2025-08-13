@@ -10,8 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../azkar/screens/azkar_item.dart';
 import '../../l10n/app_localizations.dart';
-import '../../shared/reminder_model.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../widgets/reminder_model.dart';
+import '../../widgets/widgets/widgets.dart';
+import '../services/notifications_helper.dart';
 
 // تحكم رئيسي لإدارة الأذكار والتذكيرات والإعدادات
 // Main controller for managing azkar, reminders and settings
@@ -182,13 +183,20 @@ class AzkaryController extends GetxController {
         // Update reminder time
         reminder.time = Time(hour: hour, minute: minute);
 
-        // جدولة الإشعار مع معرف التذكير
-        // Schedule notification with reminder ID
-        // await NotifyHelper().scheduledNotification(
-        //     context, reminder.id, hour, minute, reminder.name);
-        // isConfirmed = true;
-        // log('Reminder time updated: ${hour}:${minute}',
-        //     name: 'AzkaryController');
+        // جدولة الإشعار للتذكير
+        // Schedule notification for reminder
+        await _scheduleReminderNotification(reminder);
+
+        // تأكيد تحديد الوقت
+        // Confirm time selection
+        isConfirmed = true;
+
+        // تحديث واجهة المستخدم
+        // Update UI
+        update(['main_screen']);
+
+        log('Reminder time updated: ${hour}:${minute}',
+            name: 'AzkaryController');
       }
     } catch (e) {
       log('Error showing time picker: $e', name: 'AzkaryController');
@@ -225,7 +233,7 @@ class AzkaryController extends GetxController {
     try {
       // إلغاء الإشعار المجدول
       // Cancel scheduled notification
-      // await NotifyHelper().cancelScheduledNotification(reminders[index].id);
+      await _cancelReminderNotification(reminders[index].id);
 
       // حذف التذكير
       // Delete reminder
@@ -258,6 +266,58 @@ class AzkaryController extends GetxController {
     time.value = newTime;
     log('Time changed to: ${newTime.hour}:${newTime.minute}',
         name: 'AzkaryController');
+  }
+
+  // جدولة إشعار التذكير
+  // Schedule reminder notification
+  Future<void> _scheduleReminderNotification(Reminder reminder) async {
+    try {
+      final notifyHelper = NotifyHelper();
+
+      // إنشاء وقت الجدولة
+      // Create scheduled time
+      final now = DateTime.now();
+      final scheduledTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        reminder.time.hour,
+        reminder.time.minute,
+      );
+
+      // إذا كان الوقت المحدد قد مضى اليوم، جدوله للغد
+      // If the scheduled time has passed today, schedule for tomorrow
+      final finalScheduledTime = scheduledTime.isBefore(now)
+          ? scheduledTime.add(const Duration(days: 1))
+          : scheduledTime;
+
+      await notifyHelper.scheduleReminderNotification(
+        reminderId: reminder.id,
+        reminderName: reminder.name,
+        scheduledTime: finalScheduledTime,
+        isRepeating: true, // تكرار يومي / Daily repeat
+      );
+
+      log('Notification scheduled for reminder ${reminder.id} at ${reminder.time.hour}:${reminder.time.minute}',
+          name: 'AzkaryController');
+    } catch (e) {
+      log('Error scheduling reminder notification: $e',
+          name: 'AzkaryController');
+    }
+  }
+
+  // إلغاء إشعار التذكير
+  // Cancel reminder notification
+  Future<void> _cancelReminderNotification(int reminderId) async {
+    try {
+      final notifyHelper = NotifyHelper();
+      await notifyHelper.cancelNotification(reminderId);
+      log('Notification cancelled for reminder $reminderId',
+          name: 'AzkaryController');
+    } catch (e) {
+      log('Error cancelling reminder notification: $e',
+          name: 'AzkaryController');
+    }
   }
 
   @override

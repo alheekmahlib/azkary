@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../books/screen/books_page.dart';
-import '../shared/lists.dart';
-import '../shared/widgets/books_lists_widgets.dart';
-import '../shared/widgets/svg_picture.dart';
-import '../shared/widgets/widgets.dart';
+import '../widgets/lists.dart';
+import '../widgets/widgets/books_widget.dart';
+import '../widgets/widgets/hisn_list_widget.dart';
+import '../widgets/widgets/quran_azkar_widget.dart';
+import '../widgets/widgets/svg_picture.dart';
+import '../widgets/widgets/widgets.dart';
 
 class AzkarList extends StatelessWidget {
   const AzkarList({super.key});
@@ -16,18 +18,14 @@ class AzkarList extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         body: Padding(
           padding:
               const EdgeInsets.only(bottom: 16.0, right: 16.0, left: 16.0).r,
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8),
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(8),
-              ),
+              borderRadius: BorderRadius.circular(8),
             ),
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
@@ -57,7 +55,7 @@ Widget booksList(BuildContext context) {
               BooksPage(
                 title: booksDetails[0].title,
                 details: booksDetails[0].details,
-                myWidget: quranAzkarWidget(),
+                myWidget: const QuranAzkarWidget(),
               ),
             ),
             book(
@@ -66,7 +64,7 @@ Widget booksList(BuildContext context) {
               BooksPage(
                 title: booksDetails[1].title,
                 details: booksDetails[1].details,
-                myWidget: hisnListBuild(context),
+                myWidget: const HisnListWidget(),
               ),
             ),
             book(
@@ -75,7 +73,7 @@ Widget booksList(BuildContext context) {
               BooksPage(
                 title: booksDetails[2].title,
                 details: booksDetails[2].details,
-                myWidget: booksBuild(context),
+                myWidget: const BooksWidget(),
               ),
             ),
           ],
@@ -94,7 +92,7 @@ Widget booksList(BuildContext context) {
                     BooksPage(
                       title: booksDetails[0].title,
                       details: booksDetails[0].details,
-                      myWidget: quranAzkarWidget(),
+                      myWidget: const QuranAzkarWidget(),
                     ),
                   ),
                   book(
@@ -103,7 +101,7 @@ Widget booksList(BuildContext context) {
                     BooksPage(
                       title: booksDetails[1].title,
                       details: booksDetails[1].details,
-                      myWidget: hisnListBuild(context),
+                      myWidget: const HisnListWidget(),
                     ),
                   ),
                   book(
@@ -112,7 +110,7 @@ Widget booksList(BuildContext context) {
                     BooksPage(
                       title: booksDetails[2].title,
                       details: booksDetails[2].details,
-                      myWidget: booksBuild(context),
+                      myWidget: const BooksWidget(),
                     ),
                   ),
                 ],
@@ -134,7 +132,7 @@ Widget booksList(BuildContext context) {
                           BooksPage(
                             title: booksDetails[0].title,
                             details: booksDetails[0].details,
-                            myWidget: quranAzkarWidget(),
+                            myWidget: const QuranAzkarWidget(),
                           ),
                         ),
                         book(
@@ -143,7 +141,7 @@ Widget booksList(BuildContext context) {
                           BooksPage(
                             title: booksDetails[1].title,
                             details: booksDetails[1].details,
-                            myWidget: hisnListBuild(context),
+                            myWidget: const HisnListWidget(),
                           ),
                         ),
                         book(
@@ -152,7 +150,7 @@ Widget booksList(BuildContext context) {
                           BooksPage(
                             title: booksDetails[2].title,
                             details: booksDetails[2].details,
-                            myWidget: booksBuild(context),
+                            myWidget: const BooksWidget(),
                           ),
                         ),
                       ],
@@ -183,7 +181,8 @@ Widget book(BuildContext context, String title, var widget) {
             margin: const EdgeInsets.all(16.0).r,
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                  color: Theme.of(context).primaryColorDark.withOpacity(.5),
+                  color:
+                      Theme.of(context).primaryColorDark.withValues(alpha: .5),
                   offset: const Offset(0, 10),
                   blurRadius: 10)
             ]),
@@ -266,7 +265,7 @@ Widget bookBanner(BuildContext context) {
                               fontSize: 14.sp,
                               fontFamily: 'naskh',
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.surface,
+                              color: Theme.of(context).canvasColor,
                             ),
                             textAlign: TextAlign.right,
                           ),
@@ -279,7 +278,7 @@ Widget bookBanner(BuildContext context) {
                         BoxShadow(
                             color: Theme.of(context)
                                 .primaryColorDark
-                                .withOpacity(.5),
+                                .withValues(alpha: .5),
                             offset: const Offset(0, 10),
                             blurRadius: 10)
                       ]),

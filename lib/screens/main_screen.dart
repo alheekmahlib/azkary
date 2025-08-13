@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'dart:math';
 
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
@@ -7,10 +8,10 @@ import 'package:get/get.dart';
 
 import '../core/core.dart';
 import '../l10n/app_localizations.dart';
-import '../shared/lists.dart';
-import '../shared/reminder_model.dart';
-import '../shared/style.dart';
-import '../shared/widgets/widgets.dart';
+import '../widgets/lists.dart';
+import '../widgets/reminder_model.dart';
+import '../widgets/style.dart';
+import '../widgets/widgets/widgets.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -48,19 +49,16 @@ class _MainScreenState extends State<MainScreen> {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             body: Padding(
               padding:
                   const EdgeInsets.only(bottom: 16.0, right: 16.0, left: 16.0)
                       .r,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      bottomLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
-                    )),
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 padding: const EdgeInsets.only(top: 16.0),
                 child: orientation(
                     context,
@@ -246,7 +244,7 @@ class _MainScreenState extends State<MainScreen> {
                                         fillColor: Theme.of(context)
                                             .colorScheme
                                             .surface
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                       ),
                                     ),
                                   ),
@@ -325,14 +323,31 @@ class _MainScreenState extends State<MainScreen> {
                                             bool isConfirmed =
                                                 await ctrl.showTimePicker(
                                                     context, reminder);
-                                            if (!isConfirmed) {
+                                            if (isConfirmed) {
+                                              // حفظ التذكيرات بعد جدولة الإشعار
+                                              // Save reminders after scheduling notification
+                                              try {
+                                                await ReminderStorage
+                                                    .saveReminders(
+                                                        ctrl.reminders);
+                                              } catch (e) {
+                                                dev.log(
+                                                    'Error saving reminders: $e',
+                                                    name: 'MainScreen');
+                                              }
+                                            } else {
                                               setState(() {
                                                 reminder.isEnabled = false;
                                               });
+                                              // إعادة حفظ التذكيرات بعد إلغاء التفعيل
+                                              // Re-save reminders after disabling
+                                              await ReminderStorage
+                                                  .saveReminders(
+                                                      ctrl.reminders);
                                             }
                                           } else {
                                             // Cancel the scheduled notification
-                                            // notifications.NotifyHelper()
+                                            // await NotifyHelper()
                                             //     .cancelScheduledNotification(
                                             //         reminder.id);
                                           }
@@ -429,7 +444,7 @@ class _MainScreenState extends State<MainScreen> {
               MediaQuery.sizeOf(context).width,
               platformView(MediaQuery.sizeOf(context).width / 1 / 2 * .8,
                   MediaQuery.sizeOf(context).width / 1 / 2 * .8)),
-          color: Theme.of(context).colorScheme.surface),
+          color: Theme.of(context).colorScheme.primaryContainer),
     );
   }
 }
