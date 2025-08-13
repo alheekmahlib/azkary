@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:theme_provider/theme_provider.dart';
+
+import "../../core/themes/app_themes.dart";
 import '../l10n/app_localizations.dart';
-import '../shared/widgets/widgets.dart';
+import '../widgets/widgets/widgets.dart';
 
 class InfoApp extends StatelessWidget {
   const InfoApp({Key? key}) : super(key: key);
@@ -15,9 +16,10 @@ class InfoApp extends StatelessWidget {
       right: false,
       left: false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Padding(
-          padding: orientation(context,
+          padding: orientation(
+              context,
               const EdgeInsets.only(top: 80.0, bottom: 16.0),
               const EdgeInsets.only(top: 20.0, bottom: 16.0)),
           child: Align(
@@ -32,7 +34,8 @@ class InfoApp extends StatelessWidget {
                   indent: 16,
                 ),
                 Padding(
-                  padding: orientation(context,
+                  padding: orientation(
+                      context,
                       const EdgeInsets.only(top: 30, right: 16, left: 16),
                       const EdgeInsets.only(top: 30, right: 64, left: 64)),
                   child: ListView(
@@ -52,8 +55,9 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
-                                .withOpacity(.2),
+                                .colorScheme
+                                .surface
+                                .withValues(alpha: .2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -62,9 +66,11 @@ class InfoApp extends StatelessWidget {
                         child: Text(
                           AppLocalizations.of(context)!.about_us,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
+                            color:
+                                ThemeController.instance.currentThemeId.value ==
+                                        'dark'
+                                    ? Colors.white
+                                    : Theme.of(context).primaryColor,
                             fontSize: 18,
                             fontFamily: 'kufi',
                           ),
@@ -77,8 +83,9 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
-                                .withOpacity(.2),
+                                .colorScheme
+                                .surface
+                                .withValues(alpha: .2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -87,9 +94,11 @@ class InfoApp extends StatelessWidget {
                         child: Text(
                           AppLocalizations.of(context)!.about_app,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
+                            color:
+                                ThemeController.instance.currentThemeId.value ==
+                                        'dark'
+                                    ? Colors.white
+                                    : Theme.of(context).primaryColor,
                             height: 1.7,
                             fontSize: 15,
                             fontFamily: 'kufi',
@@ -103,8 +112,9 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
-                                .withOpacity(.2),
+                                .colorScheme
+                                .surface
+                                .withValues(alpha: .2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -113,9 +123,11 @@ class InfoApp extends StatelessWidget {
                         child: Text(
                           AppLocalizations.of(context)!.about_app2,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
+                            color:
+                                ThemeController.instance.currentThemeId.value ==
+                                        'dark'
+                                    ? Colors.white
+                                    : Theme.of(context).primaryColor,
                             fontSize: 18,
                             fontFamily: 'kufi',
                           ),
@@ -128,8 +140,9 @@ class InfoApp extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             color: Theme.of(context)
-                                .colorScheme.surface
-                                .withOpacity(.2),
+                                .colorScheme
+                                .surface
+                                .withValues(alpha: .2),
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -138,9 +151,11 @@ class InfoApp extends StatelessWidget {
                         child: Text(
                           AppLocalizations.of(context)!.about_app3,
                           style: TextStyle(
-                            color: ThemeProvider.themeOf(context).id == 'dark'
-                                ? Colors.white
-                                : Theme.of(context).primaryColor,
+                            color:
+                                ThemeController.instance.currentThemeId.value ==
+                                        'dark'
+                                    ? Colors.white
+                                    : Theme.of(context).primaryColor,
                             height: 1.7,
                             fontSize: 15,
                             fontFamily: 'kufi',

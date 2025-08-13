@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -42,3 +44,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Keystore files - Android signing keys
+*.keystore
+*.jks
+*.p12
+*.pem
+key.properties
+my-release-key.keystore
+upload-keystore.jks
+azkary-appgallery-key.p12
+upload_certificate.pem

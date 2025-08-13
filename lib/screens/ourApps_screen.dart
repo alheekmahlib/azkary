@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import 'package:Azkary/l10n/app_localizations.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../shared/ourApp_model.dart';
-import '../shared/widgets/lottie.dart';
-import '../shared/widgets/svg_picture.dart';
-import '../shared/widgets/widgets.dart';
+import '/l10n/app_localizations.dart';
+import "../../core/themes/app_themes.dart";
+import '../widgets/ourApp_model.dart';
+import '../widgets/widgets/lottie.dart';
+import '../widgets/widgets/svg_picture.dart';
+import '../widgets/widgets/widgets.dart';
 
 class OurApps extends StatelessWidget {
   OurApps({super.key});
@@ -78,8 +78,8 @@ class OurApps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeProvider.themeOf(context).id == 'dark'
-          ? Theme.of(context).colorScheme.background
+      backgroundColor: ThemeController.instance.currentThemeId.value == 'dark'
+          ? Theme.of(context).colorScheme.primaryContainer
           : Theme.of(context).canvasColor,
       body: Directionality(
         textDirection: TextDirection.rtl,
@@ -202,7 +202,9 @@ class OurApps extends StatelessWidget {
                       return InkWell(
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8)).r),
                           padding: const EdgeInsets.all(8.0).r,
@@ -241,7 +243,7 @@ class OurApps extends StatelessWidget {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .surface
-                                              .withOpacity(.7),
+                                              .withValues(alpha: .7),
                                           fontSize: 10.sp,
                                           fontFamily: 'kufi',
                                           fontWeight: FontWeight.bold),

@@ -1,17 +1,16 @@
-import 'package:Azkary/shared/style.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../azkar/cubit/azkar_cubit.dart';
+import '/widgets/style.dart';
+import '../../azkar/controllers/azkar_controller.dart';
 import '../../azkar/models/azkar.dart';
 import '../../azkar/screens/azkar_item.dart';
 import '../../l10n/app_localizations.dart';
-import '../../shared/share/ayah_to_images.dart';
-import '../../shared/widgets/svg_picture.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../widgets/share/ayah_to_images.dart';
+import '../../widgets/widgets/svg_picture.dart';
+import '../../widgets/widgets/widgets.dart';
 import '../quran_azkar_model.dart';
 
 class QuranAzkarView extends StatefulWidget {
@@ -40,48 +39,45 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
           ).r),
       child: orientation(
           context,
-          Stack(
+          Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 100.0).r,
-                  child: azkarBuild(context),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 32.0).r,
-                    child: SizedBox(
-                      height: 70.0,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          greenContainer(
-                              context,
-                              30.0,
-                              Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: fontSizeDropDown(context, setState,
-                                        Theme.of(context).canvasColor),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: customClose(context),
-                                  ),
-                                ],
-                              ),
-                              width: MediaQuery.sizeOf(context).width),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: surah_name(context, widget.surah.surah),
-                          ),
-                        ],
-                      ),
-                    )),
+              Padding(
+                  padding: const EdgeInsets.only(top: 32.0).r,
+                  child: SizedBox(
+                    height: 70.0,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        greenContainer(
+                            context,
+                            30.0,
+                            Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: fontSizeDropDown(context, setState,
+                                      Theme.of(context).canvasColor),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: customClose(context,
+                                      firstColor: Theme.of(context).canvasColor,
+                                      secondColor:
+                                          Theme.of(context).canvasColor),
+                                ),
+                              ],
+                            ),
+                            width: MediaQuery.sizeOf(context).width),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: surah_name(context, widget.surah.surah),
+                        ),
+                      ],
+                    ),
+                  )),
+              Flexible(
+                child: azkarBuild(context),
               ),
             ],
           ),
@@ -116,6 +112,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
   Widget azkarBuild(BuildContext context) {
     ColorStyle colorStyle = ColorStyle(context);
     return ListView.separated(
+        shrinkWrap: true,
         itemCount: widget.surah.ayahs.length,
         separatorBuilder: (c, i) => Divider(
               color: Theme.of(context).colorScheme.surface,
@@ -138,7 +135,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                     padding: const EdgeInsets.all(8).r,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         border: Border.symmetric(
                           vertical: BorderSide(
                             color: Theme.of(context).colorScheme.surface,
@@ -173,7 +170,8 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                         padding: const EdgeInsets.symmetric(horizontal: 8).r,
                         margin: const EdgeInsets.symmetric(horizontal: 8).r,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.background,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
                             border: Border.symmetric(
                                 vertical: BorderSide(
                                     color:
@@ -225,8 +223,9 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                             ),
                             IconButton(
                               onPressed: () async {
-                                final azkarCubit = context.read<AzkarCubit>();
-                                await azkarCubit
+                                final azkarController =
+                                    AzkarController.instance;
+                                await azkarController
                                     .addAzkar(Azkar(null, widget.surah.name,
                                         '1', '', ayah.ayahNumber, ayah.ayah))
                                     .then((value) => customSnackBar(

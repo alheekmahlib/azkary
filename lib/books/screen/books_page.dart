@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../shared/widgets/svg_picture.dart';
-import '../../shared/widgets/widgets.dart';
+import '../../widgets/widgets/svg_picture.dart';
+import '../../widgets/widgets/widgets.dart';
 
 class BooksPage extends StatelessWidget {
   final String title;
@@ -24,23 +24,18 @@ class BooksPage extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8.0)).r),
           child: orientation(
               context,
-              Stack(
+              Column(
                 children: [
-                  Align(
+                  Stack(
                     alignment: Alignment.topCenter,
-                    child: bookCard(context),
+                    children: [
+                      bookCard(context),
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: customClose(context)),
+                    ],
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 190.0).r,
-                      child: myWidget,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: customClose(context),
-                  ),
+                  Flexible(child: myWidget),
                 ],
               ),
               Row(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:horizontal_stepper_step/horizontal_stepper_step.dart';
 
-import '../shared/lists.dart';
-import '../shared/widgets/widgets.dart';
+import '../widgets/lists.dart';
+import '../widgets/widgets/widgets.dart';
 
 class OnboardingScreen extends StatefulWidget {
   OnboardingScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       textDirection: TextDirection.rtl,
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
@@ -68,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               color: Theme.of(context)
                                   .colorScheme
                                   .surface
-                                  .withOpacity(.4),
+                                  .withValues(alpha: .4),
                               fontSize: 16.0,
                               fontFamily: 'kufi',
                               fontWeight: FontWeight.w600,
