@@ -6,4 +6,8 @@ class ApiConstants {
       'alheekmahlib/thegarlanded/blob/master/noti.json?raw=true';
   static const String ourAppsUrl =
       'alheekmahlib/thegarlanded/blob/master/ourApps.json?raw=true';
+
+  /// واجهة برمجة تطبيقات تطبيقاتنا على منصّة Vexaltech.
+  /// رابط مطلق — Dio يتجاهل baseUrl عند تمرير رابط مطلق.
+  static const String ourAppsApiUrl = 'https://dash.vexaltech.dev/api/apps';
 }
