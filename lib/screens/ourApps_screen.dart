@@ -1,69 +1,22 @@
-import 'dart:convert';
-
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:either_dart/either.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/l10n/app_localizations.dart';
-import '../../core/services/api_client.dart';
-import '../../core/services/error_handling_system.dart';
 import '../../core/themes/app_themes.dart';
-import '../../core/utils/constants/api_constants.dart';
+import 'ourApps/our_apps_controller.dart';
 import '../widgets/ourApp_model.dart';
 import '../widgets/widgets/lottie.dart';
 import '../widgets/widgets/svg_picture.dart';
 import '../widgets/widgets/widgets.dart';
 
-class OurApps extends StatefulWidget {
+/// OurApps - شاشة "تطبيقاتنا" (Stateless عبر GetView)
+/// تعرض التطبيقات المفلترة من واجهة Vexaltech كبطاقات غنية.
+class OurApps extends GetView<OurAppsController> {
   const OurApps({super.key});
-
-  @override
-  State<OurApps> createState() => _OurAppsState();
-}
-
-class _OurAppsState extends State<OurApps> {
-  late Future<Either<Failure, List<OurAppInfo>>> _future;
-
-  @override
-  void initState() {
-    super.initState();
-    _future = _fetchApps();
-  }
-
-  void _retry() {
-    setState(() {
-      _future = _fetchApps();
-    });
-  }
-
-  /// يجلب التطبيقات من واجهة Vexaltech عبر ApiClient، ثم يفلترها بحسب
-  /// companyName == 'Alheekmah Library'.
-  Future<Either<Failure, List<OurAppInfo>>> _fetchApps() async {
-    final response = await ApiClient().request(
-      endpoint: ApiConstants.ourAppsApiUrl,
-      method: HttpMethod.get,
-    );
-    if (response.isRight) {
-      try {
-        final body = response.right;
-        final decoded = body is String ? jsonDecode(body) : body;
-        final List<dynamic> raw = decoded['apps'] as List<dynamic>;
-        final all = raw
-            .map((e) => OurAppInfo.fromJson(e as Map<String, dynamic>))
-            .toList();
-        final filtered = all
-            .where((a) => a.companyName == 'Alheekmah Library')
-            .toList();
-        return Right(filtered);
-      } catch (e) {
-        return Left(DataSource.DEFAULT.getFailure());
-      }
-    }
-    return Left(response.left);
-  }
 
   _launchURL(BuildContext context, OurAppInfo ourAppInfo) async {
     if (!kIsWeb) {
@@ -102,139 +55,111 @@ class _OurAppsState extends State<OurApps> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeController.instance.currentThemeId.value == 'dark'
-          ? Theme.of(context).colorScheme.primaryContainer
-          : Theme.of(context).canvasColor,
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Transform.translate(
-              offset: const Offset(300, -10),
-              child: Opacity(
-                opacity: .05,
-                child: azkary_icon(
+    return Obx(() {
+      final isDark = ThemeController.instance.currentThemeId.value == 'dark';
+      return Scaffold(
+        backgroundColor: isDark
+            ? Theme.of(context).colorScheme.primaryContainer
+            : Theme.of(context).canvasColor,
+        body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Transform.translate(
+                offset: const Offset(300, -10),
+                child: Opacity(
+                  opacity: .05,
+                  child: azkary_icon(
+                    context,
+                    width: MediaQuery.sizeOf(context).width,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: container(
                   context,
+                  _body(context),
+                  false,
+                  height: orientation(context, 450.0.h, 300.0.h),
                   width: MediaQuery.sizeOf(context).width,
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: container(
-                context,
-                _OurAppBuild(
-                  future: _future,
-                  onRetry: _retry,
-                  onLaunch: (app) => _launchURL(context, app),
-                ),
-                false,
-                height: orientation(context, 450.0.h, 300.0.h),
-                width: MediaQuery.sizeOf(context).width,
-              ),
-            ),
-            Align(
-                alignment: Alignment.center,
-                child: Transform.translate(
-                    offset: orientation(
-                        context, Offset(0, -220.h), Offset(0, -130.h)),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        azkary_logo(
-                          context,
-                          width: 80.0.w,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4)).r),
-                          padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4.0)
-                              .r,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0).r,
-                          child: Text(
-                            'من الكتاب والسُّنة',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontFamily: 'kufi',
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).canvasColor,
+              Align(
+                  alignment: Alignment.center,
+                  child: Transform.translate(
+                      offset: orientation(
+                          context, Offset(0, -220.h), Offset(0, -130.h)),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          azkary_logo(
+                            context,
+                            width: 80.0.w,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4))
+                                        .r),
+                            padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0)
+                                .r,
+                            margin:
+                                const EdgeInsets.symmetric(vertical: 8.0).r,
+                            child: Text(
+                              'من الكتاب والسُّنة',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontFamily: 'kufi',
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).canvasColor,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ))),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: orientation(
+                        ],
+                      ))),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: orientation(
+                      context,
+                      const EdgeInsets.symmetric(vertical: 64.0).r,
+                      const EdgeInsets.symmetric(vertical: 32.0).r),
+                  child: alheekmah_logo(
                     context,
-                    const EdgeInsets.symmetric(vertical: 64.0).r,
-                    const EdgeInsets.symmetric(vertical: 32.0).r),
-                child: alheekmah_logo(
-                  context,
-                  width: 60.w,
+                    width: 60.w,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 48.0, right: 16.0).r,
-                child: customArrowBack(context),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 48.0, right: 16.0).r,
+                  child: customArrowBack(context),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
-}
 
-class _OurAppBuild extends StatelessWidget {
-  final Future<Either<Failure, List<OurAppInfo>>> future;
-  final VoidCallback onRetry;
-  final ValueChanged<OurAppInfo> onLaunch;
-
-  const _OurAppBuild({
-    required this.future,
-    required this.onRetry,
-    required this.onLaunch,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<Either<Failure, List<OurAppInfo>>>(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return bookLoading(200.0.w, 200.0.h);
-        }
-
-        if (snapshot.hasError) {
-          return _errorView(context, snapshot.error.toString());
-        }
-
-        final result = snapshot.data;
-        if (result == null) {
-          return _errorView(context, 'null');
-        }
-
-        return result.fold(
-          (failure) => _errorView(context, failure.message),
-          (apps) {
-            if (apps.isEmpty) {
-              return _emptyView(context);
-            }
-            return _list(context, apps);
-          },
-        );
-      },
-    );
+  /// جسم الشاشة: يتفرّع على حالة المتحكم (تحميل/خطأ/فارغ/بيانات)
+  Widget _body(BuildContext context) {
+    if (controller.isLoading.value) {
+      return bookLoading(200.0.w, 200.0.h);
+    }
+    if (controller.errorMessage.value.isNotEmpty) {
+      return _errorView(context, controller.errorMessage.value);
+    }
+    if (controller.apps.isEmpty) {
+      return _emptyView(context);
+    }
+    return _list(context, controller.apps);
   }
 
   Widget _list(BuildContext context, List<OurAppInfo> apps) {
@@ -260,8 +185,10 @@ class _OurAppBuild extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0).r,
                 child: hDivider(context),
               ),
-              itemBuilder: (context, index) =>
-                  _AppCard(app: apps[index], onLaunch: onLaunch),
+              itemBuilder: (context, index) => _AppCard(
+                app: apps[index],
+                onLaunch: (app) => _launchURL(context, app),
+              ),
             ),
           ),
         ],
@@ -287,7 +214,7 @@ class _OurAppBuild extends StatelessWidget {
             ),
             SizedBox(height: 16.0.h),
             FilledButton.icon(
-              onPressed: onRetry,
+              onPressed: controller.fetchApps,
               icon: const Icon(Icons.refresh),
               label: Text(
                 AppLocalizations.of(context)!.ourApps,
@@ -389,9 +316,8 @@ class _AppCard extends StatelessWidget {
                     Wrap(
                       spacing: 6.0.w,
                       runSpacing: 4.0.h,
-                      children: app.tags!
-                          .map((t) => _tagChip(context, t))
-                          .toList(),
+                      children:
+                          app.tags!.map((t) => _tagChip(context, t)).toList(),
                     ),
                   ],
                   if (app.banners != null && app.banners!.isNotEmpty) ...[
