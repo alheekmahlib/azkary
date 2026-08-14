@@ -14,7 +14,7 @@
     "tag": "1.0.0"
   },
   "platforms": {
-    "osx": "10.14"
+    "osx": "10.15"
   },
   "vendored_frameworks": "path/to/nothing"
 }

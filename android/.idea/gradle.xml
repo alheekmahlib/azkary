@@ -4,26 +4,39 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$USER_HOME$/flutter/packages/flutter_tools/gradle" name="gradle">
+                <projects>
+                  <project path="$USER_HOME$/flutter/packages/flutter_tools/gradle" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/awesome_notifications-0.10.1/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/awesome_notifications_core-0.10.1/android" />
             <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/device_info_plus-10.1.2/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.2/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_native_splash-2.4.1/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_timezone-3.0.0/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/image_gallery_saver-2.0.3/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/in_app_review-2.0.9/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/package_info_plus-8.0.2/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.2.10/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/rate_my_app-2.2.0/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_android-2.3.1/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sqflite-2.3.3+1/android" />
-            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.9/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_native_splash-2.4.4/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_timezone-4.1.1/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/image_gallery_saver_plus-4.0.1/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/in_app_review-2.0.10/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/package_info_plus-8.3.1/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.2.17/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/rate_my_app-2.3.2/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-11.1.0/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_android-2.4.11/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sqflite_android-2.4.0/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.17/android" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$USER_HOME$/flutter/packages/flutter_tools/gradle" />
           </set>
         </option>
       </GradleProjectSettings>

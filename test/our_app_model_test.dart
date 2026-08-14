@@ -1,4 +1,4 @@
-import 'package:azkary/widgets/ourApp_model.dart';
+import 'package:azkary/presentation/screens/our_apps/our_apps.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

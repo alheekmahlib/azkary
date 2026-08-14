@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   awesome_notifications_core
+  clipboard
   desktop_window
   flutter_timezone
   share_plus

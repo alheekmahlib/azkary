@@ -8,6 +8,7 @@
 
 #include <awesome_notifications/awesome_notifications_plugin_c_api.h>
 #include <awesome_notifications_core/awesome_notifications_core_plugin_c_api.h>
+#include <clipboard/clipboard_plugin.h>
 #include <desktop_window/desktop_window_plugin.h>
 #include <flutter_timezone/flutter_timezone_plugin_c_api.h>
 #include <share_plus/share_plus_windows_plugin_c_api.h>
@@ -18,6 +19,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("AwesomeNotificationsPluginCApi"));
   AwesomeNotificationsCorePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("AwesomeNotificationsCorePluginCApi"));
+  ClipboardPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("ClipboardPlugin"));
   DesktopWindowPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("DesktopWindowPlugin"));
   FlutterTimezonePluginCApiRegisterWithRegistrar(
