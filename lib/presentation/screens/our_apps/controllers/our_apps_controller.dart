@@ -1,6 +1,5 @@
 part of '../our_apps.dart';
 
-
 /// OurAppsController - تحكم في شاشة "تطبيقاتنا"
 /// يجلب التطبيقات من واجهة Vexaltech عبر ApiClient ويفلترها حسب الشركة.
 class OurAppsController extends GetxController {
@@ -54,6 +53,21 @@ class OurAppsController extends GetxController {
       errorMessage.value = DataSource.DEFAULT.getFailure().message;
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  /// يفتح صفحة تنزيل التطبيق عبر dynamicLink القادم من Vexaltech
+  /// (يُشتق من slug داخل الموديل إن غاب الرابط الصريح).
+  Future<void> launchApp(OurAppInfo app) async {
+    if (app.dynamicLink.isEmpty) {
+      log('No download link for app ${app.id}', name: 'OurAppsController');
+      return;
+    }
+    final uri = Uri.parse(app.dynamicLink);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      log('No url client found', name: 'OurAppsController');
     }
   }
 }

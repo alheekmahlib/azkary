@@ -57,8 +57,8 @@ android {
         applicationId "com.alheekmah.azkaryapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 24// flutter.minSdkVersion
-        targetSdkVersion 35// flutter.targetSdkVersion
+        minSdkVersion 24 // flutter.minSdkVersion
+        targetSdkVersion 37 // flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
