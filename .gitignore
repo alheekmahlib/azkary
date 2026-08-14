@@ -55,3 +55,15 @@ my-release-key.keystore
 upload-keystore.jks
 azkary-appgallery-key.p12
 upload_certificate.pem
+
+# AppGallery / signing materials (contain PLAIN private key)
+azkary-final-appgallery/
+azkary-final-appgallery.zip
+sign.zip
+encryptedPrivateKey
+
+# Local config (SDK paths)
+**/local.properties
+
+# Agent workspace
+.zcode/
