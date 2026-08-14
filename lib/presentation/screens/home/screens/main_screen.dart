@@ -1,45 +1,15 @@
-import 'dart:developer' as dev;
-import 'dart:math';
+part of '../home.dart';
 
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
-import '../core/core.dart';
-import '../l10n/app_localizations.dart';
-import '../widgets/lists.dart';
-import '../widgets/reminder_model.dart';
-import '../widgets/style.dart';
-import '../widgets/widgets/widgets.dart';
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
+/// مفاتيح حقول نص التذكيرات (تُعاد تعبئتها في كل بناء)
+/// Reminder text-field keys (re-populated on each build)
 List<GlobalKey> textFieldKeys = [];
 
-class _MainScreenState extends State<MainScreen> {
-  var element;
-  Random rnd = Random();
+class MainScreen extends GetView<AzkaryController> {
+  MainScreen({super.key});
 
-  @override
-  void initState() {
-    element = zikr[rnd.nextInt(zikr.length)];
-    AzkaryController.instance.loadReminders();
-    super.initState();
-  }
-
-  void initializeTextFields() {
-    final ctrl = AzkaryController.instance;
-    for (int i = 0; i < ctrl.reminders.length; i++) {
-      GlobalKey textFieldKey = GlobalKey();
-      textFieldKeys.add(textFieldKey);
-    }
-  }
+  /// ذكر اليوم (يُختار عشوائياً عند البناء الأول) / Dikhr of the day
+  static final Random _rnd = Random();
+  final String element = zikr[_rnd.nextInt(zikr.length)];
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +35,9 @@ class _MainScreenState extends State<MainScreen> {
                     ListView(
                       padding: EdgeInsets.zero,
                       children: [
-                        hijriDate(context),
+                        hijriDateWidget(context),
                         zkrWidget(context),
-                        reminderWidget(),
+                        reminderWidget(context),
                       ],
                     ),
                     SingleChildScrollView(
@@ -85,12 +55,12 @@ class _MainScreenState extends State<MainScreen> {
                               height: MediaQuery.sizeOf(context).height,
                               child: Column(
                                 children: [
-                                  hijriDate(context),
+                                  hijriDateWidget(context),
                                   Padding(
                                     padding: platformView(
                                         const EdgeInsets.all(0.0),
                                         const EdgeInsets.only(top: 80.0)),
-                                    child: reminderWidget(),
+                                    child: reminderWidget(context),
                                   ),
                                 ],
                               ),
@@ -114,9 +84,11 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget reminderWidget() {
+  Widget reminderWidget(BuildContext context) {
     final ctrl = AzkaryController.instance;
-    initializeTextFields();
+    // إعادة تعيين المفاتيح في كل بناء لتفادي النمو اللانهائي
+    // Reset keys on each build to avoid unbounded growth
+    textFieldKeys.clear();
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
@@ -138,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                       color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(6))),
                   child: Text(
-                    AppLocalizations.of(context)!.addReminder,
+                    'addReminder'.tr,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontSize: 14.sp,
@@ -153,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
                       final reminder = ctrl.reminders[index];
                       TextEditingController controller =
                           TextEditingController(text: reminder.name);
-                      // Create a new GlobalKey for the TextField and add it to the list
+                      // مفتاح مستقر لكل تذكير / Stable key per reminder
                       GlobalKey textFieldKey = GlobalKey();
                       textFieldKeys.add(textFieldKey);
                       return Padding(
@@ -179,7 +151,6 @@ class _MainScreenState extends State<MainScreen> {
                                     child: TextField(
                                       key: textFieldKeys[index],
                                       controller: controller,
-                                      // focusNode: _textFocusNode,
                                       autofocus: false,
                                       cursorHeight: 18.h,
                                       cursorWidth: 3.w,
@@ -209,12 +180,8 @@ class _MainScreenState extends State<MainScreen> {
                                                   bottom: 8.0),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  setState(() {
-                                                    reminder.name =
-                                                        controller.text;
-                                                  });
-                                                  ReminderStorage.saveReminders(
-                                                      ctrl.reminders);
+                                                  ctrl.updateReminderName(
+                                                      index, controller.text);
                                                 },
                                                 child: Icon(
                                                   Icons.done,
@@ -313,43 +280,28 @@ class _MainScreenState extends State<MainScreen> {
                                         values: const [0, 1],
                                         onChanged: (i) async {
                                           bool value = i == 1;
-                                          setState(() {
-                                            reminder.isEnabled = value;
-                                          });
-                                          ReminderStorage.saveReminders(
-                                              ctrl.reminders);
-                                          if (reminder.isEnabled) {
+                                          await ctrl.toggleReminder(
+                                              index, value);
+                                          if (value) {
+                                            // عرض منتقي الوقت لضبط وقت التذكير
                                             // Show the TimePicker to set the reminder time
                                             bool isConfirmed =
                                                 await ctrl.showTimePicker(
                                                     context, reminder);
                                             if (isConfirmed) {
-                                              // حفظ التذكيرات بعد جدولة الإشعار
-                                              // Save reminders after scheduling notification
                                               try {
                                                 await ReminderStorage
                                                     .saveReminders(
                                                         ctrl.reminders);
                                               } catch (e) {
-                                                dev.log(
+                                                log(
                                                     'Error saving reminders: $e',
                                                     name: 'MainScreen');
                                               }
                                             } else {
-                                              setState(() {
-                                                reminder.isEnabled = false;
-                                              });
-                                              // إعادة حفظ التذكيرات بعد إلغاء التفعيل
-                                              // Re-save reminders after disabling
-                                              await ReminderStorage
-                                                  .saveReminders(
-                                                      ctrl.reminders);
+                                              await ctrl.toggleReminder(
+                                                  index, false);
                                             }
-                                          } else {
-                                            // Cancel the scheduled notification
-                                            // await NotifyHelper()
-                                            //     .cancelScheduledNotification(
-                                            //         reminder.id);
                                           }
                                         },
                                         style: ToggleStyle(

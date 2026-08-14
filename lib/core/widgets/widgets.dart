@@ -10,24 +10,23 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hijri/hijri_calendar.dart';
+import 'package:get/get.dart';
+import 'package:hijri_date/hijri_date.dart';
 
-import '../../azkar/screens/azkar_item.dart';
-import '../../core/controllers/azkary_controller.dart';
-import "../../core/themes/app_themes.dart";
-import '../../l10n/app_localizations.dart';
+import '../../presentation/controllers/azkary_controller.dart';
+import '../../presentation/controllers/theme_controller.dart';
 import 'svg_picture.dart';
 
 double lowerValue = 25.sp;
 double upperValue = 40.sp;
 String? selectedValue;
 
-Widget hijriDate(BuildContext context) {
+Widget hijriDateWidget(BuildContext context) {
   ArabicNumbers arabicNumber = ArabicNumbers();
-  var _today = HijriCalendar.now();
-  AppLocalizations.of(context)!.appLang == "لغة التطبيق"
-      ? HijriCalendar.setLocal('ar')
-      : HijriCalendar.setLocal('en');
+  var _today = HijriDate.now();
+  Get.locale?.languageCode == 'ar'
+      ? HijriDate.setLocal('ar')
+      : HijriDate.setLocal('en');
   return Container(
     height: 150.h,
     width: orientation(
@@ -86,7 +85,7 @@ Widget delete(BuildContext context) {
               size: 18.h,
             ),
             Text(
-              AppLocalizations.of(context)!.delete,
+              'delete'.tr,
               style: TextStyle(
                   color: Colors.white, fontSize: 14.sp, fontFamily: 'kufi'),
             )
@@ -101,7 +100,7 @@ Widget delete(BuildContext context) {
               size: 18.h,
             ),
             Text(
-              AppLocalizations.of(context)!.delete,
+              'delete'.tr,
               style: TextStyle(
                   color: Colors.white, fontSize: 14.sp, fontFamily: 'kufi'),
             )
@@ -348,14 +347,15 @@ Widget rollingIconBuilder(int value, bool foreground) {
   );
 }
 
-Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
+Widget fontSizeDropDown(BuildContext context, Color color) {
   final ctrl = AzkaryController.instance;
-  return DropdownButton2(
+  return Obx(() => DropdownButton2(
     isExpanded: true,
     items: [
-      DropdownMenuItem<String>(
+      DropdownItem(
+        height: 45.h,
         child: FlutterSlider(
-          values: [AzkarItem.fontSizeAzkar],
+          values: [ctrl.fontSizeAzkar.value],
           max: 40,
           min: 18,
           rtl: true,
@@ -376,11 +376,8 @@ Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
               duration: Duration(milliseconds: 700),
               scale: 1.4),
           onDragging: (handlerIndex, lowerValue, upperValue) {
-            lowerValue = lowerValue;
-            upperValue = upperValue;
-            AzkarItem.fontSizeAzkar = lowerValue;
-            ctrl.saveAzkarFontSize(AzkarItem.fontSizeAzkar);
-            setState(() {});
+            ctrl.fontSizeAzkar.value = lowerValue;
+            ctrl.saveAzkarFontSize(lowerValue);
           },
           handler: FlutterSliderHandler(
             decoration: const BoxDecoration(),
@@ -392,14 +389,10 @@ Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
             ),
           ),
         ),
-      )
+      ),
     ],
-    value: selectedValue,
-    onChanged: (value) {
-      setState(() {
-        selectedValue = value as String;
-      });
-    },
+    valueListenable: ValueNotifier(null),
+    onChanged: (value) {},
     customButton: Icon(
       Icons.format_size,
       size: 22.h,
@@ -426,10 +419,7 @@ Widget fontSizeDropDown(BuildContext context, var setState, Color color) {
           radius: const Radius.circular(8),
           thickness: WidgetStateProperty.all(6),
         )),
-    menuItemStyleData: MenuItemStyleData(
-      height: 45.h,
-    ),
-  );
+  ));
 }
 
 Widget container(BuildContext context, Widget myWidget, bool show,

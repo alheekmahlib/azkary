@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:url_launcher/url_launcher.dart';
 
 extension LaunchAlheekmahUrlExtension on void {
@@ -6,7 +8,7 @@ extension LaunchAlheekmahUrlExtension on void {
     if (await canLaunchUrl(Uri.parse(uri))) {
       await launchUrl(Uri.parse(uri));
     } else {
-      print("No url client found");
+      log("No url client found", name: 'LaunchAlheekmahUrl');
     }
   }
 }

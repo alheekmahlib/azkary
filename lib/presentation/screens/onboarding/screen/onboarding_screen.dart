@@ -1,33 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:horizontal_stepper_step/horizontal_stepper_step.dart';
+part of '../onboarding.dart';
 
-import '../widgets/lists.dart';
-import '../widgets/widgets/widgets.dart';
-
-class OnboardingScreen extends StatefulWidget {
-  OnboardingScreen({Key? key}) : super(key: key);
-
-  @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
-}
-
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final controller = PageController(viewportFraction: 1, keepPage: true);
-  int? pageNumber;
-  double indicatorProgress = .0;
-  bool progress = true;
-
-  indicator(int pageNumber) {
-    if (pageNumber == 0) {
-      indicatorProgress = .0;
-    } else if (pageNumber == 1) {
-      indicatorProgress = .33;
-    } else if (pageNumber == 2) {
-      indicatorProgress = .66;
-    } else if (pageNumber == 3) {
-      indicatorProgress = 1.0;
-    }
-  }
+/// OnboardingScreen - شاشة الترحيب (Stateless عبر GetView)
+/// Onboarding screen (stateless via GetView)
+class OnboardingScreen extends GetView<OnboardingController> {
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +11,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       textDirection: TextDirection.rtl,
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),
@@ -49,12 +25,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     FittedBox(
-                      child: HorizontalStepper(
-                        totalStep: 4,
-                        completedStep: pageNumber ?? 1,
-                        selectedColor: Theme.of(context).colorScheme.surface,
-                        backGroundColor:
-                            Theme.of(context).colorScheme.secondary,
+                      child: Obx(
+                        () => HorizontalStepper(
+                          totalStep: 4,
+                          completedStep: controller.pageNumber.value,
+                          selectedColor: Theme.of(context).colorScheme.surface,
+                          backGroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
                     ),
                     Row(
@@ -77,11 +55,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,
                               elevation: 0),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          onPressed: () => Get.back(),
                         ),
-                        pageNumber == 4
+                        Obx(() => controller.pageNumber.value == 4
                             ? Align(
                                 alignment: Alignment.topLeft,
                                 child: ElevatedButton(
@@ -96,14 +72,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       backgroundColor: Colors.transparent,
                                       elevation: 0),
                                   onPressed: () {
-                                    if (pageNumber == 4) {
-                                      Navigator.pop(context);
+                                    if (controller.pageNumber.value == 4) {
+                                      Get.back();
                                     } else {
-                                      controller.animateToPage(
-                                          controller.page!.toInt() + 1,
-                                          duration:
-                                              const Duration(milliseconds: 400),
-                                          curve: Curves.easeIn);
+                                      controller.nextPage();
                                     }
                                   },
                                 ),
@@ -119,15 +91,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.transparent,
                                       elevation: 0),
-                                  onPressed: () {
-                                    controller.animateToPage(
-                                        controller.page!.toInt() + 1,
-                                        duration:
-                                            const Duration(milliseconds: 400),
-                                        curve: Curves.easeIn);
-                                  },
+                                  onPressed: controller.nextPage,
                                 ),
-                              ),
+                              )),
                       ],
                     ),
                   ],
@@ -145,16 +111,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         top: 60.0,
                       )),
                   child: PageView.builder(
-                      controller: controller,
+                      controller: controller.pageController,
                       itemCount: platformView(
                           orientation(context, images.length, images.length),
                           images.length),
-                      onPageChanged: (page) {
-                        setState(() {
-                          pageNumber = page + 1;
-                          indicator(page);
-                        });
-                      },
+                      onPageChanged: controller.onPageChanged,
                       itemBuilder: (context, index) {
                         return SingleChildScrollView(
                           child: Wrap(

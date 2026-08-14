@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-
-import '../fetchBooks.dart';
-import '../model/books_model.dart';
+part of '../books.dart';
 
 /// BooksController - تحكم في الكتب والفئات
 /// Controller for managing books and classes
@@ -47,8 +43,8 @@ class BooksController extends GetxController {
 
       return fetchedClasses;
     } catch (e, s) {
-      print('Exception details:\n $e');
-      print('Stack trace:\n $s');
+      log('Exception details:\n $e', name: 'BooksController');
+      log('Stack trace:\n $s', name: 'BooksController');
       errorMessage.value = 'خطأ في تحميل الفئات: $e';
 
       // في حالة الخطأ، ارمي الاستثناء - In case of error, throw the exception

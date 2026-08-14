@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
-import "../../core/themes/app_themes.dart";
-import '../l10n/app_localizations.dart';
-import '../widgets/widgets/widgets.dart';
+part of '../about.dart';
 
 class InfoApp extends StatelessWidget {
   const InfoApp({Key? key}) : super(key: key);
@@ -64,7 +59,7 @@ class InfoApp extends StatelessWidget {
                                         Theme.of(context).colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_us,
+                          'about_us'.tr,
                           style: TextStyle(
                             color:
                                 ThemeController.instance.currentThemeId.value ==
@@ -92,7 +87,7 @@ class InfoApp extends StatelessWidget {
                                         Theme.of(context).colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_app,
+                          'about_app'.tr,
                           style: TextStyle(
                             color:
                                 ThemeController.instance.currentThemeId.value ==
@@ -121,7 +116,7 @@ class InfoApp extends StatelessWidget {
                                         Theme.of(context).colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_app2,
+                          'about_app2'.tr,
                           style: TextStyle(
                             color:
                                 ThemeController.instance.currentThemeId.value ==
@@ -149,7 +144,7 @@ class InfoApp extends StatelessWidget {
                                         Theme.of(context).colorScheme.surface,
                                     width: 2))),
                         child: Text(
-                          AppLocalizations.of(context)!.about_app3,
+                          'about_app3'.tr,
                           style: TextStyle(
                             color:
                                 ThemeController.instance.currentThemeId.value ==

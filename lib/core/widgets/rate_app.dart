@@ -1,5 +1,6 @@
 
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,7 @@ abstract class RateApp {
     appStoreIdentifier: '1500153222',
   );
   reteInit(BuildContext context) {
-    print('rateMyApp' * 4);
+    log('rateMyApp init', name: 'RateApp');
     rateMyApp.init().then((_) {
       if (rateMyApp.shouldOpenDialog) {
         rateMyApp.showRateDialog(
@@ -36,13 +37,13 @@ abstract class RateApp {
             // The button click listener (useful if you want to cancel the click event).
             switch (button) {
               case RateMyAppDialogButton.rate:
-                print('Clicked on "Rate".');
+                log('Clicked on "Rate".', name: 'RateApp');
                 break;
               case RateMyAppDialogButton.later:
-                print('Clicked on "Later".');
+                log('Clicked on "Later".', name: 'RateApp');
                 break;
               case RateMyAppDialogButton.no:
-                print('Clicked on "No".');
+                log('Clicked on "No".', name: 'RateApp');
                 break;
             }
 

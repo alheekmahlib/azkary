@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:day_night_time_picker/lib/state/time.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Reminder {
   int id;
@@ -31,21 +29,29 @@ class Reminder {
   }
 }
 
+/// ReminderStorage — تخزين التذكيرات فوق GetStorage
+/// Reminders storage backed by GetStorage
+///
+/// استُبدلت shared_preferences بـ GetStorage. يخزّن قائمة Map مباشرة
+/// (بدل StringList + jsonEncode لكل عنصر).
+/// Replaced shared_preferences with GetStorage. Stores a list of Map directly
+/// (instead of StringList + per-element jsonEncode).
 class ReminderStorage {
-  static final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  static final GetStorage _box = GetStorage();
   static const String _storageKey = 'reminders';
 
   static Future<void> saveReminders(List<Reminder> reminders) async {
-    SharedPreferences prefs = await _prefs;
-    List<String> remindersJson = reminders.map((r) => jsonEncode(r.toJson())).toList();
-    await prefs.setStringList(_storageKey, remindersJson);
+    await _box.write(
+        _storageKey, reminders.map((r) => r.toJson()).toList());
   }
 
   static Future<List<Reminder>> loadReminders() async {
-    SharedPreferences prefs = await _prefs;
-    List<String> remindersJson = prefs.getStringList(_storageKey)?.cast<String>() ?? [];
-    List<Reminder> reminders = remindersJson.map((r) => Reminder.fromJson(jsonDecode(r))).toList();
-    return reminders;
+    final List<dynamic> raw =
+        _box.read<List<dynamic>>(_storageKey) ?? [];
+    return raw
+        .cast<Map<String, dynamic>>()
+        .map((r) => Reminder.fromJson(r))
+        .toList();
   }
 
   static Future<void> deleteReminder(int id) async {
@@ -53,5 +59,4 @@ class ReminderStorage {
     reminders.removeWhere((r) => r.id == id);
     await saveReminders(reminders);
   }
-
 }

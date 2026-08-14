@@ -1,3 +1,5 @@
+part of '../../books.dart';
+
 class Class {
   final String number;
   final String title;

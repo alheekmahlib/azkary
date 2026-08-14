@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // إدارة ثيمات وألوان التطبيق
 // App themes and colors management
@@ -25,13 +23,17 @@ class AppThemes {
         darkTheme,
       ];
 
+  // معرّف الثيم الافتراضي الموحّد / Unified default theme id
+  static const String defaultThemeId = 'green';
+
   // الثيم الأزرق / Blue theme
   static AppTheme blueTheme = AppTheme(
     id: 'blue',
     description: "الثيم الأزرق / Blue Theme",
     data: ThemeData(
       colorScheme: const ColorScheme(
-        brightness: Brightness.light,
+        // الثيم الأزرق داكن فعلياً / Blue theme is effectively dark
+        brightness: Brightness.dark,
         primary: Color(0xff4F709C),
         onPrimary: Color(0xff213555),
         secondary: Color(0xffe7dfce),
@@ -161,78 +163,7 @@ class AppThemes {
   static AppTheme getThemeById(String id) {
     return themes.firstWhere(
       (theme) => theme.id == id,
-      orElse: () => blueTheme,
+      orElse: () => greenTheme,
     );
-  }
-}
-
-// كنترولر إدارة الثيم / Theme controller
-class ThemeController extends GetxController {
-  static ThemeController get instance => Get.isRegistered<ThemeController>()
-      ? Get.find<ThemeController>()
-      : Get.put(ThemeController());
-
-  final RxString currentThemeId = 'blue'.obs;
-  final RxBool isDarkMode = false.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    // تحميل الثيم بشكل غير متزامن
-    loadThemeFromPrefs();
-  }
-
-  // تغيير الثيم / Change theme
-  void changeTheme(String themeId) {
-    currentThemeId.value = themeId;
-    AppTheme selectedTheme = AppThemes.getThemeById(themeId);
-    Get.changeTheme(selectedTheme.data);
-    update(); // تحديث جميع GetBuilder widgets
-    saveThemeToPrefs();
-  }
-
-  // تبديل بين الفاتح والداكن / Toggle between light and dark
-  void toggleDarkMode() {
-    if (currentThemeId.value == 'dark') {
-      changeTheme('blue');
-    } else {
-      changeTheme('dark');
-    }
-  }
-
-  // حفظ الثيم في التفضيلات / Save theme to preferences
-  Future<void> saveThemeToPrefs() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('selected_theme', currentThemeId.value);
-      print('تم حفظ الثيم: ${currentThemeId.value}');
-    } catch (e) {
-      print('خطأ في حفظ الثيم: $e');
-    }
-  }
-
-  // تحميل الثيم من التفضيلات / Load theme from preferences
-  Future<void> loadThemeFromPrefs() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final savedThemeId = prefs.getString('selected_theme') ?? 'green';
-      print('تم تحميل الثيم المحفوظ: $savedThemeId');
-
-      // تطبيق الثيم المحفوظ
-      currentThemeId.value = savedThemeId;
-      AppTheme selectedTheme = AppThemes.getThemeById(savedThemeId);
-      Get.changeTheme(selectedTheme.data);
-      update(); // تحديث UI
-    } catch (e) {
-      print('خطأ في تحميل الثيم، استخدام الافتراضي: $e');
-      changeTheme('green'); // الثيم الافتراضي في حالة الخطأ
-    }
-  }
-
-  // تحميل الثيم بشكل متزامن للاستخدام في التهيئة / Load theme synchronously
-  String loadThemeSync() {
-    // محاولة الحصول على الثيم المحفوظ بشكل فوري
-    // في حالة عدم التوفر، استخدام الافتراضي
-    return 'green';
   }
 }

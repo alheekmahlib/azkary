@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
 
-import '../../azkar/models/all_azkar.dart';
-import '../../azkar/screens/azkar_item.dart';
-import '../../core/controllers/azkary_controller.dart';
-import '../style.dart';
-import 'widgets.dart';
+import '../../presentation/screens/azkar/azkar.dart';
+import '../../presentation/controllers/azkary_controller.dart';
+import 'style.dart';
 
 /// قائمة الحصن - Hisn List Widget Class
 class HisnListWidget extends StatelessWidget {
@@ -44,11 +43,28 @@ class HisnListWidget extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          screenModalBottomSheet(
-                              context,
-                              AzkarItem(
-                                azkar: azkarDataList[index].toString().trim(),
-                              ));
+                          final categoryName =
+                              azkarDataList[index].toString().trim();
+                          // تسجيل المتحكم بعلامة الفئة وإنشاؤه فوراً لتشغيل onInit
+                          // Register + create immediately with the category tag to run onInit
+                          if (!Get.isRegistered<AzkarItemController>(
+                              tag: categoryName)) {
+                            Get.put<AzkarItemController>(
+                              AzkarItemController(categoryName),
+                              tag: categoryName,
+                            );
+                          }
+                          Get.bottomSheet(
+                            AzkarItem(azkar: categoryName),
+                            isScrollControlled: true,
+                            backgroundColor: Get.theme.colorScheme.surface,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(8.0),
+                              ),
+                            ),
+                          );
                         },
                         child: Row(
                           children: [

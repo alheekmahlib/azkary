@@ -5,14 +5,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../azkar/controllers/azkar_controller.dart';
-import '../../azkar/models/azkar.dart';
-import '../../azkar/screens/azkar_item.dart';
-import "../../core/themes/app_themes.dart";
-import '../../l10n/app_localizations.dart';
-import '../share/ayah_to_images.dart';
-import '../style.dart';
+import '../../presentation/controllers/theme_controller.dart';
+import '../../presentation/screens/azkar/azkar.dart';
 import 'lottie.dart';
+import 'share/ayah_to_images.dart';
 import 'svg_picture.dart';
 import 'widgets.dart';
 
@@ -71,8 +67,6 @@ class AzkarFav extends StatelessWidget {
   }
 
   Widget fav_build(BuildContext context) {
-    ColorStyle colorStyle = ColorStyle(context);
-
     return GetBuilder<AzkarController>(
       id: 'azkarFavWidget',
       init: AzkarController.instance,
@@ -110,7 +104,6 @@ class AzkarFav extends StatelessWidget {
                   itemCount: controller.azkarList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var azkar = controller.azkarList[index];
-                    print(azkar.zekr);
                     return AnimationConfiguration.staggeredList(
                       position: index,
                       duration: const Duration(milliseconds: 450),
@@ -170,8 +163,8 @@ class AzkarFav extends StatelessWidget {
                                             child: Text(
                                               azkar.zekr!,
                                               style: TextStyle(
-                                                  color: colorStyle
-                                                      .greenTextColor(),
+                                                  color: Theme.of(context)
+                                                      .canvasColor,
                                                   height: 1.4,
                                                   fontFamily: 'naskh',
                                                   fontSize:
@@ -206,14 +199,8 @@ class AzkarFav extends StatelessWidget {
                                             child: Text(
                                               azkar.reference!,
                                               style: TextStyle(
-                                                  color: ThemeController
-                                                              .instance
-                                                              .currentThemeId
-                                                              .value ==
-                                                          'dark'
-                                                      ? Colors.white
-                                                      : Theme.of(context)
-                                                          .primaryColorDark,
+                                                  color: Theme.of(context)
+                                                      .canvasColor,
                                                   fontSize: 12.sp,
                                                   fontFamily: 'kufi',
                                                   fontStyle: FontStyle.italic),
@@ -333,8 +320,8 @@ class AzkarFav extends StatelessWidget {
                                                                 .then((value) =>
                                                                     customSnackBar(
                                                                         context,
-                                                                        AppLocalizations.of(context)!
-                                                                            .copyAzkarText));
+                                                                        'copyAzkarText'
+                                                                            .tr));
                                                           },
                                                           icon: Icon(
                                                             Icons.copy,
@@ -370,8 +357,8 @@ class AzkarFav extends StatelessWidget {
                                                                 .then((value) =>
                                                                     customSnackBar(
                                                                         context,
-                                                                        AppLocalizations.of(context)!
-                                                                            .addZekrBookmark));
+                                                                        'addZekrBookmark'
+                                                                            .tr));
                                                           },
                                                           icon: Icon(
                                                             Icons.bookmark_add,

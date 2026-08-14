@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../widgets/widgets/svg_picture.dart';
-import '../../widgets/widgets/widgets.dart';
+part of '../books.dart';
 
 class BooksPage extends StatelessWidget {
   final String title;
@@ -32,7 +28,11 @@ class BooksPage extends StatelessWidget {
                       bookCard(context),
                       Align(
                           alignment: Alignment.topRight,
-                          child: customClose(context)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
+                            child: customArrowBack(context),
+                          )),
                     ],
                   ),
                   Flexible(child: myWidget),
@@ -49,7 +49,7 @@ class BooksPage extends StatelessWidget {
                         children: [
                           Align(
                               alignment: Alignment.topRight,
-                              child: customClose(context)),
+                              child: customArrowBack(context)),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16.0).r,
                             child: Column(

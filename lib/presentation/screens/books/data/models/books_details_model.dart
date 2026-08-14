@@ -1,3 +1,5 @@
+part of '../../books.dart';
+
 class BooksDetails {
   String title;
   String details;

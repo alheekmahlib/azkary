@@ -1,5 +1,5 @@
 
-import '../books/model/books_details_model.dart';
+import '../../../presentation/screens/books/books.dart';
 
 List<String> zikr = <String>[
   'اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور.',

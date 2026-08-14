@@ -1,3 +1,5 @@
+part of '../../quran_azkar.dart';
+
 class Surah {
   final int surah;
   final String name;

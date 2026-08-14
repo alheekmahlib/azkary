@@ -1,17 +1,4 @@
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '/l10n/app_localizations.dart';
-import '../../core/themes/app_themes.dart';
-import 'ourApps/our_apps_controller.dart';
-import '../widgets/ourApp_model.dart';
-import '../widgets/widgets/lottie.dart';
-import '../widgets/widgets/svg_picture.dart';
-import '../widgets/widgets/widgets.dart';
+part of '../our_apps.dart';
 
 /// OurApps - شاشة "تطبيقاتنا" (Stateless عبر GetView)
 /// تعرض التطبيقات المفلترة من واجهة Vexaltech كبطاقات غنية.
@@ -168,7 +155,7 @@ class OurApps extends GetView<OurAppsController> {
       child: Column(
         children: [
           Text(
-            AppLocalizations.of(context)!.ourApps,
+            'ourApps'.tr,
             style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
                 fontSize: 20.sp,
@@ -217,7 +204,7 @@ class OurApps extends GetView<OurAppsController> {
               onPressed: controller.fetchApps,
               icon: const Icon(Icons.refresh),
               label: Text(
-                AppLocalizations.of(context)!.ourApps,
+                'ourApps'.tr,
                 style: const TextStyle(fontFamily: 'kufi'),
               ),
             ),
@@ -348,7 +335,7 @@ class _AppCard extends StatelessWidget {
                       onPressed: () => onLaunch(app),
                       icon: const Icon(Icons.download_outlined),
                       label: Text(
-                        AppLocalizations.of(context)!.ourApps,
+                        'ourApps'.tr,
                         style: const TextStyle(fontFamily: 'kufi'),
                       ),
                     ),

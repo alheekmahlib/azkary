@@ -1,17 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 
-import '../../azkar/controllers/azkar_controller.dart';
-import '../../azkar/services/favorites_backup_service.dart';
-import '../../core/controllers/azkary_controller.dart';
-import '../../core/routes/app_routes.dart';
-import '../../l10n/app_localizations.dart';
+import '../../presentation/controllers/azkary_controller.dart';
+import '../routes/app_routes.dart';
 import 'svg_picture.dart';
 import 'theme_change.dart';
 import 'widgets.dart';
@@ -43,10 +36,6 @@ class SettingsList extends StatelessWidget {
               height: 16.0,
             ),
             themeChange(context),
-            const SizedBox(
-              height: 16.0,
-            ),
-            backupRestoreWidget(context),
             const SizedBox(
               height: 16.0,
             ),
@@ -83,7 +72,7 @@ class SettingsList extends StatelessWidget {
                     height: 12.h,
                   ),
                   Text(
-                    AppLocalizations.of(context)!.langChange,
+                    'langChange'.tr,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontFamily: 'kufi',
@@ -115,16 +104,13 @@ class SettingsList extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color: AppLocalizations.of(context)!
-                                              .appLang ==
-                                          "لغة التطبيق"
+                                  color: Get.locale?.languageCode == 'ar'
                                       ? const Color(0xff91a57d)
                                       : Theme.of(context).secondaryHeaderColor,
                                   width: 1.5.w),
                               color: const Color(0xff39412a),
                             ),
-                            child: AppLocalizations.of(context)!.appLang ==
-                                    "لغة التطبيق"
+                            child: Get.locale?.languageCode == 'ar'
                                 ? Icon(Icons.done,
                                     size: 10.h, color: const Color(0xffF27127))
                                 : null,
@@ -135,8 +121,7 @@ class SettingsList extends StatelessWidget {
                           Text(
                             'العربية',
                             style: TextStyle(
-                              color: AppLocalizations.of(context)!.appLang ==
-                                      "لغة التطبيق"
+                              color: Get.locale?.languageCode == 'ar'
                                   ? const Color(0xffF27127)
                                   : Theme.of(context)
                                       .colorScheme
@@ -168,19 +153,16 @@ class SettingsList extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color:
-                                      AppLocalizations.of(context)!.appLang ==
-                                              "App Language"
-                                          ? const Color(0xff91a57d)
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .surface
-                                              .withValues(alpha: .5),
+                                  color: Get.locale?.languageCode == 'en'
+                                      ? const Color(0xff91a57d)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .surface
+                                          .withValues(alpha: .5),
                                   width: 1.5.w),
                               color: const Color(0xff39412a),
                             ),
-                            child: AppLocalizations.of(context)!.appLang ==
-                                    "App Language"
+                            child: Get.locale?.languageCode == 'en'
                                 ? Icon(Icons.done,
                                     size: 10.h, color: const Color(0xffF27127))
                                 : null,
@@ -191,8 +173,7 @@ class SettingsList extends StatelessWidget {
                           Text(
                             'English',
                             style: TextStyle(
-                              color: AppLocalizations.of(context)!.appLang ==
-                                      "App Language"
+                              color: Get.locale?.languageCode == 'en'
                                   ? const Color(0xffF27127)
                                   : Theme.of(context)
                                       .colorScheme
@@ -224,19 +205,16 @@ class SettingsList extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(2.0)),
                               border: Border.all(
-                                  color:
-                                      AppLocalizations.of(context)!.appLang ==
-                                              "Idioma de la aplicación"
-                                          ? const Color(0xff91a57d)
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .surface
-                                              .withValues(alpha: .5),
+                                  color: Get.locale?.languageCode == 'es'
+                                      ? const Color(0xff91a57d)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .surface
+                                          .withValues(alpha: .5),
                                   width: 1.5.w),
                               color: const Color(0xff39412a),
                             ),
-                            child: AppLocalizations.of(context)!.appLang ==
-                                    "Idioma de la aplicación"
+                            child: Get.locale?.languageCode == 'es'
                                 ? Icon(Icons.done,
                                     size: 10.h, color: const Color(0xffF27127))
                                 : null,
@@ -247,8 +225,7 @@ class SettingsList extends StatelessWidget {
                           Text(
                             'Español',
                             style: TextStyle(
-                              color: AppLocalizations.of(context)!.appLang ==
-                                      "Idioma de la aplicación"
+                              color: Get.locale?.languageCode == 'es'
                                   ? const Color(0xffF27127)
                                   : Theme.of(context)
                                       .colorScheme
@@ -293,7 +270,7 @@ class SettingsList extends StatelessWidget {
                     height: 12.h,
                   ),
                   Text(
-                    AppLocalizations.of(context)!.themeTitle,
+                    'themeTitle'.tr,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
                         fontFamily: 'kufi',
@@ -310,53 +287,6 @@ class SettingsList extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: ThemeChange(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget backupRestoreWidget(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: contentContainer(
-        context,
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0).r,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(
-                    'assets/svg/line.svg',
-                    height: 12.h,
-                  ),
-                  Expanded(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        l10n.backupRestore,
-                        style: TextStyle(
-                            color: Theme.of(context).canvasColor,
-                            fontFamily: 'kufi',
-                            fontStyle: FontStyle.italic,
-                            fontSize: 14.sp),
-                      ),
-                    ),
-                  ),
-                  SvgPicture.asset(
-                    'assets/svg/line2.svg',
-                    height: 12.h,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _BackupRestoreButtons(),
             ),
           ],
         ),
@@ -391,7 +321,7 @@ class SettingsList extends StatelessWidget {
                     Expanded(
                       flex: 8,
                       child: Text(
-                        AppLocalizations.of(context)!.aboutApp,
+                        'aboutApp'.tr,
                         style: TextStyle(
                           fontFamily: 'kufi',
                           fontSize: 13.sp,
@@ -428,7 +358,7 @@ class SettingsList extends StatelessWidget {
                     Expanded(
                       flex: 8,
                       child: Text(
-                        AppLocalizations.of(context)!.ourApps,
+                        'ourApps'.tr,
                         style: TextStyle(
                           fontFamily: 'kufi',
                           fontSize: 13.sp,
@@ -457,130 +387,5 @@ class SettingsList extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-/// أزرار تصدير/استيراد المفضلة
-/// Export/Import favorites buttons
-class _BackupRestoreButtons extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return Row(
-      children: [
-        Expanded(
-          child: _actionButton(
-            context: context,
-            icon: Icons.upload_outlined,
-            label: l10n.exportFavorites,
-            onTap: () => _exportFavorites(context),
-          ),
-        ),
-        SizedBox(width: 8.0.w),
-        Expanded(
-          child: _actionButton(
-            context: context,
-            icon: Icons.download_outlined,
-            label: l10n.importFavorites,
-            onTap: () => _importFavorites(context),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _actionButton({
-    required BuildContext context,
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10).r,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: BorderRadius.circular(8).r,
-          border: Border.symmetric(
-            vertical: BorderSide(
-              color: Theme.of(context).colorScheme.surface,
-              width: 3.w,
-            ),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: Theme.of(context).canvasColor, size: 18.h),
-            SizedBox(width: 6.w),
-            Flexible(
-              child: Text(
-                label,
-                style: TextStyle(
-                  color: Theme.of(context).canvasColor,
-                  fontSize: 12.sp,
-                  fontFamily: 'kufi',
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// تصدير المفضلة ومشاركتها كنص / Export favorites and share as text
-  Future<void> _exportFavorites(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-    try {
-      final payload = await FavoritesBackupService.instance.exportFavorites();
-      await SharePlus.instance.share(
-        ShareParams(
-          text: payload,
-          subject: 'Azkary Favorites Backup',
-        ),
-      );
-      if (context.mounted) {
-        customSnackBar(context, l10n.exportSuccess);
-      }
-    } catch (e) {
-      if (context.mounted) {
-        customSnackBar(context, l10n.importError);
-      }
-    }
-  }
-
-  /// استيراد المفضلة من الحافظة / Import favorites from clipboard
-  Future<void> _importFavorites(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-    try {
-      final clipboardData = await Clipboard.getData('text/plain');
-      final jsonStr = clipboardData?.text;
-
-      if (jsonStr == null || jsonStr.isEmpty) {
-        if (context.mounted) {
-          customSnackBar(context, l10n.importError);
-        }
-        return;
-      }
-
-      final count =
-          await FavoritesBackupService.instance.importFavorites(jsonStr);
-
-      // تحديث قائمة المفضلة بعد الاستيراد / Refresh favorites list
-      // (fire-and-forget; الـ Obx في azkar_fav سيتحدّث تلقائياً)
-      unawaited(AzkarController.instance.getAzkar());
-
-      if (context.mounted) {
-        customSnackBar(context, l10n.importSuccess(count));
-      }
-    } catch (e) {
-      if (context.mounted) {
-        customSnackBar(context, l10n.importError);
-      }
-    }
   }
 }

@@ -1,14 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-
-import '../../../core/services/api_client.dart';
-import '../../../core/services/notifications_helper.dart';
-import '../../../core/utils/constants/api_constants.dart';
-import '../data/model/post_model.dart';
+part of '../local_notification.dart';
 
 class LocalNotificationsController extends GetxController {
   static LocalNotificationsController get instance =>

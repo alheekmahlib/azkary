@@ -1,43 +1,34 @@
-import 'package:clipboard/clipboard.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+part of '../azkar.dart';
 
-import '../../azkar/controllers/azkar_controller.dart';
-import '../../azkar/models/azkar.dart';
-import '../../azkar/models/azkar_by_category.dart';
-import '../../l10n/app_localizations.dart';
-import '../../widgets/share/ayah_to_images.dart';
-import '../../widgets/style.dart';
-import '../../widgets/widgets/widgets.dart';
+/// AzkarItem - شاشة فئة أذكار (Stateless عبر GetView مع tag لكل فئة)
+/// Azkar category screen (stateless via GetView with per-category tag)
+class AzkarItem extends GetView<AzkarItemController> {
+  const AzkarItem({Key? key, required this.azkar})
+      : tag = azkar,
+        super(key: key);
 
-class AzkarItem extends StatefulWidget {
-  const AzkarItem({Key? key, required this.azkar}) : super(key: key);
   final String azkar;
 
-  static double fontSizeAzkar = 18;
+  /// حجم خط الأذكار — يُفوّض إلى AzkaryController لجعله تفاعلياً
+  /// Azkar font size — delegated to AzkaryController to make it reactive
+  static double get fontSizeAzkar =>
+      AzkaryController.instance.fontSizeAzkar.value;
+  static set fontSizeAzkar(double value) =>
+      AzkaryController.instance.fontSizeAzkar.value = value;
 
+  /// وسْم المتحكم حسب اسم الفئة / Controller tag by category name
   @override
-  State<AzkarItem> createState() => _AzkarItemState();
-}
-
-class _AzkarItemState extends State<AzkarItem> {
-  AzkarByCategory azkarByCategory = AzkarByCategory();
-  double lowerValue = 18.sp;
-  double upperValue = 40.sp;
-  String? selectedValue;
-
-  @override
-  void initState() {
-    azkarByCategory.getAzkarByCategory(widget.azkar);
-    super.initState();
-  }
+  final String? tag;
 
   @override
   Widget build(BuildContext context) {
+    final azkarByCategory = controller.azkarByCategory;
     ColorStyle colorStyle = ColorStyle(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
+        margin: orientation(
+            context, const EdgeInsets.only(top: 64), EdgeInsets.zero),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondary,
             borderRadius: const BorderRadius.only(
@@ -62,7 +53,7 @@ class _AzkarItemState extends State<AzkarItem> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           fontSizeDropDown(
-                              context, setState, Theme.of(context).canvasColor),
+                              context, Theme.of(context).canvasColor),
                           Container(
                             width: 250.w,
                             alignment: Alignment.center,
@@ -103,10 +94,9 @@ class _AzkarItemState extends State<AzkarItem> {
                     padding: const EdgeInsets.only(top: 50.0).r,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        fontSizeDropDown(context, setState,
-                            Theme.of(context).colorScheme.surface),
+                        fontSizeDropDown(
+                            context, Theme.of(context).colorScheme.surface),
                         greenContainer(
                             context,
                             100.0.h,
@@ -139,10 +129,12 @@ class _AzkarItemState extends State<AzkarItem> {
   }
 
   Widget azkarBuild(BuildContext context) {
+    final azkarList = controller.azkarByCategory.azkarList;
     ColorStyle colorStyle = ColorStyle(context);
     return SingleChildScrollView(
+      controller: controller.scrollController,
       child: Column(
-        children: azkarByCategory.azkarList.map((azkar) {
+        children: azkarList.map((azkar) {
           return ClipRRect(
             child: Container(
               alignment: Alignment.bottomCenter,
@@ -170,16 +162,16 @@ class _AzkarItemState extends State<AzkarItem> {
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(8).r,
-                        child: Text(
-                          azkar.zekr!,
-                          style: TextStyle(
-                              color: colorStyle.greenTextColor(),
-                              height: 1.4,
-                              fontFamily: 'naskh',
-                              fontSize: AzkarItem.fontSizeAzkar),
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.justify,
-                        ),
+                        child: Obx(() => Text(
+                              azkar.zekr!,
+                              style: TextStyle(
+                                  color: colorStyle.greenTextColor(),
+                                  height: 1.4,
+                                  fontFamily: 'naskh',
+                                  fontSize: AzkarItem.fontSizeAzkar),
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.justify,
+                            )),
                       ),
                     ),
                   ),
@@ -252,9 +244,6 @@ class _AzkarItemState extends State<AzkarItem> {
                                         azkar.description,
                                         ' التكرار:  ${azkar.count} ',
                                         azkar.reference);
-                                    // Share.share('${azkar.category}\n\n'
-                                    //     '${azkar.zekr}\n\n'
-                                    //     '| ${azkar.description}. | (التكرار: ${azkar.count})');
                                   },
                                   icon: Icon(
                                     Icons.share,
@@ -269,9 +258,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                             '${azkar.zekr}\n\n'
                                             '| ${azkar.description}. | (التكرار: ${azkar.count})')
                                         .then((value) => customSnackBar(
-                                            context,
-                                            AppLocalizations.of(context)!
-                                                .copyAzkarText));
+                                            context, 'copyAzkarText'.tr));
                                   },
                                   icon: Icon(
                                     Icons.copy,
@@ -292,9 +279,7 @@ class _AzkarItemState extends State<AzkarItem> {
                                             azkar.reference,
                                             azkar.zekr))
                                         .then((value) => customSnackBar(
-                                            context,
-                                            AppLocalizations.of(context)!
-                                                .addZekrBookmark));
+                                            context, 'addZekrBookmark'.tr));
                                   },
                                   icon: Icon(
                                     Icons.bookmark_add,

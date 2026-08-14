@@ -1,66 +1,9 @@
-import 'dart:async';
+part of '../splash.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../screens/onboarding_screen.dart';
-import '../core/themes/app_themes.dart';
-import '../widgets/widgets/lottie.dart';
-import '../widgets/widgets/svg_picture.dart';
-import '../widgets/widgets/widgets.dart';
-import 'azkar_home.dart';
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
-class _SplashScreenState extends State<SplashScreen> {
-  bool animate = false;
-
-  @override
-  void initState() {
-    super.initState();
-    startTime();
-  }
-
-  Future startTime() async {
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() {
-      animate = true;
-    });
-    await Future.delayed(const Duration(seconds: 3));
-    // Get.off(() => OnboardingScreen());
-    Get.off(() => const AzkarHome());
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   navigationPage();
-    // });
-  }
-
-  void navigationPage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print('is_first_time ${prefs.getBool("is_first_time")}');
-    if (prefs.getBool("is_first_time") == null) {
-      Get.off(() => OnboardingScreen());
-      // navigatorKey.currentState!.push(
-      //   MaterialPageRoute(
-      //     builder: (BuildContext context) => OnboardingScreen(),
-      //   ),
-      // );
-      prefs.setBool("is_first_time", false);
-    } else {
-      Get.off(() => const AzkarHome());
-      // navigatorKey.currentState!.push(
-      //   MaterialPageRoute(
-      //     builder: (BuildContext context) => const AzkarHome(),
-      //   ),
-      // );
-    }
-  }
+/// SplashScreen - شاشة البداية (Stateless عبر GetView)
+/// Splash screen (stateless via GetView)
+class SplashScreen extends GetView<SplashController> {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,9 @@
+ext {
+    compileSdkVersion = 37
+    targetSdkVersion = 37
+    appCompatVersion = "1.4.2"
+}
+
 allprojects {
     repositories {
         google()
@@ -11,6 +17,32 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
+}
+// إضافات pub.dev تضبط مستويات JVM و compileSdk بشكل غير متسق
+// (audio_session JVM=11، home_widget JVM=1.8 و compileSdk=35، ...).
+// نُجبِر JVM 17 و compileSdk 36 موحّدَين على كل المشاريع الفرعية باستخدام
+// gradle.afterProject الذي يعمل بعد تقييم كل مشروع بالكامل، فيتجاوز أي
+// compileOptions/kotlinOptions تضعها الإضافات داخلياً.
+// (afterEvaluate العادي يفشل لأن evaluationDependsOn أعلاه يُقيّم بعض المشاريع مبكراً)
+// compileSdk 37 موحّد على كل المشاريع الفرعية.
+gradle.afterProject { project ->
+    if (project.plugins.hasPlugin('com.android.library') ||
+        project.plugins.hasPlugin('com.android.application')) {
+        project.android {
+            compileSdkVersion 37
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_17
+                targetCompatibility JavaVersion.VERSION_17
+            }
+        }
+        project.tasks.withType(JavaCompile).configureEach {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions { jvmTarget = '17' }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {

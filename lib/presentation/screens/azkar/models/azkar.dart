@@ -1,3 +1,5 @@
+part of '../azkar.dart';
+
 class Azkar {
   int? id;
   String? category;

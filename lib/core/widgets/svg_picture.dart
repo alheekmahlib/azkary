@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../core/themes/app_themes.dart';
+import '../../presentation/controllers/theme_controller.dart';
 
 spaceLine(double height, double? width) {
   return Padding(

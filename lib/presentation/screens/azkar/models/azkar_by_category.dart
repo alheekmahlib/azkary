@@ -1,5 +1,4 @@
-import 'azkar.dart';
-import 'azkar_list.dart';
+part of '../azkar.dart';
 
 class AzkarByCategory {
   final List<Azkar> _azkarList = [];

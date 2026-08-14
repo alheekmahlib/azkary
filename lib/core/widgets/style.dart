@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/themes/app_themes.dart';
+import '../../presentation/controllers/theme_controller.dart';
 
 class ColorStyle {
   final BuildContext context;

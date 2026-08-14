@@ -1,3 +1,5 @@
+part of '../azkar.dart';
+
 const List<String> azkarDataList = [
     "أذكار الصباح",
   "أذكار المساء",

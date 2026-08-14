@@ -1,35 +1,13 @@
-import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:clipboard/clipboard.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+part of '../quran_azkar.dart';
 
-import '/widgets/style.dart';
-import '../../azkar/controllers/azkar_controller.dart';
-import '../../azkar/models/azkar.dart';
-import '../../azkar/screens/azkar_item.dart';
-import '../../l10n/app_localizations.dart';
-import '../../widgets/share/ayah_to_images.dart';
-import '../../widgets/widgets/svg_picture.dart';
-import '../../widgets/widgets/widgets.dart';
-import '../quran_azkar_model.dart';
-
-class QuranAzkarView extends StatefulWidget {
+class QuranAzkarView extends StatelessWidget {
   final Surah surah;
 
-  QuranAzkarView({required this.surah});
-
-  @override
-  State<QuranAzkarView> createState() => _QuranAzkarViewState();
-}
-
-class _QuranAzkarViewState extends State<QuranAzkarView> {
-  double lowerValue = 18;
-  double upperValue = 40;
-  String? selectedValue;
-  ArabicNumbers arabicNumbers = ArabicNumbers();
+  const QuranAzkarView({super.key, required this.surah});
 
   @override
   Widget build(BuildContext context) {
+    final arabicNumbers = ArabicNumbers();
     return Container(
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
@@ -56,7 +34,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                               children: [
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: fontSizeDropDown(context, setState,
+                                  child: fontSizeDropDown(context,
                                       Theme.of(context).canvasColor),
                                 ),
                                 Align(
@@ -71,13 +49,13 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                             width: MediaQuery.sizeOf(context).width),
                         Align(
                           alignment: Alignment.topCenter,
-                          child: surah_name(context, widget.surah.surah),
+                          child: surah_name(context, surah.surah),
                         ),
                       ],
                     ),
                   )),
               Flexible(
-                child: azkarBuild(context),
+                child: _azkarBuild(context, arabicNumbers),
               ),
             ],
           ),
@@ -91,9 +69,9 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        fontSizeDropDown(context, setState,
+                        fontSizeDropDown(context,
                             Theme.of(context).colorScheme.surface),
-                        surah_name(context, widget.surah.surah),
+                        surah_name(context, surah.surah),
                       ],
                     )),
               ),
@@ -101,7 +79,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
                   width: MediaQuery.sizeOf(context).width / 1 / 2 * .9,
-                  child: azkarBuild(context),
+                  child: _azkarBuild(context, arabicNumbers),
                 ),
               ),
             ],
@@ -109,16 +87,20 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
     );
   }
 
-  Widget azkarBuild(BuildContext context) {
+  Widget _azkarBuild(BuildContext context, ArabicNumbers arabicNumbers) {
     ColorStyle colorStyle = ColorStyle(context);
-    return ListView.separated(
+    return Obx(() {
+      // قراءة القيمة التفاعلية هنا لتسجيل الاعتماد لدى Obx (itemBuilder كسول)
+      // Read the reactive value here to register the dependency with Obx (itemBuilder is lazy)
+      final fontSize = AzkarItem.fontSizeAzkar;
+      return ListView.separated(
         shrinkWrap: true,
-        itemCount: widget.surah.ayahs.length,
+        itemCount: surah.ayahs.length,
         separatorBuilder: (c, i) => Divider(
               color: Theme.of(context).colorScheme.surface,
             ),
         itemBuilder: (context, index) {
-          final ayah = widget.surah.ayahs[index];
+          final ayah = surah.ayahs[index];
           return ClipRRect(
             child: Container(
               alignment: Alignment.bottomCenter,
@@ -152,7 +134,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                               color: colorStyle.greenTextColor(),
                               height: 1.4,
                               fontFamily: 'uthmanic2',
-                              fontSize: AzkarItem.fontSizeAzkar),
+                              fontSize: fontSize),
                           showCursor: true,
                           cursorWidth: 3,
                           cursorColor: Theme.of(context).dividerColor,
@@ -178,7 +160,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                                         Theme.of(context).colorScheme.surface,
                                     width: 5.w))),
                         child: Text(
-                          "${AppLocalizations.of(context)!.ayah} | ${arabicNumbers.convert(ayah.ayahNumber)}",
+                          "${'ayah'.tr} | ${arabicNumbers.convert(ayah.ayahNumber)}",
                           style: TextStyle(
                               color: colorStyle.greenTextColor(),
                               fontSize: 14,
@@ -197,7 +179,7 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                             IconButton(
                               onPressed: () {
                                 showVerseOptionsBottomSheet(context, ayah.ayah,
-                                    widget.surah.name, '', "", ayah.ayahNumber);
+                                    surah.name, '', "", ayah.ayahNumber);
                               },
                               icon: Icon(
                                 Icons.share,
@@ -207,13 +189,12 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                             ),
                             IconButton(
                               onPressed: () {
-                                FlutterClipboard.copy('${widget.surah.name}\n\n'
+                                FlutterClipboard.copy('${surah.name}\n\n'
                                         '${ayah.ayah}\n\n'
                                         '| ${ayah.ayahNumber} |')
                                     .then((value) => customSnackBar(
                                         context,
-                                        AppLocalizations.of(context)!
-                                            .copyAzkarText));
+                                        'copyAzkarText'.tr));
                               },
                               icon: Icon(
                                 Icons.copy,
@@ -226,12 +207,11 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
                                 final azkarController =
                                     AzkarController.instance;
                                 await azkarController
-                                    .addAzkar(Azkar(null, widget.surah.name,
+                                    .addAzkar(Azkar(null, surah.name,
                                         '1', '', ayah.ayahNumber, ayah.ayah))
                                     .then((value) => customSnackBar(
                                         context,
-                                        AppLocalizations.of(context)!
-                                            .addZekrBookmark));
+                                        'addZekrBookmark'.tr));
                               },
                               icon: Icon(
                                 Icons.bookmark_add,
@@ -248,5 +228,6 @@ class _QuranAzkarViewState extends State<QuranAzkarView> {
             ),
           );
         });
+    });
   }
 }

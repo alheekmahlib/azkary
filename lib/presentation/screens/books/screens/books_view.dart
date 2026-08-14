@@ -1,24 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+part of '../books.dart';
 
-import '../../azkar/screens/azkar_item.dart';
-import '../../widgets/style.dart';
-import '../../widgets/widgets/lottie.dart';
-import '../../widgets/widgets/widgets.dart';
-import '../controllers/books_controller.dart';
+class BooksView extends StatelessWidget {
+  const BooksView({super.key});
 
-class BooksView extends StatefulWidget {
-  @override
-  State<BooksView> createState() => _BooksViewState();
-}
-
-class _BooksViewState extends State<BooksView> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
+          margin: orientation(
+              context, const EdgeInsets.only(top: 64), EdgeInsets.zero),
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: const BorderRadius.all(Radius.circular(8.0)).r),
@@ -32,13 +23,13 @@ class _BooksViewState extends State<BooksView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         customClose(context),
-                        fontSizeDropDown(context, setState,
-                            Theme.of(context).colorScheme.surface),
+                        fontSizeDropDown(
+                            context, Theme.of(context).colorScheme.surface),
                       ],
                     ),
                   ),
                   Expanded(
-                    child: booksView(context),
+                    child: _booksView(context),
                   ),
                 ],
               ),
@@ -48,7 +39,7 @@ class _BooksViewState extends State<BooksView> {
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 48.0).r,
-                      child: booksView(context),
+                      child: _booksView(context),
                     ),
                   ),
                   Align(
@@ -58,8 +49,8 @@ class _BooksViewState extends State<BooksView> {
                       child: Column(
                         children: [
                           customClose(context),
-                          fontSizeDropDown(context, setState,
-                              Theme.of(context).colorScheme.surface),
+                          fontSizeDropDown(
+                              context, Theme.of(context).colorScheme.surface),
                         ],
                       ),
                     ),
@@ -69,7 +60,7 @@ class _BooksViewState extends State<BooksView> {
     );
   }
 
-  Widget booksView(BuildContext context) {
+  Widget _booksView(BuildContext context) {
     ColorStyle colorStyle = ColorStyle(context);
 
     return GetBuilder<BooksController>(
@@ -179,9 +170,10 @@ class _BooksViewState extends State<BooksView> {
                                                               .pages[index]
                                                               .footnote,
                                                           style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColorDark,
+                                                            color: colorStyle
+                                                                .greenTextColor()
+                                                                .withValues(
+                                                                    alpha: .7),
                                                             fontSize: 20,
                                                             fontFamily: 'naskh',
                                                           ),
@@ -308,9 +300,11 @@ class _BooksViewState extends State<BooksView> {
                                                               .pages[index]
                                                               .footnote,
                                                           style: TextStyle(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColorDark,
+                                                              color: colorStyle
+                                                                  .greenTextColor()
+                                                                  .withValues(
+                                                                      alpha:
+                                                                          .7),
                                                               fontSize: 20,
                                                               fontFamily:
                                                                   'naskh',

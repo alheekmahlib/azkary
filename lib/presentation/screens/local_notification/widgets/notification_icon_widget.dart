@@ -1,3 +1,5 @@
+part of '../local_notification.dart';
+
 // import 'package:badges/badges.dart' as badges;
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';

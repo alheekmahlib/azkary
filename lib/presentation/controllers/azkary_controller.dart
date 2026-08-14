@@ -2,20 +2,24 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:arabic_numbers/arabic_numbers.dart';
-import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
-import '../../azkar/screens/azkar_item.dart';
-import '../../l10n/app_localizations.dart';
-import '../../widgets/reminder_model.dart';
-import '../../widgets/widgets/widgets.dart';
-import '../services/notifications_helper.dart';
+import 'reminder_model.dart';
+import 'reminder_controller.dart';
 
-// تحكم رئيسي لإدارة الأذكار والتذكيرات والإعدادات
-// Main controller for managing azkar, reminders and settings
+/// AzkaryController - تحكم في الإعدادات العامة (اللغة، الخط، التحية)
+/// Controller for general settings (language, font, greeting)
+///
+/// منطق التذكيرات منقول إلى ReminderController لفصل المسؤوليات.
+/// يحتفظ بواجهات تفويض (delegates) للتذكيرات للحفاظ على التوافق الخلفي
+/// مع الشاشات التي تستخدم AzkaryController.instance للتذكيرات.
+/// Reminders logic moved to ReminderController for separation of concerns.
+/// Keeps delegate accessors for backwards compatibility with screens using
+/// AzkaryController.instance for reminders.
 class AzkaryController extends GetxController {
   // إنشاء مثيل من الكنترولر مع التحقق من التسجيل
   // Create controller instance with registration check
@@ -23,21 +27,30 @@ class AzkaryController extends GetxController {
       ? Get.find<AzkaryController>()
       : Get.put(AzkaryController());
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  // طبقة التخزين الموحّدة / Unified storage layer
+  final GetStorage _box = GetStorage();
 
-  // المتغيرات التفاعلية / Reactive variables
+  // المتغيرات التفاعلية العامة / General reactive variables
   final RxString greeting = ''.obs;
-  final Rx<TimeOfDay?> changedTimeOfDay = Rx<TimeOfDay?>(null);
-  final RxBool isReminderEnabled = false.obs;
-  final Rx<Time> time = Time(hour: 11, minute: 30, second: 20).obs;
-  final RxBool iosStyle = true.obs;
-  final RxList<Reminder> reminders = <Reminder>[].obs;
   final RxBool selected = false.obs;
   final arabicNumber = ArabicNumbers();
   final RxnInt shareTafseerValue = RxnInt();
   final RxBool isShowSettings = false.obs;
   final Rxn<Locale> initialLang = Rxn<Locale>();
   final controller = ScrollController();
+
+  /// حجم خط الأذكار كمصدر تفاعلي وحيد للحقيقة / Reactive single source of truth for azkar font size
+  final RxDouble fontSizeAzkar = 18.0.obs;
+
+  /// اختصار للوصول إلى التذكيرات عبر ReminderController
+  /// Shortcut to access reminders via ReminderController (backwards compat)
+  ReminderController get _reminderCtrl => ReminderController.instance;
+
+  // مفاتيح تفويض للتذكيرات (توافق خلفي) / Reminder delegate accessors
+  RxList<Reminder> get reminders => _reminderCtrl.reminders;
+  RxBool get isReminderEnabled => _reminderCtrl.isReminderEnabled;
+  Rx<Time> get time => _reminderCtrl.time;
+  RxBool get iosStyle => _reminderCtrl.iosStyle;
 
   @override
   void onInit() {
@@ -47,18 +60,17 @@ class AzkaryController extends GetxController {
     updateGreeting();
     loadLang();
     loadAzkarFontSize();
-    loadReminders();
     log('AzkaryController initialized', name: 'AzkaryController');
   }
 
-  /// إدارة التفضيلات المشتركة / Shared Preferences Management
+  /// إدارة التخزين / Storage Management
 
-  // حفظ وتحميل حجم خط الأذكار
-  // Save & Load Azkar Text Font Size
+  // حفظ وتحميل حجم خط الأذكار (المصدر التفاعلي الموحّد)
+  // Save & Load Azkar Text Font Size (single reactive source)
   Future<void> saveAzkarFontSize(double fontSizeAzkar) async {
     try {
-      SharedPreferences prefs = await _prefs;
-      await prefs.setDouble("font_azkar_size", fontSizeAzkar);
+      this.fontSizeAzkar.value = fontSizeAzkar;
+      await _box.write('font_azkar_size', fontSizeAzkar);
       log('Font size saved: $fontSizeAzkar', name: 'AzkaryController');
     } catch (e) {
       log('Error saving font size: $e', name: 'AzkaryController');
@@ -67,9 +79,8 @@ class AzkaryController extends GetxController {
 
   Future<void> loadAzkarFontSize() async {
     try {
-      SharedPreferences prefs = await _prefs;
-      AzkarItem.fontSizeAzkar = prefs.getDouble('font_azkar_size') ?? 18;
-      log('Font size loaded: ${AzkarItem.fontSizeAzkar}',
+      fontSizeAzkar.value = _box.read<double>('font_azkar_size') ?? 18;
+      log('Font size loaded: ${fontSizeAzkar.value}',
           name: 'AzkaryController');
     } catch (e) {
       log('Error loading font size: $e', name: 'AzkaryController');
@@ -80,32 +91,46 @@ class AzkaryController extends GetxController {
   // Save & Load Language
   Future<void> saveLang(String lan) async {
     try {
-      SharedPreferences prefs = await _prefs;
-      await prefs.setString("lang", lan);
+      await _box.write('lang', lan);
       log('Language saved: $lan', name: 'AzkaryController');
     } catch (e) {
       log('Error saving language: $e', name: 'AzkaryController');
     }
   }
 
+  /// تبديل اللغة فورياً عبر GetX وتخزينها / Switch language via GetX + persist
+  ///
+  /// يستخدم Get.updateLocale لتحديث locale لدى GetMaterialApp مباشرةً
+  /// (الطريقة الرسمية من GetX لتغيير اللغة في وقت التشغيل).
+  /// Uses Get.updateLocale to update GetMaterialApp's locale directly
+  /// (the official GetX way to change language at runtime).
+  void changeLocale(String langCode) {
+    final locale = Locale(langCode);
+    initialLang.value = locale;
+    Get.updateLocale(locale);
+    saveLang(langCode);
+  }
+
   Future<void> loadLang() async {
     try {
-      SharedPreferences prefs = await _prefs;
-      initialLang.value = prefs.getString("lang") == null
-          ? const Locale('ar', 'AE')
-          : Locale(prefs.getString("lang")!);
-      log('Language loaded: ${initialLang.value}', name: 'AzkaryController');
+      final langCode = _box.read<String>('lang');
+      final locale =
+          langCode == null ? const Locale('ar', 'AE') : Locale(langCode);
+      initialLang.value = locale;
+      // مزامنة Get.locale مع اللغة المحفوظة عند بدء التشغيل
+      // Sync Get.locale with the persisted language at startup
+      Get.locale = locale;
+      log('Language loaded: $locale', name: 'AzkaryController');
     } catch (e) {
       log('Error loading language: $e', name: 'AzkaryController');
     }
   }
 
-  // مسح التفضيلات المشتركة
-  // Clear SharedPreferences
+  // مسح قيمة من التخزين
+  // Clear a stored value
   Future<void> clearPreference(String value) async {
     try {
-      SharedPreferences prefs = await _prefs;
-      await prefs.remove(value);
+      await _box.remove(value);
       log('Preference cleared: $value', name: 'AzkaryController');
     } catch (e) {
       log('Error clearing preference: $e', name: 'AzkaryController');
@@ -121,204 +146,80 @@ class AzkaryController extends GetxController {
     log('Greeting updated: ${greeting.value}', name: 'AzkaryController');
   }
 
+  /// تقييم التطبيق (rateMyApp) — يُستدعى بعد بناء الإطار الأول
+  /// App rating (rateMyApp) — invoked after the first frame
+  late final RateMyApp rateMyApp = RateMyApp(
+    preferencesPrefix: 'rateMyApp_',
+    minDays: 5,
+    minLaunches: 7,
+    remindDays: 15,
+    remindLaunches: 20,
+    googlePlayIdentifier: 'com.alheekmah.azkaryapp',
+    appStoreIdentifier: '6451125110',
+  );
+
+  /// تهيئة وعرض حوار تقييم التطبيق عند الاستحقاق
+  /// Initialize and show the rate dialog when eligible
+  Future<void> initAppRating() async {
+    try {
+      await rateMyApp.init();
+      if (rateMyApp.shouldOpenDialog && Get.context != null) {
+        rateMyApp.showRateDialog(
+          Get.context!,
+          title: 'Rate this app',
+          message:
+              'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.',
+          rateButton: 'RATE',
+          noButton: 'NO THANKS',
+          laterButton: 'MAYBE LATER',
+          listener: (button) {
+            switch (button) {
+              case RateMyAppDialogButton.rate:
+                log('Clicked on "Rate".', name: 'AzkaryController');
+                break;
+              case RateMyAppDialogButton.later:
+                log('Clicked on "Later".', name: 'AzkaryController');
+                break;
+              case RateMyAppDialogButton.no:
+                log('Clicked on "No".', name: 'AzkaryController');
+                break;
+            }
+            return true;
+          },
+          ignoreNativeDialog: false,
+          dialogStyle: const DialogStyle(),
+          onDismissed: () =>
+              rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
+        );
+      }
+    } catch (e) {
+      log('Error initializing rate app: $e', name: 'AzkaryController');
+    }
+  }
+
   /// إدارة الوقت / Time Management
   String get lastRead =>
-      "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}";
+      '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}';
 
-  /// إدارة التذكيرات / Reminder Management
+  /// تفويض عمليات التذكيرات إلى ReminderController (توافق خلفي)
+  /// Delegate reminder operations to ReminderController (backwards compat)
+  void loadReminders() => _reminderCtrl.loadReminders();
 
-  // تحميل التذكيرات
-  // Load reminders
-  void loadReminders() async {
-    try {
-      List<Reminder> loadedReminders = await ReminderStorage.loadReminders();
-      reminders.value = loadedReminders;
-      log('Reminders loaded: ${reminders.length}', name: 'AzkaryController');
-    } catch (e) {
-      log('Error loading reminders: $e', name: 'AzkaryController');
-    }
-  }
+  Future<bool> showTimePicker(BuildContext context, Reminder reminder) =>
+      _reminderCtrl.showTimePicker(context, reminder);
 
-  // عرض منتقي الوقت
-  // Show time picker
-  Future<bool> showTimePicker(BuildContext context, Reminder reminder) async {
-    bool isConfirmed = false;
-    Time initialTime = time.value;
-    TimeOfDay initialTimeOfDay =
-        TimeOfDay(hour: initialTime.hour, minute: initialTime.minute);
+  Future<void> addReminder() => _reminderCtrl.addReminder();
 
-    try {
-      await Navigator.of(context).push(
-        showPicker(
-          context: context,
-          value: time.value,
-          onChange: (selectedTime) {
-            changedTimeOfDay.value = selectedTime;
-            log('Time changed: ${changedTimeOfDay.value}',
-                name: 'AzkaryController');
-          },
-          accentColor: Theme.of(context).colorScheme.surface,
-          okText: AppLocalizations.of(context)!.ok,
-          okStyle: TextStyle(
-            fontFamily: 'kufi',
-            fontSize: 14,
-            color: Theme.of(context).colorScheme.surface,
-          ),
-          cancelText: AppLocalizations.of(context)!.cancel,
-          cancelStyle: TextStyle(
-              fontFamily: 'kufi',
-              fontSize: 14,
-              color: Theme.of(context).colorScheme.surface),
-          themeData: ThemeData(
-            cardColor: Theme.of(context).colorScheme.surface,
-          ),
-        ),
-      );
+  Future<void> deleteReminder(BuildContext context, int index) =>
+      _reminderCtrl.deleteReminder(context, index);
 
-      if (changedTimeOfDay.value != null &&
-          changedTimeOfDay.value != initialTimeOfDay) {
-        final int hour = changedTimeOfDay.value!.hour;
-        final int minute = changedTimeOfDay.value!.minute;
-        // تحديث وقت التذكير
-        // Update reminder time
-        reminder.time = Time(hour: hour, minute: minute);
+  Future<void> updateReminderName(int index, String name) =>
+      _reminderCtrl.updateReminderName(index, name);
 
-        // جدولة الإشعار للتذكير
-        // Schedule notification for reminder
-        await _scheduleReminderNotification(reminder);
+  Future<void> toggleReminder(int index, bool value) =>
+      _reminderCtrl.toggleReminder(index, value);
 
-        // تأكيد تحديد الوقت
-        // Confirm time selection
-        isConfirmed = true;
-
-        // تحديث واجهة المستخدم
-        // Update UI
-        update(['main_screen']);
-
-        log('Reminder time updated: ${hour}:${minute}',
-            name: 'AzkaryController');
-      }
-    } catch (e) {
-      log('Error showing time picker: $e', name: 'AzkaryController');
-    }
-
-    return isConfirmed;
-  }
-
-  // إضافة تذكير جديد
-  // Add new reminder
-  Future<void> addReminder() async {
-    try {
-      String reminderName = "";
-      DateTime now = DateTime.now();
-      Time currentTime = Time(hour: now.hour, minute: now.minute);
-
-      reminders.add(Reminder(
-          id: reminders.length,
-          isEnabled: false,
-          time: currentTime,
-          name: reminderName));
-
-      await ReminderStorage.saveReminders(reminders);
-      log('Reminder added, total: ${reminders.length}',
-          name: 'AzkaryController');
-    } catch (e) {
-      log('Error adding reminder: $e', name: 'AzkaryController');
-    }
-  }
-
-  // حذف تذكير
-  // Delete reminder
-  Future<void> deleteReminder(BuildContext context, int index) async {
-    try {
-      // إلغاء الإشعار المجدول
-      // Cancel scheduled notification
-      await _cancelReminderNotification(reminders[index].id);
-
-      // حذف التذكير
-      // Delete reminder
-      await ReminderStorage.deleteReminder(index).then((value) =>
-          customSnackBar(
-              context, AppLocalizations.of(context)!.deletedReminder));
-
-      // تحديث قائمة التذكيرات
-      // Update reminders list
-      reminders.removeAt(index);
-
-      // تحديث معرفات التذكيرات
-      // Update reminder IDs
-      for (int i = index; i < reminders.length; i++) {
-        reminders[i].id = i;
-      }
-
-      // حفظ قائمة التذكيرات المحدثة
-      // Save updated reminders list
-      await ReminderStorage.saveReminders(reminders);
-      log('Reminder deleted at index: $index', name: 'AzkaryController');
-    } catch (e) {
-      log('Error deleting reminder: $e', name: 'AzkaryController');
-    }
-  }
-
-  // تغيير الوقت
-  // Change time
-  void onTimeChanged(Time newTime) {
-    time.value = newTime;
-    log('Time changed to: ${newTime.hour}:${newTime.minute}',
-        name: 'AzkaryController');
-  }
-
-  // جدولة إشعار التذكير
-  // Schedule reminder notification
-  Future<void> _scheduleReminderNotification(Reminder reminder) async {
-    try {
-      final notifyHelper = NotifyHelper();
-
-      // إنشاء وقت الجدولة
-      // Create scheduled time
-      final now = DateTime.now();
-      final scheduledTime = DateTime(
-        now.year,
-        now.month,
-        now.day,
-        reminder.time.hour,
-        reminder.time.minute,
-      );
-
-      // إذا كان الوقت المحدد قد مضى اليوم، جدوله للغد
-      // If the scheduled time has passed today, schedule for tomorrow
-      final finalScheduledTime = scheduledTime.isBefore(now)
-          ? scheduledTime.add(const Duration(days: 1))
-          : scheduledTime;
-
-      await notifyHelper.scheduleReminderNotification(
-        reminderId: reminder.id,
-        reminderName: reminder.name,
-        scheduledTime: finalScheduledTime,
-        isRepeating: true, // تكرار يومي / Daily repeat
-      );
-
-      log('Notification scheduled for reminder ${reminder.id} at ${reminder.time.hour}:${reminder.time.minute}',
-          name: 'AzkaryController');
-    } catch (e) {
-      log('Error scheduling reminder notification: $e',
-          name: 'AzkaryController');
-    }
-  }
-
-  // إلغاء إشعار التذكير
-  // Cancel reminder notification
-  Future<void> _cancelReminderNotification(int reminderId) async {
-    try {
-      final notifyHelper = NotifyHelper();
-      await notifyHelper.cancelNotification(reminderId);
-      log('Notification cancelled for reminder $reminderId',
-          name: 'AzkaryController');
-    } catch (e) {
-      log('Error cancelling reminder notification: $e',
-          name: 'AzkaryController');
-    }
-  }
+  void onTimeChanged(dynamic newTime) => _reminderCtrl.onTimeChanged(newTime);
 
   @override
   void onClose() {

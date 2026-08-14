@@ -1,3 +1,5 @@
+part of '../azkar.dart';
+
 List<Map<String, String>> db = [
   {
     // "id": "1",

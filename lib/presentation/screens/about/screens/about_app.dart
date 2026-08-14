@@ -1,33 +1,11 @@
-import 'dart:io';
+part of '../about.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:in_app_review/in_app_review.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '/core/utils/constants/extensions/contact_us_extension.dart';
-import '/core/utils/constants/extensions/share_app_extension.dart';
-import "../../core/themes/app_themes.dart";
-import '../l10n/app_localizations.dart';
-import '../widgets/widgets/svg_picture.dart';
-import '../widgets/widgets/widgets.dart';
-
-class AboutApp extends StatefulWidget {
+/// AboutApp - شاشة "حول التطبيق" (Stateless عبر GetView)
+/// About screen (stateless via GetView)
+class AboutApp extends GetView<AboutController> {
   AboutApp({Key? key}) : super(key: key);
 
-  @override
-  State<AboutApp> createState() => _AboutAppState();
-}
-
-class _AboutAppState extends State<AboutApp> {
   final InAppReview inAppReview = InAppReview.instance;
-
-  String? versionNumber;
-  String? urlStore;
 
   _launchUrl() async {
     // ios specification
@@ -35,18 +13,9 @@ class _AboutAppState extends State<AboutApp> {
     if (await canLaunchUrl(Uri.parse(uri))) {
       await launchUrl(Uri.parse(uri));
     } else {
-      print("No url client found");
+      log("No url client found", name: 'AboutApp');
     }
   }
-
-  PackageInfo _packageInfo = PackageInfo(
-    appName: 'Unknown',
-    packageName: 'Unknown',
-    version: 'Unknown',
-    buildNumber: 'Unknown',
-    buildSignature: 'Unknown',
-    installerStore: 'Unknown',
-  );
 
   Future<void> share() async {
     final ByteData bytes =
@@ -64,156 +33,147 @@ class _AboutAppState extends State<AboutApp> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _initPackageInfo();
-  }
-
-  Future<void> _initPackageInfo() async {
-    final info = await PackageInfo.fromPlatform();
-    setState(() {
-      _packageInfo = info;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ThemeController.instance.currentThemeId.value == 'dark'
-          ? Theme.of(context).colorScheme.primaryContainer
-          : Theme.of(context).canvasColor,
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Stack(
-          children: [
-            Transform.translate(
-              offset: const Offset(300, -10),
-              child: Opacity(
-                opacity: .05,
-                child: azkary_icon(
+    return Obx(() {
+      final isDark = ThemeController.instance.currentThemeId.value == 'dark';
+      return Scaffold(
+        backgroundColor: isDark
+            ? Theme.of(context).colorScheme.primaryContainer
+            : Theme.of(context).canvasColor,
+        body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Stack(
+            children: [
+              Transform.translate(
+                offset: const Offset(300, -10),
+                child: Opacity(
+                  opacity: .05,
+                  child: azkary_icon(
+                    context,
+                    width: MediaQuery.sizeOf(context).width,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: container(
                   context,
+                  Container(),
+                  false,
+                  height: orientation(context, 450.0.h, 300.0.h),
                   width: MediaQuery.sizeOf(context).width,
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: container(
-                context,
-                Container(),
-                false,
-                height: orientation(context, 450.0.h, 300.0.h),
-                width: MediaQuery.sizeOf(context).width,
-              ),
-            ),
-            Align(
-                alignment: Alignment.center,
-                child: Transform.translate(
-                    offset: orientation(
-                        context, Offset(0, -220.h), Offset(0, -130.h)),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        azkary_logo(
-                          context,
-                          width: 80.0.w,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4)).r),
-                          padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 4.0)
-                              .r,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0).r,
-                          child: Text(
-                            'من الكتاب والسُّنة',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontFamily: 'kufi',
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).canvasColor,
+              Align(
+                  alignment: Alignment.center,
+                  child: Transform.translate(
+                      offset: orientation(
+                          context, Offset(0, -220.h), Offset(0, -130.h)),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          azkary_logo(
+                            context,
+                            width: 80.0.w,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: const BorderRadius.all(
+                                        Radius.circular(4))
+                                    .r),
+                            padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0)
+                                .r,
+                            margin: const EdgeInsets.symmetric(vertical: 8.0).r,
+                            child: Text(
+                              'من الكتاب والسُّنة',
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontFamily: 'kufi',
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).canvasColor,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ))),
-            Align(
-              alignment: Alignment.center,
-              child: orientation(
-                  context,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 64.0.h,
-                      ),
-                      buildVersion(context),
-                      SizedBox(
-                        height: 16.0.h,
-                      ),
-                      appDetails(context),
-                      shareRateApp(context),
-                      SizedBox(
-                        height: 16.0.h,
-                      ),
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: socialMedia(context)),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: socialMedia(context)),
-                      buildVersion(context),
-                      SizedBox(
-                        height: 32.0.h,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 64.0).r,
-                        child: Row(
-                          children: [
-                            Expanded(child: appDetails(context)),
-                            Expanded(child: shareRateApp(context)),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: orientation(
+                        ],
+                      ))),
+              Align(
+                alignment: Alignment.center,
+                child: orientation(
                     context,
-                    const EdgeInsets.symmetric(vertical: 64.0).r,
-                    const EdgeInsets.symmetric(vertical: 32.0).r),
-                child: alheekmah_logo(
-                  context,
-                  width: 60.w,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 64.0.h,
+                        ),
+                        buildVersion(context, isDark),
+                        SizedBox(
+                          height: 16.0.h,
+                        ),
+                        appDetails(context),
+                        shareRateApp(context),
+                        SizedBox(
+                          height: 16.0.h,
+                        ),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: socialMedia(context)),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: socialMedia(context)),
+                        buildVersion(context, isDark),
+                        SizedBox(
+                          height: 32.0.h,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 64.0).r,
+                          child: Row(
+                            children: [
+                              Expanded(child: appDetails(context)),
+                              Expanded(child: shareRateApp(context)),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: orientation(
+                      context,
+                      const EdgeInsets.symmetric(vertical: 64.0).r,
+                      const EdgeInsets.symmetric(vertical: 32.0).r),
+                  child: alheekmah_logo(
+                    context,
+                    width: 60.w,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 48.0, right: 16.0).r,
-                child: customArrowBack(context),
-              ),
-            )
-          ],
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 48.0, right: 16.0).r,
+                  child: customArrowBack(context),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget buildVersion(BuildContext context) {
+  Widget buildVersion(BuildContext context, bool isDark) {
     return borderRadiusGreenContainer(
         context,
         15.0,
@@ -221,9 +181,9 @@ class _AboutAppState extends State<AboutApp> {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            '${AppLocalizations.of(context)!.version}: ${_packageInfo.version}',
+            '${'version'.tr}: ${controller.packageInfo.value.version}',
             style: TextStyle(
-              color: ThemeController.instance.currentThemeId.value == 'dark'
+              color: isDark
                   ? Colors.white
                   : Theme.of(context).canvasColor,
               fontSize: 12.sp,
@@ -299,7 +259,7 @@ class _AboutAppState extends State<AboutApp> {
                 vDivider(context),
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context)!.share,
+                    'share'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
                         fontSize: 13.sp,
@@ -329,7 +289,7 @@ class _AboutAppState extends State<AboutApp> {
                 ),
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context)!.rating,
+                    'rating'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
                         fontSize: 13.sp,
@@ -375,7 +335,7 @@ class _AboutAppState extends State<AboutApp> {
                 ),
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context)!.email,
+                    'email'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
                         fontSize: 13.sp,
@@ -408,7 +368,7 @@ class _AboutAppState extends State<AboutApp> {
                 ),
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context)!.facebook,
+                    'facebook'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
                         fontSize: 13.sp,

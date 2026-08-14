@@ -1,9 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-
-import '../quran_azkar_model.dart';
+part of '../quran_azkar.dart';
 
 /// QuranAzkarController - تحكم في أذكار القرآن
 /// Controller for managing Quran Azkar data
@@ -44,7 +39,7 @@ class QuranAzkarController extends GetxController {
       surahs.value = surahsList;
     } catch (e) {
       errorMessage.value = 'خطأ في تحميل البيانات: $e';
-      print('Error loading Quran Azkar data: $e');
+      log('Error loading Quran Azkar data: $e', name: 'QuranAzkarController');
     } finally {
       isLoading.value = false;
     }

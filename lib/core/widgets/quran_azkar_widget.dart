@@ -4,8 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../quran_azkar/controllers/quran_azkar_controller.dart';
-import '../../quran_azkar/screen/quran_azkar_view.dart';
+import '../../presentation/screens/quran_azkar/quran_azkar.dart';
 
 /// أذكار القرآن - Quran Azkar Widget Class
 class QuranAzkarWidget extends StatelessWidget {
@@ -57,6 +56,13 @@ class QuranAzkarWidget extends StatelessWidget {
                       onTap: () => Get.bottomSheet(
                         QuranAzkarView(surah: surah),
                         isScrollControlled: true,
+                        backgroundColor: Get.theme.colorScheme.surface,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0),
+                          ),
+                        ),
                       ),
                       child: Container(
                         height: 80.h,

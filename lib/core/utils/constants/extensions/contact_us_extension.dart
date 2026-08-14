@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:url_launcher/url_launcher.dart';
 
 extension ContactUsExtension on void {
@@ -8,7 +10,7 @@ extension ContactUsExtension on void {
     if (await canLaunchUrl(Uri.parse(uri))) {
       await launchUrl(Uri.parse(uri));
     } else {
-      print("No email client found");
+      log("No email client found", name: 'ContactUs');
     }
   }
 }

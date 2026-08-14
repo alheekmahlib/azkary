@@ -1,14 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../books/screen/books_page.dart';
-import '../widgets/lists.dart';
-import '../widgets/widgets/books_widget.dart';
-import '../widgets/widgets/hisn_list_widget.dart';
-import '../widgets/widgets/quran_azkar_widget.dart';
-import '../widgets/widgets/svg_picture.dart';
-import '../widgets/widgets/widgets.dart';
+part of '../home.dart';
 
 class AzkarList extends StatelessWidget {
   const AzkarList({super.key});
@@ -161,7 +151,7 @@ Widget booksList(BuildContext context) {
   );
 }
 
-Widget book(BuildContext context, String title, var widget) {
+Widget book(BuildContext context, String title, BooksPage child) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
     child: GestureDetector(
@@ -212,7 +202,7 @@ Widget book(BuildContext context, String title, var widget) {
         ],
       ),
       onTap: () {
-        screenModalBottomSheet(context, widget);
+        Get.to(() => BookPageScreen(child: child));
       },
     ),
   );

@@ -3,11 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
-import '../../books/controllers/books_controller.dart';
-import '../../books/screen/books_view.dart';
-import '../style.dart';
+import '../../presentation/screens/books/books.dart';
+import 'style.dart';
 import 'lottie.dart';
-import 'widgets.dart';
 
 /// بناء الكتب - Books Widget Class
 class BooksWidget extends StatelessWidget {
@@ -84,7 +82,17 @@ class BooksWidget extends StatelessWidget {
                   onTap: () {
                     // اختيار الفئة - Select class
                     controller.selectClass(classes[index]);
-                    screenModalBottomSheet(context, BooksView());
+                    Get.bottomSheet(
+                      const BooksView(),
+                      isScrollControlled: true,
+                      backgroundColor: Get.theme.colorScheme.surface,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),

@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
-
-import 'model/books_model.dart';
+part of '../books.dart';
 
 Future<List<Class>> fetchClasses() async {
   String jsonString = await rootBundle.loadString('assets/books/altib.json');

@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-
-import '../../l10n/app_localizations.dart';
-import '../style.dart';
-import 'controller/local_notifications_controller.dart';
+part of '../local_notification.dart';
 
 class NotificationsScreen extends StatelessWidget {
   NotificationsScreen({super.key});
@@ -29,7 +21,7 @@ class NotificationsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppLocalizations.of(context)!.notification,
+                'notification'.tr,
                 style: TextStyle(
                   color: colorStyle.greenTextColor(),
                   fontFamily: 'kufi',

@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../../database/databaseHelper.dart';
-import '../../l10n/app_localizations.dart';
-import '../../widgets/widgets/widgets.dart';
-import '../models/azkar.dart';
+part of '../azkar.dart';
 
 /// AzkarController - تحكم في الأذكار المفضلة
 /// Controller for managing favorite Azkar
@@ -30,9 +24,9 @@ class AzkarController extends GetxController {
   }
 
   /// إضافة ذكر إلى المفضلة - Add azkar to favorites
-  Future<int?> addAzkar(Azkar azkar) async {
+  Future<int> addAzkar(Azkar azkar) async {
     try {
-      print('Adding azkar: $azkar');
+      log('Adding azkar: ${azkar.id}', name: 'AzkarController');
       final result = await DatabaseHelper.addAzkar(azkar);
 
       // تحديث القائمة بعد الإضافة - Update list after adding
@@ -40,7 +34,7 @@ class AzkarController extends GetxController {
 
       return result;
     } catch (e) {
-      print('Error adding azkar: $e');
+      log('Error adding azkar: $e', name: 'AzkarController');
       errorMessage.value = 'خطأ في إضافة الذكر: $e';
       throw e;
     }
@@ -54,11 +48,11 @@ class AzkarController extends GetxController {
 
       final List<Map<String, dynamic>> azkarData =
           await DatabaseHelper.queryC();
-      print('Retrieved azkar: $azkarData');
+      log('Retrieved ${azkarData.length} azkar', name: 'AzkarController');
 
       azkarList.value = azkarData.map((data) => Azkar.fromJson(data)).toList();
     } catch (e) {
-      print('Error getting azkar: $e');
+      log('Error getting azkar: $e', name: 'AzkarController');
       errorMessage.value = 'خطأ في جلب الأذكار: $e';
     } finally {
       isLoading.value = false;
@@ -68,15 +62,15 @@ class AzkarController extends GetxController {
   /// حذف ذكر من المفضلة - Delete azkar from favorites
   Future<void> deleteAzkar(Azkar azkar, BuildContext context) async {
     try {
-      print('Deleting azkar: $azkar');
+      log('Deleting azkar: ${azkar.id}', name: 'AzkarController');
 
       await DatabaseHelper.deleteAzkar(azkar).then((value) => customSnackBar(
-          context, AppLocalizations.of(context)!.deletedZekrBookmark));
+          context, 'deletedZekrBookmark'.tr));
 
       // تحديث القائمة بعد الحذف - Update list after deletion
       getAzkar();
     } catch (e) {
-      print('Error deleting azkar: $e');
+      log('Error deleting azkar: $e', name: 'AzkarController');
       errorMessage.value = 'خطأ في حذف الذكر: $e';
     }
   }
@@ -84,14 +78,14 @@ class AzkarController extends GetxController {
   /// تحديث ذكر - Update azkar
   Future<void> updateAzkar(Azkar azkar) async {
     try {
-      print('Updating azkar: $azkar');
+      log('Updating azkar: ${azkar.id}', name: 'AzkarController');
 
       await DatabaseHelper.updateAzkar(azkar);
 
       // تحديث القائمة بعد التحديث - Update list after updating
       getAzkar();
     } catch (e) {
-      print('Error updating azkar: $e');
+      log('Error updating azkar: $e', name: 'AzkarController');
       errorMessage.value = 'خطأ في تحديث الذكر: $e';
       throw e;
     }

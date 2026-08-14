@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../core/themes/app_themes.dart';
-import '../../l10n/app_localizations.dart';
-import '../lists.dart';
+import '../../presentation/controllers/theme_controller.dart';
+import '../utils/constants/lists.dart';
 
 class ThemeChange extends StatelessWidget {
   const ThemeChange({Key? key}) : super(key: key);
@@ -12,9 +11,9 @@ class ThemeChange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> themeTitle = <String>[
-      '${AppLocalizations.of(context)!.green}',
-      '${AppLocalizations.of(context)!.blue}',
-      '${AppLocalizations.of(context)!.dark}',
+      'green'.tr,
+      'blue'.tr,
+      'dark'.tr,
     ];
     return Container(
       height: 65.h,

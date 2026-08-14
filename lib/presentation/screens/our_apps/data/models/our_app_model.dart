@@ -1,3 +1,5 @@
+part of '../../our_apps.dart';
+
 class OurAppInfo {
   final int id;
   final String appName;

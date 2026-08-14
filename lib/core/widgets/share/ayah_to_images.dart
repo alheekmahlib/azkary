@@ -1,17 +1,18 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-import "../../core/themes/app_themes.dart";
-import '../../l10n/app_localizations.dart';
-import '../widgets/lottie.dart';
-import '../widgets/widgets.dart';
+import "../../../presentation/controllers/theme_controller.dart";
+import '../lottie.dart';
+import '../widgets.dart';
 
 ArabicNumbers arabicNumber = ArabicNumbers();
 
@@ -512,9 +513,9 @@ Future<void> shareVerseWithTranslate(BuildContext context, String zkrText,
 
   if (imageFile.existsSync()) {
     await Share.shareXFiles([XFile((imagePath))],
-        text: AppLocalizations.of(context)!.appName);
+        text: 'appName'.tr);
   } else {
-    print('Failed to save and share image');
+    log('Failed to save and share image', name: 'AyahToImages');
   }
 }
 
@@ -532,9 +533,9 @@ Future<void> shareVerse(
 
   if (imageFile.existsSync()) {
     await Share.shareXFiles([XFile((imagePath))],
-        text: AppLocalizations.of(context)!.appName);
+        text: 'appName'.tr);
   } else {
-    print('Failed to save and share image');
+    log('Failed to save and share image', name: 'AyahToImages');
   }
 }
 
@@ -595,7 +596,7 @@ void showVerseOptionsBottomSheet(BuildContext context, String zkrText,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.shareText,
+                          'shareText'.tr,
                           style: TextStyle(
                               color: ThemeController
                                           .instance.currentThemeId.value ==
@@ -686,7 +687,7 @@ void showVerseOptionsBottomSheet(BuildContext context, String zkrText,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.shareImage,
+                                'shareImage'.tr,
                                 style: TextStyle(
                                     color: ThemeController.instance
                                                 .currentThemeId.value ==

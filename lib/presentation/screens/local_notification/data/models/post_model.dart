@@ -1,3 +1,5 @@
+part of '../../local_notification.dart';
+
 class PostModel {
   final int id;
   final String appName;
