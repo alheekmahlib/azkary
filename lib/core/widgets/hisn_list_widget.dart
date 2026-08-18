@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/screens/azkar/azkar.dart';
 import '../../presentation/controllers/azkary_controller.dart';
+import '../../presentation/screens/azkar/azkar.dart';
 import 'style.dart';
 
 /// قائمة الحصن - Hisn List Widget Class
@@ -80,7 +80,7 @@ class HisnListWidget extends StatelessWidget {
                                     color: index % 2 == 0
                                         ? colorStyle.greenTextColor()
                                         : Theme.of(context).canvasColor,
-                                    fontSize: 18.sp,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'vexa',
                                   ),

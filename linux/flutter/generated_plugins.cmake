@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   awesome_notifications_core
   desktop_window
+  file_selector_linux
   flutter_timezone
   url_launcher_linux
 )

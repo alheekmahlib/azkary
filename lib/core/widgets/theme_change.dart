@@ -67,7 +67,7 @@ class ThemeChange extends StatelessWidget {
                                       .colorScheme
                                       .surface
                                       .withValues(alpha: .5),
-                              fontSize: 12.sp,
+                              fontSize: 12,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic,
                             ),

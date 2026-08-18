@@ -30,18 +30,27 @@ class NavigationController extends GetxController {
     log('is_first_time $isFirstTime', name: 'NavigationController');
     if (isFirstTime) {
       await Future.delayed(const Duration(seconds: 2));
-      Get.bottomSheet(
-        const OnboardingScreen(),
-        isScrollControlled: true,
-        backgroundColor: Get.theme.colorScheme.primaryContainer,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
-          ),
-        ),
+      // Get.bottomSheet لا يمر عبر GetPage فلا تُنفَّذ الـ Bindings تلقائيًا؛
+      // لذا يُسجَّل الكنترولر يدويًا قبل عرض الشيت
+      // Get.bottomSheet bypasses GetPage so no binding runs;
+      // register the controller manually before showing the sheet
+      OnboardingBinding().dependencies();
+      unawaited(
+        Get.bottomSheet(
+          const OnboardingScreen(),
+          isScrollControlled: true,
+          // backgroundColor: Get.theme.colorScheme.primaryContainer,
+          // shape: const RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(8),
+          //     topRight: Radius.circular(8),
+          //   ),
+          // ),
+        ).then((_) async {
+          await Get.delete<OnboardingController>();
+          await box.write('is_first_time', false);
+        }),
       );
-      await box.write('is_first_time', false);
     }
   }
 

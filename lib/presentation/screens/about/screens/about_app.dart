@@ -74,14 +74,14 @@ class AboutApp extends GetView<AboutController> {
                         children: [
                           azkary_logo(
                             context,
-                            width: 80.0.w,
+                            width: 80.0,
                           ),
                           Container(
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
-                                borderRadius: const BorderRadius.all(
-                                        Radius.circular(4))
-                                    .r),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4))
+                                        .r),
                             padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4.0)
                                 .r,
@@ -89,7 +89,7 @@ class AboutApp extends GetView<AboutController> {
                             child: Text(
                               'من الكتاب والسُّنة',
                               style: TextStyle(
-                                fontSize: 12.sp,
+                                fontSize: 12,
                                 fontFamily: 'kufi',
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).canvasColor,
@@ -135,7 +135,8 @@ class AboutApp extends GetView<AboutController> {
                           height: 32.0.h,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 64.0).r,
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 64.0).r,
                           child: Row(
                             children: [
                               Expanded(child: appDetails(context)),
@@ -183,10 +184,8 @@ class AboutApp extends GetView<AboutController> {
           child: Text(
             '${'version'.tr}: ${controller.packageInfo.value.version}',
             style: TextStyle(
-              color: isDark
-                  ? Colors.white
-                  : Theme.of(context).canvasColor,
-              fontSize: 12.sp,
+              color: isDark ? Colors.white : Theme.of(context).canvasColor,
+              fontSize: 12,
               fontFamily: 'kufi',
             ),
           ),
@@ -206,7 +205,7 @@ class AboutApp extends GetView<AboutController> {
         children: [
           azkary_logo(
             context,
-            width: 40.0.w,
+            width: 40.0,
           ),
           vDivider(context, height: 40.h),
           Expanded(
@@ -217,7 +216,7 @@ class AboutApp extends GetView<AboutController> {
                     text: 'أذكاري من الكتاب والسنة | ',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
-                        fontSize: 13.sp,
+                        fontSize: 13,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.bold),
                   ),
@@ -226,7 +225,7 @@ class AboutApp extends GetView<AboutController> {
                         'التطبيق يحتوي على مجموعة من الأذكار التي وردت في القرآن والسنة.',
                     style: TextStyle(
                       color: Theme.of(context).primaryColorDark,
-                      fontSize: 13.sp,
+                      fontSize: 13,
                       fontFamily: 'kufi',
                     ),
                   ),
@@ -262,7 +261,7 @@ class AboutApp extends GetView<AboutController> {
                     'share'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
-                        fontSize: 13.sp,
+                        fontSize: 13,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.bold),
                   ),
@@ -292,7 +291,7 @@ class AboutApp extends GetView<AboutController> {
                     'rating'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
-                        fontSize: 13.sp,
+                        fontSize: 13,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.bold),
                   ),
@@ -335,20 +334,17 @@ class AboutApp extends GetView<AboutController> {
                 ),
                 Expanded(
                   child: Text(
-                    'email'.tr,
+                    'feedback'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
-                        fontSize: 13.sp,
+                        fontSize: 13,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
-            onTap: () => contactUs(
-                subject: 'أذكاري من الكتاب والسنة',
-                stringText:
-                    "يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |"),
+            onTap: () => Get.toNamed(AppRoutes.feedback),
           ),
           hDivider(
             context,
@@ -371,7 +367,7 @@ class AboutApp extends GetView<AboutController> {
                     'facebook'.tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
-                        fontSize: 13.sp,
+                        fontSize: 13,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.bold),
                   ),

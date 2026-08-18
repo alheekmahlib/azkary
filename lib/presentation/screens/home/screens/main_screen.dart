@@ -113,7 +113,7 @@ class MainScreen extends GetView<AzkaryController> {
                     'addReminder'.tr,
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
-                        fontSize: 14.sp,
+                        fontSize: 14,
                         fontFamily: 'kufi'),
                   )),
             ),
@@ -156,7 +156,6 @@ class MainScreen extends GetView<AzkaryController> {
                                       cursorWidth: 3.w,
                                       cursorColor:
                                           Theme.of(context).dividerColor,
-
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: Theme.of(context)
@@ -294,8 +293,7 @@ class MainScreen extends GetView<AzkaryController> {
                                                     .saveReminders(
                                                         ctrl.reminders);
                                               } catch (e) {
-                                                log(
-                                                    'Error saving reminders: $e',
+                                                log('Error saving reminders: $e',
                                                     name: 'MainScreen');
                                               }
                                             } else {
@@ -362,7 +360,7 @@ class MainScreen extends GetView<AzkaryController> {
                     "أذكار اليوم :",
                     style: TextStyle(
                         color: Theme.of(context).canvasColor,
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         height: 1.7,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.w100),
@@ -380,7 +378,7 @@ class MainScreen extends GetView<AzkaryController> {
                     element,
                     style: TextStyle(
                         color: style.greenTextColor(),
-                        fontSize: 22.0.sp,
+                        fontSize: 22.0,
                         height: 1.7,
                         fontFamily: 'naskh',
                         fontWeight: FontWeight.w100),

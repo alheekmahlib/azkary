@@ -10,6 +10,7 @@ import awesome_notifications_core
 import clipboard
 import desktop_window
 import device_info_plus
+import file_selector_macos
 import flutter_timezone
 import in_app_review
 import package_info_plus
@@ -18,6 +19,7 @@ import rate_my_app
 import share_plus
 import shared_preferences_foundation
 import url_launcher_macos
+import video_player_avfoundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AwesomeNotificationsPlugin.register(with: registry.registrar(forPlugin: "AwesomeNotificationsPlugin"))
@@ -25,6 +27,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   ClipboardPlugin.register(with: registry.registrar(forPlugin: "ClipboardPlugin"))
   DesktopWindowPlugin.register(with: registry.registrar(forPlugin: "DesktopWindowPlugin"))
   DeviceInfoPlusMacosPlugin.register(with: registry.registrar(forPlugin: "DeviceInfoPlusMacosPlugin"))
+  FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
   FlutterTimezonePlugin.register(with: registry.registrar(forPlugin: "FlutterTimezonePlugin"))
   InAppReviewPlugin.register(with: registry.registrar(forPlugin: "InAppReviewPlugin"))
   FPPPackageInfoPlusPlugin.register(with: registry.registrar(forPlugin: "FPPPackageInfoPlusPlugin"))
@@ -33,4 +36,5 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   SharePlusMacosPlugin.register(with: registry.registrar(forPlugin: "SharePlusMacosPlugin"))
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+  VideoPlayerPlugin.register(with: registry.registrar(forPlugin: "VideoPlayerPlugin"))
 }

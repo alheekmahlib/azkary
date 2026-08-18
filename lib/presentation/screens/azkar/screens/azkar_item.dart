@@ -48,7 +48,7 @@ class AzkarItem extends GetView<AzkarItemController> {
                     padding: const EdgeInsets.only(top: 50.0).r,
                     child: greenContainer(
                       context,
-                      32.0.h,
+                      32.0,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -61,7 +61,7 @@ class AzkarItem extends GetView<AzkarItemController> {
                               azkarByCategory.azkarList.first.category!,
                               style: TextStyle(
                                 color: colorStyle.whiteTextColor(),
-                                fontSize: 19.0.sp,
+                                fontSize: 19.0,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'vexa',
                               ),
@@ -88,40 +88,44 @@ class AzkarItem extends GetView<AzkarItemController> {
               children: [
                 Align(
                     alignment: Alignment.topRight, child: customClose(context)),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 50.0).r,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        fontSizeDropDown(
-                            context, Theme.of(context).colorScheme.surface),
-                        greenContainer(
-                            context,
-                            100.0.h,
-                            Container(
-                              child: Text(
-                                azkarByCategory.azkarList.first.category!,
-                                style: TextStyle(
-                                  color: colorStyle.whiteTextColor(),
-                                  fontSize: 19.0.sp,
-                                  fontFamily: 'vexa',
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50.0).r,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            fontSizeDropDown(
+                                context, Theme.of(context).colorScheme.surface),
+                            greenContainer(
+                              context,
+                              60.0,
+                              width: MediaQuery.sizeOf(context).width,
+                              Container(
+                                child: Text(
+                                  azkarByCategory.azkarList.first.category!,
+                                  style: TextStyle(
+                                    color: colorStyle.whiteTextColor(),
+                                    fontSize: 19.0,
+                                    fontFamily: 'vexa',
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
-                            width:
-                                MediaQuery.sizeOf(context).width / 1 / 2 * .5),
-                      ],
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .5,
+                          child: azkarBuild(context)),
+                    )
+                  ],
                 ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width / 1 / 2 * .9,
-                        child: azkarBuild(context))),
               ],
             )),
       ),
@@ -192,7 +196,7 @@ class AzkarItem extends GetView<AzkarItemController> {
                           azkar.reference!,
                           style: TextStyle(
                               color: colorStyle.greenTextColor(),
-                              fontSize: 12.sp,
+                              fontSize: 12,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic),
                         )),
@@ -220,7 +224,7 @@ class AzkarItem extends GetView<AzkarItemController> {
                                 azkar.description!,
                                 style: TextStyle(
                                     color: colorStyle.greenTextColor(),
-                                    fontSize: 16.sp,
+                                    fontSize: 16,
                                     fontFamily: 'kufi',
                                     fontStyle: FontStyle.italic),
                               )),
@@ -306,7 +310,7 @@ class AzkarItem extends GetView<AzkarItemController> {
                                     azkar.count!,
                                     style: TextStyle(
                                         color: Theme.of(context).canvasColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 14,
                                         fontFamily: 'kufi',
                                         fontStyle: FontStyle.italic),
                                   ),

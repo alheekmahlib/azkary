@@ -77,7 +77,7 @@ class SettingsList extends StatelessWidget {
                         color: Theme.of(context).canvasColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
-                        fontSize: 14.sp),
+                        fontSize: 14),
                   ),
                   SvgPicture.asset(
                     'assets/svg/line2.svg',
@@ -127,7 +127,7 @@ class SettingsList extends StatelessWidget {
                                       .colorScheme
                                       .surface
                                       .withValues(alpha: .5),
-                              fontSize: 13.sp,
+                              fontSize: 13,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic,
                             ),
@@ -179,7 +179,7 @@ class SettingsList extends StatelessWidget {
                                       .colorScheme
                                       .surface
                                       .withValues(alpha: .5),
-                              fontSize: 13.h,
+                              fontSize: 13,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic,
                             ),
@@ -231,7 +231,7 @@ class SettingsList extends StatelessWidget {
                                       .colorScheme
                                       .surface
                                       .withValues(alpha: .5),
-                              fontSize: 13.sp,
+                              fontSize: 13,
                               fontFamily: 'kufi',
                               fontStyle: FontStyle.italic,
                             ),
@@ -275,7 +275,7 @@ class SettingsList extends StatelessWidget {
                         color: Theme.of(context).canvasColor,
                         fontFamily: 'kufi',
                         fontStyle: FontStyle.italic,
-                        fontSize: 14.sp),
+                        fontSize: 14),
                   ),
                   SvgPicture.asset(
                     'assets/svg/line2.svg',
@@ -324,7 +324,7 @@ class SettingsList extends StatelessWidget {
                         'aboutApp'.tr,
                         style: TextStyle(
                           fontFamily: 'kufi',
-                          fontSize: 13.sp,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.surface,
                         ),
@@ -361,7 +361,7 @@ class SettingsList extends StatelessWidget {
                         'ourApps'.tr,
                         style: TextStyle(
                           fontFamily: 'kufi',
-                          fontSize: 13.sp,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.surface,
                         ),

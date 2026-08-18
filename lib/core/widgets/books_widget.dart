@@ -4,8 +4,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/screens/books/books.dart';
-import 'style.dart';
 import 'lottie.dart';
+import 'style.dart';
 
 /// بناء الكتب - Books Widget Class
 class BooksWidget extends StatelessWidget {
@@ -72,7 +72,7 @@ class BooksWidget extends StatelessWidget {
                                     ? style.greenTextColor()
                                     : Theme.of(context).canvasColor,
                                 fontFamily: 'naskh',
-                                fontSize: 20.sp,
+                                fontSize: 20,
                                 height: 1.5),
                           ),
                         ),

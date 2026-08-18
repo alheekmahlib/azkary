@@ -187,7 +187,7 @@ Widget book(BuildContext context, String title, BooksPage child) {
                     child: Text(
                       title,
                       style: TextStyle(
-                        fontSize: 11.sp,
+                        fontSize: 11,
                         fontFamily: 'kufi',
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).canvasColor,
@@ -252,7 +252,7 @@ Widget bookBanner(BuildContext context) {
                           child: Text(
                             i.details,
                             style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 14,
                               fontFamily: 'naskh',
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).canvasColor,
@@ -283,7 +283,7 @@ Widget bookBanner(BuildContext context) {
                               child: Text(
                                 i.title,
                                 style: TextStyle(
-                                  fontSize: 12.sp,
+                                  fontSize: 12,
                                   fontFamily: 'kufi',
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).canvasColor,

@@ -36,6 +36,11 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin device_info_plus, dev.fluttercommunity.plus.device_info.DeviceInfoPlusPlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_plugin_android_lifecycle, io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new net.wolverinebeach.flutter_timezone.FlutterTimezonePlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_timezone, net.wolverinebeach.flutter_timezone.FlutterTimezonePlugin", e);
@@ -44,6 +49,11 @@ public final class GeneratedPluginRegistrant {
       flutterEngine.getPlugins().add(new com.example.image_gallery_saver_plus.ImageGallerySaverPlusPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin image_gallery_saver_plus, com.example.image_gallery_saver_plus.ImageGallerySaverPlusPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.imagepicker.ImagePickerPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin image_picker_android, io.flutter.plugins.imagepicker.ImagePickerPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new dev.britannio.in_app_review.InAppReviewPlugin());
@@ -79,6 +89,11 @@ public final class GeneratedPluginRegistrant {
       flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin url_launcher_android, io.flutter.plugins.urllauncher.UrlLauncherPlugin", e);
+    }
+    try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.videoplayer.VideoPlayerPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin video_player_android, io.flutter.plugins.videoplayer.VideoPlayerPlugin", e);
     }
   }
 }

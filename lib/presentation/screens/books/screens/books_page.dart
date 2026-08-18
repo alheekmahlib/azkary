@@ -70,7 +70,7 @@ class BooksPage extends StatelessWidget {
                                           child: Text(
                                             title,
                                             style: TextStyle(
-                                              fontSize: 16.sp,
+                                              fontSize: 16,
                                               fontFamily: 'kufi',
                                               fontWeight: FontWeight.bold,
                                               color:
@@ -88,7 +88,7 @@ class BooksPage extends StatelessWidget {
                                   child: Text(
                                     details,
                                     style: TextStyle(
-                                      fontSize: 18.sp,
+                                      fontSize: 18,
                                       fontFamily: 'naskh',
                                       fontWeight: FontWeight.bold,
                                       color:

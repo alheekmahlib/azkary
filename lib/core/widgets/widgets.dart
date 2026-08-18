@@ -59,7 +59,7 @@ Widget hijriDateWidget(BuildContext context) {
           arabicNumber.convert(
               '${_today.hDay} / ${_today.hMonth} / ${_today.hYear} هـ \n ${_today.dayWeName}'),
           style: TextStyle(
-            fontSize: 16.0.sp,
+            fontSize: 16.0,
             fontFamily: 'kufi',
             color: Theme.of(context).canvasColor,
           ),
@@ -350,76 +350,77 @@ Widget rollingIconBuilder(int value, bool foreground) {
 Widget fontSizeDropDown(BuildContext context, Color color) {
   final ctrl = AzkaryController.instance;
   return Obx(() => DropdownButton2(
-    isExpanded: true,
-    items: [
-      DropdownItem(
-        height: 45.h,
-        child: FlutterSlider(
-          values: [ctrl.fontSizeAzkar.value],
-          max: 40,
-          min: 18,
-          rtl: true,
-          trackBar: FlutterSliderTrackBar(
-            inactiveTrackBarHeight: 5,
-            activeTrackBarHeight: 5,
-            inactiveTrackBar: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Theme.of(context).colorScheme.surface,
+        isExpanded: true,
+        items: [
+          DropdownItem(
+            height: 45.h,
+            child: FlutterSlider(
+              values: [ctrl.fontSizeAzkar.value],
+              max: 40,
+              min: 18,
+              rtl: true,
+              trackBar: FlutterSliderTrackBar(
+                inactiveTrackBarHeight: 5,
+                activeTrackBarHeight: 5,
+                inactiveTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+                activeTrackBar: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Theme.of(context).colorScheme.surface),
+              ),
+              handlerAnimation: const FlutterSliderHandlerAnimation(
+                  curve: Curves.elasticOut,
+                  reverseCurve: null,
+                  duration: Duration(milliseconds: 700),
+                  scale: 1.4),
+              onDragging: (handlerIndex, lowerValue, upperValue) {
+                ctrl.fontSizeAzkar.value = lowerValue;
+                ctrl.saveAzkarFontSize(lowerValue);
+              },
+              handler: FlutterSliderHandler(
+                decoration: const BoxDecoration(),
+                child: Material(
+                  type: MaterialType.circle,
+                  color: Colors.transparent,
+                  elevation: 3,
+                  child: SvgPicture.asset('assets/svg/slider_ic.svg'),
+                ),
+              ),
             ),
-            activeTrackBar: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: Theme.of(context).colorScheme.surface),
           ),
-          handlerAnimation: const FlutterSliderHandlerAnimation(
-              curve: Curves.elasticOut,
-              reverseCurve: null,
-              duration: Duration(milliseconds: 700),
-              scale: 1.4),
-          onDragging: (handlerIndex, lowerValue, upperValue) {
-            ctrl.fontSizeAzkar.value = lowerValue;
-            ctrl.saveAzkarFontSize(lowerValue);
-          },
-          handler: FlutterSliderHandler(
-            decoration: const BoxDecoration(),
-            child: Material(
-              type: MaterialType.circle,
-              color: Colors.transparent,
-              elevation: 3,
-              child: SvgPicture.asset('assets/svg/slider_ic.svg'),
-            ),
-          ),
+        ],
+        valueListenable: ValueNotifier(null),
+        onChanged: (value) {},
+        customButton: Icon(
+          Icons.format_size,
+          size: 22.h,
+          color: color,
         ),
-      ),
-    ],
-    valueListenable: ValueNotifier(null),
-    onChanged: (value) {},
-    customButton: Icon(
-      Icons.format_size,
-      size: 22.h,
-      color: color,
-    ),
-    iconStyleData: IconStyleData(
-      iconSize: 40.h,
-    ),
-    buttonStyleData: ButtonStyleData(
-      height: 60.w,
-      width: 60.w,
-      elevation: 0,
-    ),
-    dropdownStyleData: DropdownStyleData(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withValues(alpha: .9),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        padding: const EdgeInsets.only(left: 1, right: 1),
-        maxHeight: 230,
-        width: 280,
-        elevation: 0,
-        offset: const Offset(0, 0),
-        scrollbarTheme: ScrollbarThemeData(
-          radius: const Radius.circular(8),
-          thickness: WidgetStateProperty.all(6),
-        )),
-  ));
+        iconStyleData: IconStyleData(
+          iconSize: 40.h,
+        ),
+        buttonStyleData: ButtonStyleData(
+          height: 60.w,
+          width: 60.w,
+          elevation: 0,
+        ),
+        dropdownStyleData: DropdownStyleData(
+            decoration: BoxDecoration(
+                color:
+                    Theme.of(context).colorScheme.surface.withValues(alpha: .9),
+                borderRadius: const BorderRadius.all(Radius.circular(8))),
+            padding: const EdgeInsets.only(left: 1, right: 1),
+            maxHeight: 230,
+            width: 280,
+            elevation: 0,
+            offset: const Offset(0, 0),
+            scrollbarTheme: ScrollbarThemeData(
+              radius: const Radius.circular(8),
+              thickness: WidgetStateProperty.all(6),
+            )),
+      ));
 }
 
 Widget container(BuildContext context, Widget myWidget, bool show,
@@ -741,7 +742,7 @@ Widget greenContainer(BuildContext context, double height, Widget myWidget,
     {double? width}) {
   return Container(
     height: height.h,
-    width: width!.w,
+    width: width == null ? null : width.w,
     // margin: EdgeInsets.symmetric(horizontal: 8.0),
     padding: const EdgeInsets.symmetric(horizontal: 8.0),
     color: Theme.of(context).colorScheme.surface,

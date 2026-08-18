@@ -42,6 +42,12 @@
 @import image_gallery_saver_plus;
 #endif
 
+#if __has_include(<image_picker_ios/FLTImagePickerPlugin.h>)
+#import <image_picker_ios/FLTImagePickerPlugin.h>
+#else
+@import image_picker_ios;
+#endif
+
 #if __has_include(<in_app_review/InAppReviewPlugin.h>)
 #import <in_app_review/InAppReviewPlugin.h>
 #else
@@ -84,6 +90,12 @@
 @import url_launcher_ios;
 #endif
 
+#if __has_include(<video_player_avfoundation/VideoPlayerPlugin.h>)
+#import <video_player_avfoundation/VideoPlayerPlugin.h>
+#else
+@import video_player_avfoundation;
+#endif
+
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
@@ -93,6 +105,7 @@
   [FPPDeviceInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPDeviceInfoPlusPlugin"]];
   [FlutterTimezonePlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterTimezonePlugin"]];
   [ImageGallerySaverPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"ImageGallerySaverPlusPlugin"]];
+  [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [InAppReviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"InAppReviewPlugin"]];
   [FPPPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPPackageInfoPlusPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
@@ -100,6 +113,7 @@
   [FPPSharePlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPSharePlusPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
   [URLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"URLLauncherPlugin"]];
+  [VideoPlayerPlugin registerWithRegistrar:[registry registrarForPlugin:@"VideoPlayerPlugin"]];
 }
 
 @end

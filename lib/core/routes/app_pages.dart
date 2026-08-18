@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../presentation/screens/about/about.dart';
+import '../../presentation/screens/feedback/feedback.dart';
 import '../../presentation/screens/home/home.dart';
 import '../../presentation/screens/our_apps/our_apps.dart';
 import '../../presentation/screens/splash/splash.dart';
@@ -32,6 +33,12 @@ class AppPages {
       name: AppRoutes.ourApps,
       page: () => const OurApps(),
       binding: OurAppsBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoutes.feedback,
+      page: () => const FeedbackThreadScreen(),
+      binding: FeedbackBinding(),
       transition: Transition.rightToLeft,
     ),
   ];

@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '/core/utils/constants/extensions/contact_us_extension.dart';
+import '/core/routes/app_routes.dart';
 import '/core/utils/constants/extensions/share_app_extension.dart';
 import '../../../core/widgets/svg_picture.dart';
 import '../../../core/widgets/widgets.dart';

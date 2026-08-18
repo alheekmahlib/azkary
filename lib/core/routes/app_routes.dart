@@ -4,4 +4,5 @@ class AppRoutes {
   static const home = '/home';
   static const about = '/about';
   static const ourApps = '/ourApps';
+  static const feedback = '/feedback';
 }

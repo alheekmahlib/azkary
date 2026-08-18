@@ -65,7 +65,7 @@ class AzkarHome extends GetView<NavigationController> {
                 title: Text(
                   'home'.tr,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontFamily: 'kufi',
                     color: Theme.of(context).canvasColor,
                   ),
@@ -78,7 +78,7 @@ class AzkarHome extends GetView<NavigationController> {
                 title: Text(
                   'athkar'.tr,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontFamily: 'kufi',
                     color: Theme.of(context).canvasColor,
                   ),
@@ -91,7 +91,7 @@ class AzkarHome extends GetView<NavigationController> {
                   title: Text(
                     'notification'.tr,
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 12,
                       fontFamily: 'kufi',
                       color: Theme.of(context).canvasColor,
                     ),

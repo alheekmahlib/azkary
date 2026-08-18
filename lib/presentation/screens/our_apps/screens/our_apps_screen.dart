@@ -48,7 +48,7 @@ class OurApps extends GetView<OurAppsController> {
                         children: [
                           azkary_logo(
                             context,
-                            width: 80.0.w,
+                            width: 80.0,
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -63,7 +63,7 @@ class OurApps extends GetView<OurAppsController> {
                             child: Text(
                               'من الكتاب والسُّنة',
                               style: TextStyle(
-                                fontSize: 12.sp,
+                                fontSize: 12,
                                 fontFamily: 'kufi',
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).canvasColor,
@@ -81,7 +81,7 @@ class OurApps extends GetView<OurAppsController> {
                       const EdgeInsets.symmetric(vertical: 32.0).r),
                   child: alheekmah_logo(
                     context,
-                    width: 60.w,
+                    width: 60,
                   ),
                 ),
               ),
@@ -122,7 +122,7 @@ class OurApps extends GetView<OurAppsController> {
             'ourApps'.tr,
             style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
-                fontSize: 20.sp,
+                fontSize: 20,
                 fontFamily: 'kufi',
                 fontWeight: FontWeight.bold),
           ),
@@ -159,17 +159,20 @@ class OurApps extends GetView<OurAppsController> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
-                fontSize: 13.sp,
+                fontSize: 13,
                 fontFamily: 'kufi',
               ),
             ),
             SizedBox(height: 16.0.h),
             FilledButton.icon(
               onPressed: controller.fetchApps,
-              icon: const Icon(Icons.refresh),
+              icon: Icon(Icons.refresh,
+                  color: context.theme.colorScheme.inversePrimary),
               label: Text(
                 'ourApps'.tr,
-                style: const TextStyle(fontFamily: 'kufi'),
+                style: TextStyle(
+                    fontFamily: 'kufi',
+                    color: context.theme.colorScheme.inversePrimary),
               ),
             ),
           ],
@@ -184,7 +187,7 @@ class OurApps extends GetView<OurAppsController> {
         'لا توجد تطبيقات',
         style: TextStyle(
           color: Theme.of(context).colorScheme.surface,
-          fontSize: 14.sp,
+          fontSize: 14,
           fontFamily: 'kufi',
         ),
       ),

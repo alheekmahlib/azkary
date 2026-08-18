@@ -85,7 +85,7 @@ class QuranAzkarWidget extends StatelessWidget {
                             Text(
                               surah.name,
                               style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: 16,
                                 color: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
@@ -98,7 +98,7 @@ class QuranAzkarWidget extends StatelessWidget {
                             Text(
                               'عدد الآيات: ${surah.ayahs.length}',
                               style: TextStyle(
-                                fontSize: 12.sp,
+                                fontSize: 12,
                                 color: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!

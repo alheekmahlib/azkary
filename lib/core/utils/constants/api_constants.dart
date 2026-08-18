@@ -10,4 +10,12 @@ class ApiConstants {
   /// واجهة برمجة تطبيقات تطبيقاتنا على منصّة Vexaltech.
   /// رابط مطلق — Dio يتجاهل baseUrl عند تمرير رابط مطلق.
   static const String ourAppsApiUrl = 'https://dash.vexaltech.dev/api/apps';
+
+  /// واجهة ميزة الملاحظات (Feedback) على منصّة Vexaltech.
+  /// POST + GET /feedback — إنشاء ملاحظة وجلبها بالـ token.
+  static const String feedbackApiUrl = 'https://vexaltech.dev/api/feedback';
+  static const String feedbackEndpoint = '/feedback';
+  static const String feedbackReplySuffix =
+      '/reply'; // POST /feedback/{token}/reply
+  static const String feedbackUploadEndpoint = '/upload'; // POST رفع وسائط
 }

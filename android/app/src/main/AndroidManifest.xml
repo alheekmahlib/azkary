@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    
+
+    <!-- مطلوب في نسخ الإصدار (Release) لطلبات الشبكة؛ نسختا debug/profile تضيفانه تلقائياً -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <!-- Awesome Notifications - الأذونات المطلوبة للإشعارات -->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
